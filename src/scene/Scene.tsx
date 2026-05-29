@@ -1,22 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { CATEGORIES, type ChipFamily } from "../data/semiconductors";
 import { CategoryNode } from "./CategoryNode";
 import { CompanyGraph, computeCompanyPositions } from "./CompanyGraph";
+import { Earth } from "./Earth";
 
 export type Mode = "taxonomy" | "supply";
 
-/** 카테고리를 패밀리별 별자리 클러스터로 3D 배치. */
+/** 카테고리를 패밀리별 별자리 클러스터로 지구 주위에 배치. */
 function computeCategoryPositions(): Record<string, [number, number, number]> {
   const families = [...new Set(CATEGORIES.map((c) => c.family))] as ChipFamily[];
   const famCenter: Record<string, [number, number, number]> = {};
   families.forEach((f, i) => {
     const angle = (i / families.length) * Math.PI * 2;
-    const R = 12;
+    const R = 13;
     famCenter[f] = [Math.cos(angle) * R, Math.sin(angle * 1.6) * 3.5, Math.sin(angle) * R];
   });
 
@@ -60,7 +61,7 @@ export function Scene({ mode, selectedId, onSelect }: Props) {
     if (!selectedId) {
       focusRef.current = {
         target: new THREE.Vector3(0, 0, 0),
-        cam: new THREE.Vector3(0, 6, mode === "supply" ? 38 : 32),
+        cam: new THREE.Vector3(0, 7, mode === "supply" ? 44 : 38),
       };
       return;
     }
@@ -70,7 +71,7 @@ export function Scene({ mode, selectedId, onSelect }: Props) {
       const dir = tp.clone().setY(0).normalize();
       focusRef.current = {
         target: tp,
-        cam: tp.clone().add(new THREE.Vector3(dir.x * 6 + 2, 3.5, dir.z * 6 + 8)),
+        cam: tp.clone().add(new THREE.Vector3(dir.x * 7 + 2, 3.5, dir.z * 7 + 9)),
       };
       setAutoRotate(false);
     }
@@ -80,7 +81,7 @@ export function Scene({ mode, selectedId, onSelect }: Props) {
   useEffect(() => {
     focusRef.current = {
       target: new THREE.Vector3(0, 0, 0),
-      cam: new THREE.Vector3(0, 6, mode === "supply" ? 38 : 32),
+      cam: new THREE.Vector3(0, 7, mode === "supply" ? 44 : 38),
     };
     setAutoRotate(true);
   }, [mode]);
@@ -95,11 +96,15 @@ export function Scene({ mode, selectedId, onSelect }: Props) {
 
   return (
     <>
-      <color attach="background" args={["#05060a"]} />
-      <fog attach="fog" args={["#05060a", 34, 78]} />
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[12, 14, 6]} intensity={0.55} />
-      <Stars radius={130} depth={55} count={5000} factor={4} saturation={0} fade speed={0.6} />
+      <color attach="background" args={["#04060c"]} />
+      <ambientLight intensity={0.32} />
+      {/* 태양광 (지구 명암 경계) */}
+      <directionalLight position={[14, 8, 10]} intensity={1.8} color="#fff4e2" />
+      {/* 차가운 보조광 */}
+      <directionalLight position={[-12, -4, -8]} intensity={0.25} color="#88aaff" />
+
+      {/* 지구 배경 */}
+      <Earth />
 
       {mode === "taxonomy"
         ? CATEGORIES.map((c) => (
@@ -119,14 +124,14 @@ export function Scene({ mode, selectedId, onSelect }: Props) {
         enableDamping
         dampingFactor={0.08}
         autoRotate={autoRotate && !selectedId}
-        autoRotateSpeed={0.45}
-        minDistance={6}
-        maxDistance={64}
+        autoRotateSpeed={0.4}
+        minDistance={5.5}
+        maxDistance={80}
         onStart={() => setAutoRotate(false)}
       />
 
       <EffectComposer>
-        <Bloom intensity={0.9} luminanceThreshold={0.2} luminanceSmoothing={0.9} mipmapBlur radius={0.75} />
+        <Bloom intensity={0.85} luminanceThreshold={0.22} luminanceSmoothing={0.9} mipmapBlur radius={0.78} />
       </EffectComposer>
     </>
   );

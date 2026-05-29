@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import type { Mode } from "../scene/Scene";
 
 const OPTIONS: { id: Mode; label: string }[] = [
-  { id: "taxonomy", label: "Chip Taxonomy" },
-  { id: "supply", label: "Supply Chain" },
+  { id: "taxonomy", label: "칩 분류" },
+  { id: "supply", label: "공급망" },
 ];
 
 export function ViewToggle({ mode, onChange }: { mode: Mode; onChange: (m: Mode) => void }) {

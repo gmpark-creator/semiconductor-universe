@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CATEGORIES, FAMILY_COLORS, DATA_DISCLAIMER } from "../data/semiconductors";
+import { CATEGORIES, FAMILY_COLORS, FAMILY_LABEL_KO, DATA_DISCLAIMER } from "../data/semiconductors";
 import { COMPANIES, EDGES } from "../data/companies";
 import { GROUP_COLORS } from "../scene/CompanyGraph";
 import type { Mode } from "../scene/Scene";
@@ -71,19 +71,19 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
                   }}
                 />
                 <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: FAMILY_COLORS[category.family] }}>
-                  {category.family}
+                  {FAMILY_LABEL_KO[category.family]}
                 </span>
               </div>
               <h2 className="text-2xl font-bold mb-4 pr-6" style={{ color: category.color }}>
                 {category.name}
               </h2>
-              <Section title="Definition">
+              <Section title="정의">
                 <p className="text-slate-300 text-sm leading-relaxed">{category.definition}</p>
               </Section>
-              <Section title="Role">
+              <Section title="역할">
                 <p className="text-slate-300 text-sm leading-relaxed">{category.role}</p>
               </Section>
-              <Section title="Key specs">
+              <Section title="핵심 사양">
                 <ul className="space-y-1">
                   {category.keySpecs.map((s) => (
                     <li key={s} className="text-slate-300 text-sm flex gap-2">
@@ -93,7 +93,7 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
                   ))}
                 </ul>
               </Section>
-              <Section title="Example products">
+              <Section title="예시 제품">
                 <div className="flex flex-wrap gap-2">
                   {category.exampleProducts.map((p) => (
                     <span
@@ -129,14 +129,14 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
                 {company.name}
               </h2>
               <div className="grid grid-cols-2 gap-3 mb-5">
-                <Stat label="Market cap" value={`≈ $${company.marketCapB}B`} />
-                <Stat label="Revenue" value={`≈ $${company.revenueB}B`} />
+                <Stat label="시가총액" value={`≈ $${company.marketCapB}B`} />
+                <Stat label="매출" value={`≈ $${company.revenueB}B`} />
               </div>
-              <Section title="Notes">
+              <Section title="비고">
                 <p className="text-slate-300 text-sm leading-relaxed">{company.note}</p>
               </Section>
               {serves.length > 0 && (
-                <Section title="Serves / supplies">
+                <Section title="공급 / 납품 대상">
                   <ul className="space-y-1.5">
                     {serves.map((e) => (
                       <li key={e.id} className="text-slate-300 text-sm">
@@ -148,7 +148,7 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
                 </Section>
               )}
               {suppliedBy.length > 0 && (
-                <Section title="Supplied / served by">
+                <Section title="공급받는 곳">
                   <ul className="space-y-1.5">
                     {suppliedBy.map((e) => (
                       <li key={e.id} className="text-slate-300 text-sm">

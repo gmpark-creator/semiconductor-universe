@@ -32,10 +32,10 @@ export default function App() {
       {/* Title (top-left) */}
       <div style={{ position: "absolute", top: 16, left: 16, zIndex: 20 }} className="pointer-events-none">
         <h1 className="text-xl font-bold text-white tracking-tight" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6)" }}>
-          Semiconductor Universe
+          반도체 유니버스
         </h1>
         <p className="text-xs text-slate-400 mt-0.5">
-          {mode === "taxonomy" ? "Chip taxonomy — hover & click a category" : "Supply chain — hover & click a company"}
+          {mode === "taxonomy" ? "칩 분류 — 노드에 마우스를 올리거나 클릭하세요" : "공급망 — 기업에 마우스를 올리거나 클릭하세요"}
         </p>
       </div>
 
@@ -51,8 +51,8 @@ export default function App() {
       <Loader
         containerStyles={{ background: "#05060a" }}
         barStyles={{ background: "linear-gradient(90deg,#6366f1,#22d3ee)" }}
-        dataStyles={{ color: "#94a3b8", fontFamily: "Inter, system-ui, sans-serif", fontSize: 13 }}
-        dataInterpolation={(p) => `Loading semiconductor universe… ${p.toFixed(0)}%`}
+        dataStyles={{ color: "#94a3b8", fontFamily: "Inter, 'Noto Sans KR', system-ui, sans-serif", fontSize: 13 }}
+        dataInterpolation={(p) => `반도체 유니버스 불러오는 중… ${p.toFixed(0)}%`}
       />
     </div>
   );

@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'IBM Plex Sans', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'Noto Sans KR', 'system-ui', 'sans-serif'],
         mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
       colors: {

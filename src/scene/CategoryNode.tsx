@@ -199,7 +199,7 @@ export function CategoryNode({ category, position, selected, onSelect }: Props) 
               opacity: active ? 1 : 0.82,
               transition: "all .2s ease",
               pointerEvents: "none",
-              fontFamily: "Inter, system-ui, sans-serif",
+              fontFamily: "Inter, 'Noto Sans KR', system-ui, sans-serif",
             }}
           >
             {category.name}
