@@ -163,6 +163,8 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
         zoomSpeed={1.15}
         minDistance={0.4}
         maxDistance={90}
+        // 좌클릭=화면이동(pan) / 우클릭=각도조절(rotate) — 기본과 정반대
+        mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.ROTATE }}
         // 사용자가 드래그/휠로 조작하면 즉시 트랜지션 중단 → 휠 줌이 항상 작동(고정 방지).
         onStart={() => {
           settlingRef.current = false;
