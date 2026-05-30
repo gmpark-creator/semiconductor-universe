@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CATEGORIES, FAMILY_COLORS, FAMILY_LABEL_KO, DATA_DISCLAIMER } from "../data/semiconductors";
-import { COMPANIES, EDGES, GROUP_LABEL_KO } from "../data/companies";
+import { COMPANIES, EDGES, GROUP_LABEL_KO, COMPANY_SHARES } from "../data/companies";
 import { GROUP_COLORS } from "../scene/companyLayout";
 import type { Mode } from "../scene/Scene";
 
@@ -26,6 +26,7 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
 
   const serves = company ? EDGES.filter((e) => e.from === company.id) : [];
   const suppliedBy = company ? EDGES.filter((e) => e.to === company.id) : [];
+  const shares = company ? COMPANY_SHARES[company.id] ?? [] : [];
   const nameOf = (id: string) => COMPANIES.find((c) => c.id === id)?.name ?? id;
 
   return (
@@ -145,6 +146,20 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
               <Section title="개요">
                 <p className="text-slate-300 text-sm leading-relaxed">{company.detail}</p>
               </Section>
+              {shares.length > 0 && (
+                <Section title="세계시장 점유 (분야별 · 근사)">
+                  <ul className="space-y-2">
+                    {shares.map((s) => (
+                      <li key={s.field} className="flex items-center justify-between gap-3 text-sm">
+                        <span className="text-slate-300">{s.field}</span>
+                        <span className="font-semibold whitespace-nowrap" style={{ color: GROUP_COLORS[company.group] }}>
+                          {s.pct}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </Section>
+              )}
               {serves.length > 0 && (
                 <Section title="공급 / 납품 대상">
                   <ul className="space-y-1.5">

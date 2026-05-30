@@ -280,3 +280,66 @@ export const EDGES: SupplyEdge[] = [
   edge("tsmc", "nvidia", "delivery", "완성 웨이퍼/칩 납품"),
   edge("tsmc", "apple", "delivery", "완성 웨이퍼/칩 납품"),
 ];
+
+/** 기업별 — 어떤 분야의 칩을 세계시장에서 어떤 비율로 확보하고 있는지 (2026 근사치). */
+export const COMPANY_SHARES: Record<string, { field: string; pct: string }[]> = {
+  nvidia: [
+    { field: "AI 가속기 (데이터센터 GPU)", pct: "≈ 90%" },
+    { field: "디스크리트 GPU", pct: "≈ 88%" },
+  ],
+  apple: [{ field: "프리미엄 모바일 SoC (자사 설계)", pct: "내재화 · 외판 없음" }],
+  amd: [
+    { field: "서버 CPU (x86)", pct: "≈ 35%" },
+    { field: "AI 가속기", pct: "한 자릿수 ~ 10%" },
+  ],
+  broadcom: [
+    { field: "커스텀 AI ASIC", pct: "대형 2위권" },
+    { field: "네트워킹 스위치 칩", pct: "선두" },
+  ],
+  qualcomm: [
+    { field: "안드로이드 프리미엄 AP", pct: "선두" },
+    { field: "5G RF 프런트엔드", pct: "상위권" },
+  ],
+  mediatek: [{ field: "모바일 AP (출하량)", pct: "≈ 35% (1~2위)" }],
+  intel: [{ field: "PC · 서버 CPU (x86)", pct: "≈ 65~70%" }],
+  samsung: [
+    { field: "DRAM", pct: "≈ 40% (1위)" },
+    { field: "NAND", pct: "≈ 30%" },
+    { field: "파운드리", pct: "≈ 10% (2위)" },
+  ],
+  skhynix: [
+    { field: "HBM", pct: "≈ 60% (1위)" },
+    { field: "DRAM", pct: "≈ 35%" },
+  ],
+  micron: [
+    { field: "DRAM", pct: "≈ 20~25%" },
+    { field: "HBM", pct: "≈ 20% (2위)" },
+  ],
+  ti: [{ field: "아날로그", pct: "≈ 12.5% (1위)" }],
+  infineon: [
+    { field: "전력반도체", pct: "≈ 20% (1위)" },
+    { field: "차량용 반도체", pct: "선두" },
+  ],
+  stmicro: [{ field: "MCU · MEMS · SiC", pct: "유럽 선두" }],
+  adi: [{ field: "고성능 아날로그", pct: "2위" }],
+  tsmc: [
+    { field: "파운드리", pct: "≈ 70% (첨단 ≈ 90%)" },
+    { field: "CoWoS 어드밴스드 패키징", pct: "사실상 독점" },
+  ],
+  "samsung-foundry": [{ field: "파운드리", pct: "≈ 10% (2위)" }],
+  "intel-foundry": [{ field: "파운드리 (외부 고객)", pct: "신생 · 점유 미미" }],
+  globalfoundries: [{ field: "성숙 · 특화 파운드리", pct: "≈ 5% (5위)" }],
+  smic: [{ field: "파운드리", pct: "≈ 6% (3위 · 중국)" }],
+  asml: [
+    { field: "EUV 노광장비", pct: "100% (독점)" },
+    { field: "전체 노광장비", pct: "압도적 1위" },
+  ],
+  amat: [{ field: "전공정 장비 (WFE)", pct: "≈ 20% (1위)" }],
+  lam: [{ field: "식각 · 증착 장비", pct: "상위 (메모리 강세)" }],
+  tel: [{ field: "코터/디벨로퍼 · 식각", pct: "상위 (일본 1위)" }],
+  kla: [{ field: "계측 · 검사 장비", pct: "≈ 50%+ (1위)" }],
+  arm: [{ field: "모바일 CPU 아키텍처", pct: "≈ 99%" }],
+  synopsys: [{ field: "EDA", pct: "≈ 31% (1위)" }],
+  cadence: [{ field: "EDA", pct: "≈ 30% (2위)" }],
+  "siemens-eda": [{ field: "EDA", pct: "≈ 13% (3위)" }],
+};

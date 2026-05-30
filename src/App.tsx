@@ -5,6 +5,7 @@ import { Scene, type Mode } from "./scene/Scene";
 import { InfoPanel } from "./ui/InfoPanel";
 import { Legend } from "./ui/Legend";
 import { ViewToggle } from "./ui/ViewToggle";
+import { ItemList } from "./ui/ItemList";
 import { CATEGORIES, DATA_DISCLAIMER, DATA_AS_OF, FAMILY_LABEL_KO } from "./data/semiconductors";
 import { COMPANIES, GROUP_LABEL_KO } from "./data/companies";
 
@@ -63,6 +64,7 @@ export default function App() {
       </div>
 
       <ViewToggle mode={mode} onChange={changeMode} />
+      <ItemList mode={mode} selectedId={selected} onSelect={setSelected} />
       <Legend mode={mode} />
       <InfoPanel mode={mode} selectedId={selected} onClose={() => setSelected(null)} />
 
