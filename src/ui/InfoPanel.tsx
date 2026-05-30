@@ -1,8 +1,8 @@
 import { useEffect, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CATEGORIES, FAMILY_COLORS, FAMILY_LABEL_KO, DATA_DISCLAIMER } from "../data/semiconductors";
-import { COMPANIES, EDGES } from "../data/companies";
-import { GROUP_COLORS } from "../scene/CompanyGraph";
+import { COMPANIES, EDGES, GROUP_LABEL_KO } from "../data/companies";
+import { GROUP_COLORS } from "../scene/companyLayout";
 import type { Mode } from "../scene/Scene";
 
 interface Props {
@@ -38,6 +38,9 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
           exit={{ x: "110%", opacity: 0 }}
           transition={{ type: "spring", damping: 26, stiffness: 220 }}
           className="glass-strong thin-scroll"
+          role="region"
+          aria-label="선택 항목 상세 정보"
+          aria-live="polite"
           style={{
             position: "absolute",
             top: 0,
@@ -51,7 +54,8 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
         >
           <button
             onClick={onClose}
-            aria-label="Close panel"
+            aria-label="패널 닫기"
+            title="닫기 (Esc)"
             className="absolute right-4 top-4 text-slate-400 hover:text-white transition"
             style={{ fontSize: 24, lineHeight: 1, background: "none", border: "none", cursor: "pointer" }}
           >
@@ -93,7 +97,7 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
                   ))}
                 </ul>
               </Section>
-              <Section title="예시 제품">
+              <Section title="예시 제품 (2026)">
                 <div className="flex flex-wrap gap-2">
                   {category.exampleProducts.map((p) => (
                     <span
@@ -106,6 +110,11 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
                   ))}
                 </div>
               </Section>
+              {category.trend2026 && (
+                <Section title="2026 동향">
+                  <p className="text-slate-300 text-sm leading-relaxed">{category.trend2026}</p>
+                </Section>
+              )}
             </div>
           )}
 
@@ -122,18 +131,19 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
                   }}
                 />
                 <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: GROUP_COLORS[company.group] }}>
-                  {company.type}
+                  {GROUP_LABEL_KO[company.group]} · {company.type}
                 </span>
               </div>
-              <h2 className="text-2xl font-bold mb-4 pr-6" style={{ color: GROUP_COLORS[company.group] }}>
+              <h2 className="text-2xl font-bold mb-1.5 pr-6" style={{ color: GROUP_COLORS[company.group] }}>
                 {company.name}
               </h2>
+              <p className="text-xs text-slate-500 mb-4">{company.hq}</p>
               <div className="grid grid-cols-2 gap-3 mb-5">
-                <Stat label="시가총액" value={`≈ $${company.marketCapB}B`} />
-                <Stat label="매출" value={`≈ $${company.revenueB}B`} />
+                <Stat label="시가총액" value={company.marketCapB > 0 ? `≈ $${fmtB(company.marketCapB)}` : "모회사 통합"} />
+                <Stat label="매출 (연간)" value={`≈ $${fmtB(company.revenueB)}`} />
               </div>
-              <Section title="비고">
-                <p className="text-slate-300 text-sm leading-relaxed">{company.note}</p>
+              <Section title="개요">
+                <p className="text-slate-300 text-sm leading-relaxed">{company.detail}</p>
               </Section>
               {serves.length > 0 && (
                 <Section title="공급 / 납품 대상">
@@ -167,6 +177,12 @@ export function InfoPanel({ mode, selectedId, onClose }: Props) {
       )}
     </AnimatePresence>
   );
+}
+
+/** $B → 1,000 이상이면 조(T) 단위로 가독성 있게 표기. */
+function fmtB(b: number): string {
+  if (b >= 1000) return `${(b / 1000).toFixed(b >= 10000 ? 1 : 2)}T`;
+  return `${b}B`;
 }
 
 function Section({ title, children }: { title: string; children: ReactNode }) {

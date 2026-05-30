@@ -32,19 +32,27 @@ export function Earth() {
   const spinRef = useRef<THREE.Group>(null);
   const cloudRef = useRef<THREE.Mesh>(null);
 
-  const [day, normal, clouds, lights] = useTexture([
-    "/textures/earth_atmos_2048.jpg",
-    "/textures/earth_normal_2048.jpg",
-    "/textures/earth_clouds_1024.png",
-    "/textures/earth_lights_2048.png",
-  ]);
-
-  // 색 공간 설정 (색상 맵 = sRGB, 노멀 = linear).
-  day.colorSpace = THREE.SRGBColorSpace;
-  lights.colorSpace = THREE.SRGBColorSpace;
-  clouds.colorSpace = THREE.SRGBColorSpace;
-  normal.colorSpace = THREE.NoColorSpace;
-  [day, normal, clouds, lights].forEach((t) => (t.anisotropy = 8));
+  // 런타임 로드 텍스처 — vite base(상대경로)를 따르도록 BASE_URL 접두.
+  // (서브패스 배포·iframe 임베드에서 절대경로 "/textures/..."가 깨지는 문제 방지)
+  const B = import.meta.env.BASE_URL;
+  // 색 공간/anisotropy는 onLoad 콜백에서 설정한다.
+  // (useTexture 반환 텍스처를 렌더 중 직접 변형하면 react-hooks/immutability 위반 → 콜백 인자로 처리)
+  const [day, normal, clouds, lights] = useTexture(
+    [
+      `${B}textures/earth_atmos_2048.jpg`,
+      `${B}textures/earth_normal_2048.jpg`,
+      `${B}textures/earth_clouds_1024.png`,
+      `${B}textures/earth_lights_2048.png`,
+    ],
+    (loaded) => {
+      const [d, n, c, l] = Array.isArray(loaded) ? loaded : [loaded];
+      d.colorSpace = THREE.SRGBColorSpace; // 색상 맵 = sRGB
+      c.colorSpace = THREE.SRGBColorSpace;
+      l.colorSpace = THREE.SRGBColorSpace;
+      n.colorSpace = THREE.NoColorSpace; // 노멀 = linear
+      for (const t of [d, n, c, l]) t.anisotropy = 8;
+    },
+  );
 
   const atmosphereUniforms = useMemo(
     () => ({

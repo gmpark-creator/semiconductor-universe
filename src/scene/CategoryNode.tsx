@@ -4,20 +4,23 @@ import { Float, Html } from "@react-three/drei";
 import * as THREE from "three";
 import type { ChipCategory, ChipIcon } from "../data/semiconductors";
 
-/** 카테고리별 간단 프로시저럴 아이콘. */
-function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
-  const Mat = ({ e = 0.6, o = 1 }: { e?: number; o?: number }) => (
+/** 아이콘용 자가발광 머티리얼. 렌더 밖 모듈 스코프 컴포넌트 — color/glow는 props로 전달. */
+function IconMaterial({ color, glow, e = 0.6, o = 1 }: { color: string; glow: number; e?: number; o?: number }) {
+  return (
     <meshStandardMaterial
       color={color}
       emissive={color}
-      emissiveIntensity={e}
+      emissiveIntensity={e * glow}
       metalness={0.3}
       roughness={0.35}
       transparent={o < 1}
       opacity={o}
     />
   );
+}
 
+/** 카테고리별 간단 프로시저럴 아이콘. (자가발광 emissive — pointLight 없이 Bloom으로 빛남) */
+function ProceduralIcon({ icon, color, glow }: { icon: ChipIcon; color: string; glow: number }) {
   switch (icon) {
     case "cube": // logic: layered cube
       return (
@@ -25,7 +28,7 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
           {[0, 1, 2].map((i) => (
             <mesh key={i} position={[0, (i - 1) * 0.46, 0]}>
               <boxGeometry args={[1.05 - i * 0.16, 0.32, 1.05 - i * 0.16]} />
-              <Mat />
+              <IconMaterial color={color} glow={glow} />
             </mesh>
           ))}
         </group>
@@ -37,7 +40,7 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
             Array.from({ length: 3 }).map((_, x) => (
               <mesh key={`${x}-${y}`} position={[(x - 1) * 0.42, (y - 1) * 0.42, 0]}>
                 <boxGeometry args={[0.3, 0.3, 0.3]} />
-                <Mat />
+                <IconMaterial color={color} glow={glow} />
               </mesh>
             )),
           )}
@@ -52,7 +55,7 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
       return (
         <mesh>
           <tubeGeometry args={[curve, 64, 0.09, 8, false]} />
-          <Mat />
+          <IconMaterial color={color} glow={glow} />
         </mesh>
       );
     }
@@ -68,7 +71,7 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
       return (
         <mesh>
           <extrudeGeometry args={[shape, { depth: 0.16, bevelEnabled: false }]} />
-          <Mat e={0.85} />
+          <IconMaterial color={color} glow={glow} e={0.85} />
         </mesh>
       );
     }
@@ -77,11 +80,11 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
         <group>
           <mesh>
             <torusGeometry args={[0.55, 0.12, 16, 48]} />
-            <Mat />
+            <IconMaterial color={color} glow={glow} />
           </mesh>
           <mesh>
             <sphereGeometry args={[0.34, 24, 24]} />
-            <Mat e={0.5} o={0.55} />
+            <IconMaterial color={color} glow={glow} e={0.5} o={0.55} />
           </mesh>
         </group>
       );
@@ -91,7 +94,7 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
           {[0.3, 0.55, 0.8].map((r, i) => (
             <mesh key={i}>
               <torusGeometry args={[r, 0.05, 12, 48, Math.PI]} />
-              <Mat />
+              <IconMaterial color={color} glow={glow} />
             </mesh>
           ))}
         </group>
@@ -102,13 +105,13 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
           {Array.from({ length: 4 }).map((_, i) => (
             <mesh key={`h${i}`} position={[0, (i - 1.5) * 0.34, 0]}>
               <boxGeometry args={[1.4, 0.06, 0.06]} />
-              <Mat />
+              <IconMaterial color={color} glow={glow} />
             </mesh>
           ))}
           {Array.from({ length: 4 }).map((_, i) => (
             <mesh key={`v${i}`} position={[(i - 1.5) * 0.34, 0, 0]}>
               <boxGeometry args={[0.06, 1.4, 0.06]} />
-              <Mat />
+              <IconMaterial color={color} glow={glow} />
             </mesh>
           ))}
         </group>
@@ -118,11 +121,11 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
         <group rotation={[Math.PI / 2.6, 0, 0]}>
           <mesh>
             <cylinderGeometry args={[0.72, 0.72, 0.1, 48]} />
-            <Mat e={0.32} />
+            <IconMaterial color={color} glow={glow} e={0.32} />
           </mesh>
           <mesh position={[0.52, 0.06, 0]}>
             <boxGeometry args={[0.16, 0.12, 0.16]} />
-            <Mat e={0.7} />
+            <IconMaterial color={color} glow={glow} e={0.7} />
           </mesh>
         </group>
       );
@@ -130,7 +133,7 @@ function ProceduralIcon({ icon, color }: { icon: ChipIcon; color: string }) {
       return (
         <mesh>
           <icosahedronGeometry args={[0.7, 0]} />
-          <Mat />
+          <IconMaterial color={color} glow={glow} />
         </mesh>
       );
   }
@@ -140,30 +143,33 @@ interface Props {
   category: ChipCategory;
   position: [number, number, number];
   selected: boolean;
+  dimmed?: boolean;
+  reducedMotion?: boolean;
   onSelect: (id: string) => void;
 }
 
-export function CategoryNode({ category, position, selected, onSelect }: Props) {
+export function CategoryNode({ category, position, selected, dimmed = false, reducedMotion = false, onSelect }: Props) {
   const [hovered, setHovered] = useState(false);
   const groupRef = useRef<THREE.Group>(null);
   const haloRef = useRef<THREE.Mesh>(null);
   const active = hovered || selected;
+  const glow = active ? 1.25 : dimmed ? 0.45 : 1;
 
   useFrame((state) => {
-    const target = active ? 1.3 : 1;
+    const target = active ? 1.3 : dimmed ? 0.9 : 1;
     if (groupRef.current) {
       groupRef.current.scale.lerp(new THREE.Vector3(target, target, target), 0.15);
     }
     if (haloRef.current) {
-      const pulse = 0.5 + Math.sin(state.clock.elapsedTime * 2 + position[0]) * 0.5;
+      const pulse = reducedMotion ? 0.5 : 0.5 + Math.sin(state.clock.elapsedTime * 2 + position[0]) * 0.5;
       const m = haloRef.current.material as THREE.MeshBasicMaterial;
-      m.opacity = (active ? 0.3 : 0.13) + pulse * 0.05;
+      m.opacity = (active ? 0.3 : dimmed ? 0.05 : 0.13) + pulse * 0.05;
     }
   });
 
   return (
     <group position={position}>
-      <Float speed={1.4} rotationIntensity={0.25} floatIntensity={0.6}>
+      <Float speed={reducedMotion ? 0 : 1.4} rotationIntensity={reducedMotion ? 0 : 0.25} floatIntensity={reducedMotion ? 0 : 0.6}>
         <group
           ref={groupRef}
           onPointerOver={(e) => {
@@ -180,23 +186,26 @@ export function CategoryNode({ category, position, selected, onSelect }: Props) 
             onSelect(category.id);
           }}
         >
-          <ProceduralIcon icon={category.icon} color={category.color} />
-          <mesh ref={haloRef}>
+          {/* 자가발광 아이콘 — pointLight 없이 emissive + Bloom으로 빛남(조명 과다 제거) */}
+          <ProceduralIcon icon={category.icon} color={category.color} glow={glow} />
+          <mesh ref={haloRef} renderOrder={-1}>
             <sphereGeometry args={[1.2, 24, 24]} />
             <meshBasicMaterial color={category.color} transparent opacity={0.13} depthWrite={false} />
           </mesh>
-          <pointLight color={category.color} intensity={active ? 2.4 : 1.1} distance={4.5} />
         </group>
 
-        <Html center position={[0, 1.75, 0]} distanceFactor={11} zIndexRange={[20, 0]}>
+        <Html center position={[0, 1.75, 0]} distanceFactor={11} zIndexRange={[20, 0]} occlude={false}>
           <div
             style={{
-              color: "#e2e8f0",
-              fontSize: active ? 14 : 12,
+              color: "#f1f5f9",
+              fontSize: active ? 13 : 12,
               fontWeight: 600,
               whiteSpace: "nowrap",
-              textShadow: "0 1px 6px rgba(0,0,0,0.9)",
-              opacity: active ? 1 : 0.82,
+              padding: "3px 9px",
+              borderRadius: 8,
+              background: active ? "rgba(2,6,12,0.82)" : "rgba(2,6,12,0.62)",
+              border: `1px solid ${category.color}${active ? "cc" : "44"}`,
+              opacity: dimmed && !active ? 0.35 : 1,
               transition: "all .2s ease",
               pointerEvents: "none",
               fontFamily: "Inter, 'Noto Sans KR', system-ui, sans-serif",

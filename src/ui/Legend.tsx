@@ -1,7 +1,7 @@
 import type { Mode } from "../scene/Scene";
 import { FAMILY_COLORS, FAMILY_LABEL_KO } from "../data/semiconductors";
 import { EDGE_COLORS, GROUP_LABEL_KO } from "../data/companies";
-import { GROUP_COLORS } from "../scene/CompanyGraph";
+import { GROUP_COLORS } from "../scene/companyLayout";
 
 const RELATIONSHIP_LEGEND: { color: string; label: string }[] = [
   { color: EDGE_COLORS.order, label: "설계 → 파운드리 (발주)" },
