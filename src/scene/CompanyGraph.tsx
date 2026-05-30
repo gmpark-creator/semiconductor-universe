@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { COMPANIES, EDGES, EDGE_COLORS } from "../data/companies";
 import { SupplyArrow } from "./SupplyArrow";
 import { CompanyEmblem } from "./CompanyEmblem";
-import { computeCompanyPositions, computeCompanyGeoPositions } from "./companyLayout";
+import { computeCompanyPositions, computeCompanyGeoPositions, companyHqVec3 } from "./companyLayout";
 
 interface Props {
   selected: string | null;
@@ -48,7 +48,7 @@ export function CompanyGraph({ selected, onSelect }: Props) {
             key={c.id}
             company={c}
             floatPos={floatPos[c.id]}
-            geoPos={geoPos[c.id]}
+            geoPos={c.id === selected ? companyHqVec3(c.id) ?? geoPos[c.id] : geoPos[c.id]}
             pinned={selected != null && isRelated}
             selected={selected === c.id}
             visible={selected == null || isRelated}

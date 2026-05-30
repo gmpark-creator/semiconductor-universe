@@ -6,7 +6,7 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { CATEGORIES, type ChipCategory, type ChipFamily } from "../data/semiconductors";
 import { CategoryNode } from "./CategoryNode";
 import { CompanyGraph } from "./CompanyGraph";
-import { computeCompanyGeoPositions } from "./companyLayout";
+import { computeCompanyGeoPositions, companyHqVec3 } from "./companyLayout";
 import { Earth } from "./Earth";
 import { TaxonomyBackdrop } from "./TaxonomyBackdrop";
 
@@ -68,12 +68,14 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
       return;
     }
     if (mode === "supply") {
-      const p = geoPos[selectedId];
+      // 선택 회사는 정확한 본사 좌표로, 카메라는 그 도시 상공까지 깊게 확대.
+      const exact = companyHqVec3(selectedId);
+      const p = exact ?? geoPos[selectedId];
       if (p) {
         const tp = new THREE.Vector3(...p);
         const normal = tp.clone().normalize();
-        // 지구 본사 위치를 우주에서 바라보는 시점.
-        const cam = tp.clone().addScaledVector(normal, 7).add(new THREE.Vector3(0, 1.6, 0));
+        // 지표 가까이(도시 레벨) — 살짝 비스듬히 내려다본다.
+        const cam = tp.clone().addScaledVector(normal, 1.7).add(new THREE.Vector3(0, 0.35, 0));
         focusRef.current = { target: tp, cam };
         settlingRef.current = true;
       }
@@ -154,10 +156,12 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
         makeDefault
         enableDamping
         dampingFactor={0.08}
-        enablePan={false}
+        enablePan
+        screenSpacePanning
+        panSpeed={0.9}
         enableZoom
         zoomSpeed={1.15}
-        minDistance={3}
+        minDistance={0.4}
         maxDistance={90}
         // 사용자가 드래그/휠로 조작하면 즉시 트랜지션 중단 → 휠 줌이 항상 작동(고정 방지).
         onStart={() => {

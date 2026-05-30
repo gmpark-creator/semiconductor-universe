@@ -124,8 +124,8 @@ export function computeCompanyGeoPositions(): Record<string, [number, number, nu
       if (n === 1) {
         pos[id] = latLonToVec3(hq.lat, hq.lon, PIN_RADIUS);
       } else {
-        // 회사 수에 비례해 링 반경(도)을 키우고, 경도는 위도 보정해 균등 분포.
-        const ringDeg = 2.6 + n * 1.05;
+        // 같은 도시 회사를 실제 주소 근처에 작게 모아두되 겹치지 않게(도시 줌에서 분리). 링 반경(도).
+        const ringDeg = 0.8 + n * 0.3;
         const ang = (i / n) * Math.PI * 2;
         const dLat = Math.sin(ang) * ringDeg;
         const dLon = (Math.cos(ang) * ringDeg) / Math.max(0.3, Math.cos((hq.lat * Math.PI) / 180));
@@ -134,4 +134,10 @@ export function computeCompanyGeoPositions(): Record<string, [number, number, nu
     });
   }
   return pos;
+}
+
+/** 회사의 정확한 본사 좌표(지터·링 오프셋 없음) — 선택 시 실제 주소에 핀하고 카메라를 그 도시로. */
+export function companyHqVec3(id: string): [number, number, number] | null {
+  const hq = COMPANY_HQ[id];
+  return hq ? latLonToVec3(hq.lat, hq.lon, PIN_RADIUS) : null;
 }

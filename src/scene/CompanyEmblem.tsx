@@ -196,14 +196,14 @@ export function CompanyEmblem({ company, floatPos, geoPos, pinned, selected, vis
     () => (pinned && geoPos ? geoPos : floatPos),
     [pinned, geoPos, floatPos],
   );
-  const labelY = pinned ? 0.62 : baseSize * 0.62 + 0.45;
+  const labelY = pinned ? 0.26 : baseSize * 0.62 + 0.45;
 
   useFrame(() => {
     const g = groupRef.current;
     if (g) g.position.lerp(new THREE.Vector3(target[0], target[1], target[2]), 0.08);
     if (innerRef.current) {
       // 핀(지구 위)일 땐 작게, 떠 있을 땐 시총 비례. 선택/호버 시 살짝 확대.
-      const s = (pinned ? (selected ? 0.82 : 0.46) : baseSize) * (active ? 1.14 : 1);
+      const s = (pinned ? (selected ? 0.22 : 0.16) : baseSize) * (active ? 1.18 : 1);
       innerRef.current.scale.lerp(new THREE.Vector3(s, s, s), 0.14);
     }
     if (matRef.current) {
@@ -242,12 +242,12 @@ export function CompanyEmblem({ company, floatPos, geoPos, pinned, selected, vis
       </Billboard>
 
       {visible && (
-        <Html center position={[0, labelY, 0]} distanceFactor={13} zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
+        <Html center position={[0, labelY, 0]} distanceFactor={pinned ? undefined : 13} zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
           <div
             style={{
               color: "#e2e8f0",
               fontWeight: 600,
-              fontSize: active ? 14 : 12,
+              fontSize: pinned ? 11 : active ? 14 : 12,
               whiteSpace: "nowrap",
               textShadow: "0 1px 6px rgba(0,0,0,0.9)",
               opacity: active ? 1 : 0.85,
