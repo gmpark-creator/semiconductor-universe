@@ -74,8 +74,8 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
       if (p) {
         const tp = new THREE.Vector3(...p);
         const normal = tp.clone().normalize();
-        // 지표 매우 가까이(도시/마을 레벨) — 벡터 지도라 더 깊게 파고들어도 선명.
-        const cam = tp.clone().addScaledVector(normal, 0.5).add(new THREE.Vector3(0, 0.1, 0));
+        // 본사 지역 + 공급망 화살표가 함께 보이는 거리. (더 깊은 도시/마을 줌은 휠로 — minDistance 0.02)
+        const cam = tp.clone().addScaledVector(normal, 2.2).add(new THREE.Vector3(0, 0.3, 0));
         focusRef.current = { target: tp, cam };
         settlingRef.current = true;
       }

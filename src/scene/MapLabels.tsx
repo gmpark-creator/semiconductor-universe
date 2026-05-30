@@ -8,6 +8,8 @@ import { GLOBE_RADIUS, latLonToVec3 } from "./companyLayout";
 
 const R = GLOBE_RADIUS;
 const OUTLINE = "#05070e";
+/** 세련된 라벨 폰트 (Inter SemiBold, 로컬 번들 — troika는 woff 지원). */
+const FONT = import.meta.env.BASE_URL + "fonts/inter-600.woff";
 
 type Pt = number[];
 interface GeoFeature {
@@ -115,11 +117,13 @@ export function MapLabels({ countries, states, cities }: { countries: GeoJson; s
           <Text
             key={`c${i}`}
             position={l.pos}
-            fontSize={0.5}
+            font={FONT}
+            fontSize={0.3}
+            letterSpacing={-0.01}
             color="#eaf1ff"
             anchorX="center"
             anchorY="middle"
-            outlineWidth={0.05}
+            outlineWidth={0.022}
             outlineColor={OUTLINE}
           >
             {l.text}
@@ -130,11 +134,13 @@ export function MapLabels({ countries, states, cities }: { countries: GeoJson; s
           <Text
             key={`s${i}`}
             position={l.pos}
-            fontSize={0.06}
+            font={FONT}
+            fontSize={0.05}
+            letterSpacing={-0.01}
             color="#cfe0ff"
             anchorX="center"
             anchorY="middle"
-            outlineWidth={0.008}
+            outlineWidth={0.006}
             outlineColor={OUTLINE}
           >
             {l.text}
@@ -148,12 +154,14 @@ export function MapLabels({ countries, states, cities }: { countries: GeoJson; s
               <meshBasicMaterial color="#ffd27f" toneMapped={false} />
             </mesh>
             <Text
-              position={[0, 0.05, 0]}
-              fontSize={0.05}
+              position={[0, 0.045, 0]}
+              font={FONT}
+              fontSize={0.042}
+              letterSpacing={-0.01}
               color="#ffe9c2"
               anchorX="center"
               anchorY="middle"
-              outlineWidth={0.007}
+              outlineWidth={0.006}
               outlineColor={OUTLINE}
             >
               {l.text}
