@@ -67,5 +67,5 @@ public/textures/           # 지구 텍스처 5종 (로컬)
 
 ## 라이선스/출처 메모
 
-- 지구 텍스처: three.js(MIT) 저장소 경유 NASA Blue Marble 계열(공개도메인 이미지). 빌드 타임에 로컬 번들.
+- 지구 텍스처: 8K day/night 맵 — [Solar System Scope](https://www.solarsystemscope.com/textures) (CC BY 4.0). 노멀맵은 three.js 경유 NASA Blue Marble 계열. 모두 빌드 타임에 로컬 번들.
 - 기업 로고: [`simple-icons`](https://simpleicons.org)(로컬 npm, 오픈소스 브랜드 아이콘). 상표권은 각 사 소유 — 일러스트용 명목적 사용.
