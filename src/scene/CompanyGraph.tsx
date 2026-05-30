@@ -35,10 +35,16 @@ export function CompanyGraph({ selected, onSelect }: Props) {
   return (
     <group>
       {activeEdges.map((e) => {
-        const from = geoPos[e.from];
-        const to = geoPos[e.to];
+        const posOf = (id: string) => (id === selected ? companyHqVec3(id) ?? geoPos[id] : geoPos[id]);
+        const from = posOf(e.from);
+        const to = posOf(e.to);
         if (!from || !to) return null;
-        return <SupplyArrow key={e.id} start={from} end={to} color={EDGE_COLORS[e.relationship]} />;
+        const partnerId = e.from === selected ? e.to : e.from;
+        const partner = COMPANIES.find((c) => c.id === partnerId)?.name ?? partnerId;
+        const labelT = e.from === selected ? 0.24 : 0.76;
+        return (
+          <SupplyArrow key={e.id} start={from} end={to} color={EDGE_COLORS[e.relationship]} label={partner} labelT={labelT} />
+        );
       })}
 
       {COMPANIES.map((c) => {
