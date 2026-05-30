@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Billboard, Html } from "@react-three/drei";
 import * as THREE from "three";
 import {
@@ -185,6 +185,7 @@ export function CompanyEmblem({ company, floatPos, geoPos, pinned, selected, vis
   const groupRef = useRef<THREE.Group>(null);
   const innerRef = useRef<THREE.Group>(null);
   const matRef = useRef<THREE.MeshBasicMaterial>(null);
+  const { camera } = useThree();
   const active = hovered || selected;
   const brand = BRAND_HEX[company.id] ?? "#94a3b8";
 
@@ -201,10 +202,12 @@ export function CompanyEmblem({ company, floatPos, geoPos, pinned, selected, vis
   useFrame(() => {
     const g = groupRef.current;
     if (g) g.position.lerp(new THREE.Vector3(target[0], target[1], target[2]), 0.08);
-    if (innerRef.current) {
-      // 핀(지구 위)일 땐 작게, 떠 있을 땐 시총 비례. 선택/호버 시 살짝 확대.
-      const s = (pinned ? (selected ? 0.22 : 0.16) : baseSize) * (active ? 1.18 : 1);
-      innerRef.current.scale.lerp(new THREE.Vector3(s, s, s), 0.14);
+    if (innerRef.current && g) {
+      // 핀이면 카메라 거리에 비례 → 화면상 일정 크기 지도 마커(아무리 확대해도 작게 유지).
+      const s = pinned
+        ? (selected ? 0.055 : 0.04) * camera.position.distanceTo(g.position) * (active ? 1.15 : 1)
+        : baseSize * (active ? 1.18 : 1);
+      innerRef.current.scale.lerp(new THREE.Vector3(s, s, s), 0.2);
     }
     if (matRef.current) {
       const o = visible ? (active ? 1 : 0.92) : 0;

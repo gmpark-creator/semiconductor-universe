@@ -1,5 +1,7 @@
 import { COMPANIES, type Company, type CompanyGroup } from "../data/companies";
-import { EARTH_RADIUS } from "./Earth";
+
+/** 지구본 반경 — 벡터 globe·핀·카메라 공용 단일 상수. */
+export const GLOBE_RADIUS = 5;
 
 /** 그룹별 액센트 색 (범례·패널·노드 공용). */
 export const GROUP_COLORS: Record<CompanyGroup, string> = {
@@ -101,7 +103,7 @@ export function latLonToVec3(lat: number, lon: number, radius: number): [number,
 }
 
 /** 핀 배지가 지표면에 살짝 떠 있도록 한 반경. */
-export const PIN_RADIUS = EARTH_RADIUS + 0.35;
+export const PIN_RADIUS = GLOBE_RADIUS + 0.12;
 
 /** 회사별 본사 지구 좌표.
  *  같은 도시(실리콘밸리처럼 본사가 몰린 곳)의 회사들은 도시 중심 주위 작은 링으로

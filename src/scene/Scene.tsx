@@ -7,7 +7,7 @@ import { CATEGORIES, type ChipCategory, type ChipFamily } from "../data/semicond
 import { CategoryNode } from "./CategoryNode";
 import { CompanyGraph } from "./CompanyGraph";
 import { computeCompanyGeoPositions, companyHqVec3 } from "./companyLayout";
-import { Earth } from "./Earth";
+import { VectorGlobe } from "./VectorGlobe";
 import { TaxonomyBackdrop } from "./TaxonomyBackdrop";
 
 export type Mode = "taxonomy" | "supply";
@@ -74,8 +74,8 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
       if (p) {
         const tp = new THREE.Vector3(...p);
         const normal = tp.clone().normalize();
-        // 지표 가까이(도시 레벨) — 살짝 비스듬히 내려다본다.
-        const cam = tp.clone().addScaledVector(normal, 1.7).add(new THREE.Vector3(0, 0.35, 0));
+        // 지표 매우 가까이(도시/마을 레벨) — 벡터 지도라 더 깊게 파고들어도 선명.
+        const cam = tp.clone().addScaledVector(normal, 0.5).add(new THREE.Vector3(0, 0.1, 0));
         focusRef.current = { target: tp, cam };
         settlingRef.current = true;
       }
@@ -133,7 +133,7 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
       </Environment>
 
       {/* 배경: 공급망=지구 / 칩분류=카툰 회로 배경 */}
-      {mode === "supply" ? <Earth /> : <TaxonomyBackdrop />}
+      {mode === "supply" ? <VectorGlobe /> : <TaxonomyBackdrop />}
 
       {mode === "taxonomy" ? (
         CATEGORIES.map((c) => (
@@ -161,7 +161,7 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
         panSpeed={0.9}
         enableZoom
         zoomSpeed={1.15}
-        minDistance={0.4}
+        minDistance={0.02}
         maxDistance={90}
         // 좌클릭=화면이동(pan) / 우클릭=각도조절(rotate) — 기본과 정반대
         mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.ROTATE }}
