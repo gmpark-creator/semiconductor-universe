@@ -103,16 +103,35 @@ export function latLonToVec3(lat: number, lon: number, radius: number): [number,
 /** 핀 배지가 지표면에 살짝 떠 있도록 한 반경. */
 export const PIN_RADIUS = EARTH_RADIUS + 0.35;
 
-/** 회사별 본사 지구 좌표. 같은 도시(실리콘밸리) 회사는 약간의 결정적 지터로 분리. */
+/** 회사별 본사 지구 좌표.
+ *  같은 도시(실리콘밸리처럼 본사가 몰린 곳)의 회사들은 도시 중심 주위 작은 링으로
+ *  결정적으로 펼쳐 서로 겹치지(가리지) 않게 정렬한다. */
 export function computeCompanyGeoPositions(): Record<string, [number, number, number]> {
-  const pos: Record<string, [number, number, number]> = {};
-  COMPANIES.forEach((c, i) => {
+  // 1° 격자로 도시별 그룹화.
+  const groups: Record<string, string[]> = {};
+  for (const c of COMPANIES) {
     const hq = COMPANY_HQ[c.id];
-    if (!hq) return;
-    // 같은 좌표에 몰린 회사를 떼어놓기 위한 작은 결정적 오프셋(±~1.5°).
-    const jLat = (((i * 37) % 9) - 4) * 0.38;
-    const jLon = (((i * 53) % 9) - 4) * 0.42;
-    pos[c.id] = latLonToVec3(hq.lat + jLat, hq.lon + jLon, PIN_RADIUS);
-  });
+    if (!hq) continue;
+    const key = `${Math.round(hq.lat)},${Math.round(hq.lon)}`;
+    (groups[key] ||= []).push(c.id);
+  }
+
+  const pos: Record<string, [number, number, number]> = {};
+  for (const ids of Object.values(groups)) {
+    const n = ids.length;
+    ids.forEach((id, i) => {
+      const hq = COMPANY_HQ[id];
+      if (n === 1) {
+        pos[id] = latLonToVec3(hq.lat, hq.lon, PIN_RADIUS);
+      } else {
+        // 회사 수에 비례해 링 반경(도)을 키우고, 경도는 위도 보정해 균등 분포.
+        const ringDeg = 2.6 + n * 1.05;
+        const ang = (i / n) * Math.PI * 2;
+        const dLat = Math.sin(ang) * ringDeg;
+        const dLon = (Math.cos(ang) * ringDeg) / Math.max(0.3, Math.cos((hq.lat * Math.PI) / 180));
+        pos[id] = latLonToVec3(hq.lat + dLat, hq.lon + dLon, PIN_RADIUS);
+      }
+    });
+  }
   return pos;
 }

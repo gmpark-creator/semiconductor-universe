@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { CATEGORIES, type ChipCategory, type ChipFamily } from "../data/semiconductors";
@@ -116,9 +116,19 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
   return (
     <>
       <color attach="background" args={["#05070e"]} />
-      <ambientLight intensity={mode === "supply" ? 0.5 : 0.85} />
-      <directionalLight position={[14, 8, 10]} intensity={1.7} color="#fff4e2" />
-      <directionalLight position={[-12, -4, -8]} intensity={0.35} color="#88aaff" />
+      <ambientLight intensity={0.9} />
+      {/* 키/필/림 3점 조명 — PBR 칩 모델·지구가 입체로 읽히도록 */}
+      <directionalLight position={[8, 10, 12]} intensity={2.5} color="#fff6e8" />
+      <directionalLight position={[-10, -2, 6]} intensity={0.5} color="#9bb8ff" />
+      <directionalLight position={[0, 5, -14]} intensity={0.65} color="#bcd0ff" />
+
+      {/* 스튜디오 환경광(IBL) — 외부 파일 없이 금속(히트스프레더·핀·웨이퍼)이 반사돼 입체로 보이게 */}
+      <Environment resolution={256} frames={1}>
+        <Lightformer intensity={2.4} position={[0, 4, 6]} scale={[12, 12, 1]} color="#ffffff" />
+        <Lightformer intensity={1.2} position={[-7, 1, 3]} scale={[7, 7, 1]} color="#a8c0ff" />
+        <Lightformer intensity={1.0} position={[7, -2, -4]} scale={[7, 7, 1]} color="#ffd9a8" />
+        <Lightformer intensity={0.8} position={[0, -6, 2]} scale={[12, 4, 1]} color="#8090c0" />
+      </Environment>
 
       {/* 배경: 공급망=지구 / 칩분류=카툰 회로 배경 */}
       {mode === "supply" ? <Earth /> : <TaxonomyBackdrop />}
@@ -145,6 +155,8 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
         enableDamping
         dampingFactor={0.08}
         enablePan={false}
+        enableZoom
+        zoomSpeed={1.15}
         minDistance={3}
         maxDistance={90}
         // 사용자가 드래그/휠로 조작하면 즉시 트랜지션 중단 → 휠 줌이 항상 작동(고정 방지).

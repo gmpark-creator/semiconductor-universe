@@ -33,12 +33,13 @@ export function Earth() {
   const B = import.meta.env.BASE_URL;
   // 색 공간/anisotropy는 onLoad 콜백에서 설정한다.
   // (useTexture 반환 텍스처를 렌더 중 직접 변형하면 react-hooks/immutability 위반 → 콜백 인자로 처리)
+  // 8K day/night (solarsystemscope, CC-BY 4.0) — 확대 시 디테일.
   const [day, normal, clouds, lights] = useTexture(
     [
-      `${B}textures/earth_atmos_2048.jpg`,
+      `${B}textures/earth_day_8k.jpg`,
       `${B}textures/earth_normal_2048.jpg`,
-      `${B}textures/earth_clouds_1024.png`,
-      `${B}textures/earth_lights_2048.png`,
+      `${B}textures/earth_clouds_2k.jpg`,
+      `${B}textures/earth_night_8k.jpg`,
     ],
     (loaded) => {
       const [d, n, c, l] = Array.isArray(loaded) ? loaded : [loaded];
@@ -46,7 +47,7 @@ export function Earth() {
       c.colorSpace = THREE.SRGBColorSpace;
       l.colorSpace = THREE.SRGBColorSpace;
       n.colorSpace = THREE.NoColorSpace; // 노멀 = linear
-      for (const t of [d, n, c, l]) t.anisotropy = 8;
+      for (const t of [d, n, c, l]) t.anisotropy = 16; // 비스듬한 확대에서도 선명
     },
   );
 
@@ -84,7 +85,7 @@ export function Earth() {
         <meshStandardMaterial
           map={clouds}
           transparent
-          opacity={0.38}
+          opacity={0.18}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
           roughness={1}
