@@ -38,7 +38,7 @@ export function CompanyGraph({ selected, onSelect }: Props) {
         const from = geoPos[e.from];
         const to = geoPos[e.to];
         if (!from || !to) return null;
-        return <SupplyArrow key={e.id} start={from} end={to} color={EDGE_COLORS[e.relationship]} active />;
+        return <SupplyArrow key={e.id} start={from} end={to} color={EDGE_COLORS[e.relationship]} />;
       })}
 
       {COMPANIES.map((c) => {

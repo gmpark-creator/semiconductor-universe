@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import earcut from "earcut";
 import { GLOBE_RADIUS, latLonToVec3 } from "./companyLayout";
+import { MapLabels } from "./MapLabels";
 
 /**
  * 벡터 지도 지구본 — 나라 폴리곤을 단색(카툰)으로 채우고 국경·행정경계·격자선을 라인으로 그린다.
@@ -18,6 +19,7 @@ type Ring = Pt[];
 type Poly = Ring[];
 
 interface GeoFeature {
+  properties: Record<string, unknown>;
   geometry: { type: string; coordinates: unknown };
 }
 interface GeoJson {
@@ -129,17 +131,13 @@ const atmFrag = /* glsl */ `
 
 export function VectorGlobe() {
   const B = import.meta.env.BASE_URL;
-  const [data, setData] = useState<{ c: GeoJson; s: GeoJson } | null>(null);
+  const [data, setData] = useState<{ c: GeoJson; s: GeoJson; cities: GeoJson } | null>(null);
 
   useEffect(() => {
     let alive = true;
-    Promise.all([
-      fetch(`${B}geo/countries-110m.geojson`).then((r) => r.json() as Promise<GeoJson>),
-      fetch(`${B}geo/states-50m.geojson`)
-        .then((r) => r.json() as Promise<GeoJson>)
-        .catch(() => ({ features: [] }) as GeoJson),
-    ]).then(([c, s]) => {
-      if (alive) setData({ c, s });
+    const get = (f: string) => fetch(`${B}geo/${f}`).then((r) => r.json() as Promise<GeoJson>).catch(() => ({ features: [] }) as GeoJson);
+    Promise.all([get("countries-110m.geojson"), get("states-50m.geojson"), get("cities-110m.geojson")]).then(([c, s, cities]) => {
+      if (alive) setData({ c, s, cities });
     });
     return () => {
       alive = false;
@@ -195,6 +193,8 @@ export function VectorGlobe() {
           depthWrite={false}
         />
       </mesh>
+      {/* 국가/주/도시 라벨 */}
+      {data && <MapLabels countries={data.c} states={data.s} cities={data.cities} />}
     </group>
   );
 }
