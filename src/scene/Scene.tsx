@@ -1,46 +1,34 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-import { CATEGORIES, type ChipFamily } from "../data/semiconductors";
+import { CATEGORIES, type ChipCategory, type ChipFamily } from "../data/semiconductors";
 import { CategoryNode } from "./CategoryNode";
 import { CompanyGraph } from "./CompanyGraph";
-import { computeCompanyPositions } from "./companyLayout";
+import { computeCompanyGeoPositions } from "./companyLayout";
 import { Earth } from "./Earth";
+import { TaxonomyBackdrop } from "./TaxonomyBackdrop";
 
 export type Mode = "taxonomy" | "supply";
 
-/** 카테고리를 패밀리별 별자리 클러스터로 지구 주위에 배치.
- *  패밀리별 노드 수에 비례해 클러스터 반경을 키워 과밀(Logic 4개)에서도 겹치지 않게 한다. */
-function computeCategoryPositions(): Record<string, [number, number, number]> {
-  const families = [...new Set(CATEGORIES.map((c) => c.family))] as ChipFamily[];
-  const famCenter: Record<string, [number, number, number]> = {};
-  // 첫 패밀리를 카메라 시선축(+z 정면)에서 비켜 시작하도록 위상 오프셋(occlusion 방지).
-  const phase = Math.PI * 0.5;
-  families.forEach((f, i) => {
-    const angle = phase + (i / families.length) * Math.PI * 2;
-    const R = 13;
-    famCenter[f] = [Math.cos(angle) * R, Math.sin(angle * 1.6) * 3.5, Math.sin(angle) * R];
-  });
+const FAMILY_ORDER: ChipFamily[] = ["Logic", "Memory", "Analog", "Power", "Sensor", "RF", "Manufacturing"];
 
-  const byFam: Record<string, typeof CATEGORIES> = {};
+/** 칩 분류 — 패밀리별 행으로 가지런히 정렬한 정면 그리드(카툰 배경 앞). */
+function computeCategoryGrid(): Record<string, [number, number, number]> {
+  const byFam: Record<string, ChipCategory[]> = {};
   CATEGORIES.forEach((c) => (byFam[c.family] ||= []).push(c));
-
+  const rowGap = 3.9;
+  const colGap = 4.5;
+  const rows = FAMILY_ORDER.length;
   const pos: Record<string, [number, number, number]> = {};
-  Object.entries(byFam).forEach(([fam, list]) => {
-    const c0 = famCenter[fam];
+  FAMILY_ORDER.forEach((fam, ri) => {
+    const list = byFam[fam] || [];
     const n = list.length;
-    // 노드가 많은 패밀리일수록 서브-궤도 반경을 키워 라벨/노드 겹침 방지.
-    const r = n <= 1 ? 0 : 2.6 + n * 0.5;
-    list.forEach((c, i) => {
-      if (n === 1) {
-        pos[c.id] = [c0[0], c0[1], c0[2]];
-      } else {
-        const a = (i / n) * Math.PI * 2;
-        pos[c.id] = [c0[0] + Math.cos(a) * r, c0[1] + Math.sin(a) * r * 0.62, c0[2] + Math.sin(a * 1.7) * 2.0];
-      }
+    const y = ((rows - 1) / 2 - ri) * rowGap; // 위(Logic) → 아래(Manufacturing)
+    list.forEach((c, ci) => {
+      const x = (ci - (n - 1) / 2) * colGap;
+      pos[c.id] = [x, y, 0];
     });
   });
   return pos;
@@ -57,22 +45,20 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
   const controlsRef = useRef<OrbitControlsImpl>(null);
   const { camera } = useThree();
 
-  const catPos = useMemo(() => computeCategoryPositions(), []);
-  const compPos = useMemo(() => computeCompanyPositions(), []);
+  const catPos = useMemo(() => computeCategoryGrid(), []);
+  const geoPos = useMemo(() => computeCompanyGeoPositions(), []);
 
   // 카메라 트랜지션 목표. settling=true 동안만 lerp하고, 도착하면 해제해
-  // OrbitControls의 autoRotate가 다시 카메라를 돌릴 수 있게 한다(핵심 버그 수정).
+  // 사용자가 휠/드래그로 자유롭게 조작하도록 한다(고정 방지).
   const focusRef = useRef<{ target: THREE.Vector3; cam: THREE.Vector3 } | null>(null);
   const settlingRef = useRef(false);
 
-  const defaultView = useMemo(
-    () => ({
-      // 시선축을 살짝 측면·상방으로 틀어 정면 클러스터가 지구를 가리지 않게.
-      target: new THREE.Vector3(0, 0, 0),
-      cam: new THREE.Vector3(6, 8, mode === "supply" ? 42 : 36),
-    }),
-    [mode],
-  );
+  const defaultView = useMemo(() => {
+    if (mode === "supply") {
+      return { target: new THREE.Vector3(0, 0, 0), cam: new THREE.Vector3(0, 4, 30) };
+    }
+    return { target: new THREE.Vector3(0, 0, 0), cam: new THREE.Vector3(0, 0, 30) };
+  }, [mode]);
 
   // 선택 변경 → 포커스 타깃 설정
   useEffect(() => {
@@ -81,17 +67,26 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
       settlingRef.current = true;
       return;
     }
-    const p = mode === "taxonomy" ? catPos[selectedId] : compPos[selectedId];
-    if (p) {
-      const tp = new THREE.Vector3(...p);
-      const dir = tp.clone().setY(0).normalize();
-      focusRef.current = {
-        target: tp,
-        cam: tp.clone().add(new THREE.Vector3(dir.x * 7 + 2, 3.5, dir.z * 7 + 9)),
-      };
-      settlingRef.current = true;
+    if (mode === "supply") {
+      const p = geoPos[selectedId];
+      if (p) {
+        const tp = new THREE.Vector3(...p);
+        const normal = tp.clone().normalize();
+        // 지구 본사 위치를 우주에서 바라보는 시점.
+        const cam = tp.clone().addScaledVector(normal, 7).add(new THREE.Vector3(0, 1.6, 0));
+        focusRef.current = { target: tp, cam };
+        settlingRef.current = true;
+      }
+    } else {
+      const p = catPos[selectedId];
+      if (p) {
+        const tp = new THREE.Vector3(...p);
+        // 그리드는 z=0 평면 → 정면(+z)에서 노드로 다가간다.
+        focusRef.current = { target: tp, cam: new THREE.Vector3(tp.x * 0.6, tp.y + 0.8, 11) };
+        settlingRef.current = true;
+      }
     }
-  }, [selectedId, mode, catPos, compPos, defaultView]);
+  }, [selectedId, mode, catPos, geoPos, defaultView]);
 
   // mode 전환 시 카메라 리셋
   useEffect(() => {
@@ -102,11 +97,8 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
   useFrame((_, delta) => {
     const controls = controlsRef.current;
     if (!controls) return;
-
-    // settling 중에만 카메라를 목표로 감쇠 이동. 도착하면 멈춰 autoRotate에 제어를 넘긴다.
     if (settlingRef.current && focusRef.current) {
-      // 프레임레이트 독립 감쇠 계수.
-      const k = reducedMotion ? 1 : 1 - Math.exp(-7 * delta);
+      const k = reducedMotion ? 1 : 1 - Math.exp(-6 * delta);
       controls.target.lerp(focusRef.current.target, k);
       camera.position.lerp(focusRef.current.cam, k);
       const done =
@@ -121,20 +113,15 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
     controls.update();
   });
 
-  // 미선택 + 트랜지션 종료 시에만 자동회전(둘 다일 때만 OrbitControls가 카메라를 돈다).
-  const autoRotate = !reducedMotion && !selectedId;
-
   return (
     <>
-      <color attach="background" args={["#04060c"]} />
-      <ambientLight intensity={0.5} />
-      {/* 태양광 (지구 명암 경계) */}
-      <directionalLight position={[14, 8, 10]} intensity={1.8} color="#fff4e2" />
-      {/* 차가운 보조광 */}
+      <color attach="background" args={["#05070e"]} />
+      <ambientLight intensity={mode === "supply" ? 0.5 : 0.85} />
+      <directionalLight position={[14, 8, 10]} intensity={1.7} color="#fff4e2" />
       <directionalLight position={[-12, -4, -8]} intensity={0.35} color="#88aaff" />
 
-      {/* 지구 배경 */}
-      <Earth />
+      {/* 배경: 공급망=지구 / 칩분류=카툰 회로 배경 */}
+      {mode === "supply" ? <Earth /> : <TaxonomyBackdrop />}
 
       {mode === "taxonomy" ? (
         CATEGORIES.map((c) => (
@@ -157,20 +144,14 @@ export function Scene({ mode, selectedId, onSelect, reducedMotion = false }: Pro
         makeDefault
         enableDamping
         dampingFactor={0.08}
-        autoRotate={autoRotate}
-        autoRotateSpeed={0.4}
-        minDistance={8}
-        maxDistance={80}
-        // 사용자가 직접 조작하면 트랜지션 중단(카메라 다툼 방지).
+        enablePan={false}
+        minDistance={3}
+        maxDistance={90}
+        // 사용자가 드래그/휠로 조작하면 즉시 트랜지션 중단 → 휠 줌이 항상 작동(고정 방지).
         onStart={() => {
           settlingRef.current = false;
         }}
       />
-
-      {/* Bloom: 임계값을 올려 로고·텍스트 번짐을 막고 발광 노드만 은은하게. */}
-      <EffectComposer>
-        <Bloom intensity={0.55} luminanceThreshold={0.7} luminanceSmoothing={0.25} mipmapBlur radius={0.7} />
-      </EffectComposer>
     </>
   );
 }

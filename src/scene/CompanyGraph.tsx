@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { COMPANIES, EDGES, EDGE_COLORS } from "../data/companies";
 import { SupplyArrow } from "./SupplyArrow";
 import { CompanyEmblem } from "./CompanyEmblem";
-import { computeCompanyPositions } from "./companyLayout";
+import { computeCompanyPositions, computeCompanyGeoPositions } from "./companyLayout";
 
 interface Props {
   selected: string | null;
@@ -10,37 +10,48 @@ interface Props {
 }
 
 export function CompanyGraph({ selected, onSelect }: Props) {
-  const positions = useMemo(() => computeCompanyPositions(), []);
+  const floatPos = useMemo(() => computeCompanyPositions(), []);
+  const geoPos = useMemo(() => computeCompanyGeoPositions(), []);
+
+  // 선택된 회사 + 직접 연결된 회사 집합(엣지 기준).
+  const related = useMemo(() => {
+    const set = new Set<string>();
+    if (selected) {
+      set.add(selected);
+      for (const e of EDGES) {
+        if (e.from === selected) set.add(e.to);
+        if (e.to === selected) set.add(e.from);
+      }
+    }
+    return set;
+  }, [selected]);
+
+  // 선택 시: 선택 회사에 연결된 엣지만 지구 위 호로 표시.
+  const activeEdges = useMemo(
+    () => (selected ? EDGES.filter((e) => e.from === selected || e.to === selected) : []),
+    [selected],
+  );
 
   return (
     <group>
-      {EDGES.map((e) => {
-        const from = positions[e.from];
-        const to = positions[e.to];
+      {activeEdges.map((e) => {
+        const from = geoPos[e.from];
+        const to = geoPos[e.to];
         if (!from || !to) return null;
-        const related = selected === e.from || selected === e.to;
-        return (
-          <SupplyArrow
-            key={e.id}
-            start={from}
-            end={to}
-            color={EDGE_COLORS[e.relationship]}
-            active={selected === null || related}
-          />
-        );
+        return <SupplyArrow key={e.id} start={from} end={to} color={EDGE_COLORS[e.relationship]} active />;
       })}
+
       {COMPANIES.map((c) => {
-        const related =
-          selected === null ||
-          selected === c.id ||
-          EDGES.some((e) => (e.from === selected && e.to === c.id) || (e.to === selected && e.from === c.id));
+        const isRelated = related.has(c.id);
         return (
           <CompanyEmblem
             key={c.id}
             company={c}
-            position={positions[c.id]}
+            floatPos={floatPos[c.id]}
+            geoPos={geoPos[c.id]}
+            pinned={selected != null && isRelated}
             selected={selected === c.id}
-            dimmed={!related}
+            visible={selected == null || isRelated}
             onSelect={onSelect}
           />
         );

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="1024" viewBox="0 0 2048 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1330"/>
+      <stop offset="0.5" stop-color="#070d22"/>
+      <stop offset="1" stop-color="#0c0a24"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#a855f7" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f59e0b" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#1b2a55" stroke-width="1" stroke-opacity="0.5"/>
+    </pattern>
+    <g id="chip">
+      <rect x="-34" y="-34" width="68" height="68" rx="9" fill="#0e1a3c" stroke="#3a5bd0" stroke-width="3"/>
+      <rect x="-19" y="-19" width="38" height="38" rx="4" fill="none" stroke="#5a7bf0" stroke-width="2" stroke-opacity="0.7"/>
+      <g stroke="#3a5bd0" stroke-width="3" stroke-linecap="round">
+        <path d="M-34 -18H-46M-34 0H-46M-34 18H-46"/>
+        <path d="M34 -18H46M34 0H46M34 18H46"/>
+        <path d="M-18 -34V-46M0 -34V-46M18 -34V-46"/>
+        <path d="M-18 34V46M0 34V46M18 34V46"/>
+      </g>
+    </g>
+    <g id="chipSm">
+      <rect x="-20" y="-20" width="40" height="40" rx="6" fill="#16143a" stroke="#7c4fe0" stroke-width="2.5"/>
+      <circle r="6" fill="none" stroke="#a855f7" stroke-width="2" stroke-opacity="0.8"/>
+    </g>
+  </defs>
+
+  <rect width="2048" height="1024" fill="url(#bg)"/>
+  <rect width="2048" height="1024" fill="url(#grid)"/>
+
+  <!-- ambient glows -->
+  <circle cx="430" cy="300" r="360" fill="url(#glowA)"/>
+  <circle cx="1620" cy="760" r="420" fill="url(#glowB)"/>
+  <circle cx="1180" cy="220" r="300" fill="url(#glowC)"/>
+  <circle cx="300" cy="820" r="300" fill="url(#glowB)"/>
+
+  <!-- circuit traces -->
+  <g fill="none" stroke="#2b8fd6" stroke-width="2.5" stroke-opacity="0.55" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 160H240V96H520V200H760"/>
+    <path d="M2048 360H1760V300H1480V420H1220"/>
+    <path d="M0 540H180V620H460V560H720V680H980"/>
+    <path d="M2048 600H1840V540H1560V660H1300"/>
+    <path d="M120 1024V860H320V760H560V900H760V1024"/>
+    <path d="M1280 0V140H1480V260H1700V120H1900V0"/>
+    <path d="M860 1024V940H1080V1000H1320V900H1520V1024"/>
+  </g>
+  <g fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 760H160V700H380V800H600"/>
+    <path d="M2048 180H1820V120H1600V240H1380"/>
+    <path d="M520 0V120H700V60H940V180H1140V0"/>
+  </g>
+
+  <!-- vias / pads -->
+  <g fill="#22d3ee" fill-opacity="0.85">
+    <circle cx="240" cy="160" r="5"/><circle cx="760" cy="200" r="5"/><circle cx="980" cy="680" r="5"/>
+    <circle cx="720" cy="680" r="5"/><circle cx="1220" cy="420" r="5"/><circle cx="760" cy="900" r="5"/>
+  </g>
+  <g fill="#a855f7" fill-opacity="0.85">
+    <circle cx="600" cy="800" r="5"/><circle cx="1380" cy="240" r="5"/><circle cx="1140" cy="180" r="5"/>
+  </g>
+
+  <!-- chips -->
+  <use href="#chip" x="430" y="300"/>
+  <use href="#chip" x="1620" y="760"/>
+  <use href="#chip" x="1180" y="470"/>
+  <use href="#chip" x="300" y="820"/>
+  <use href="#chip" x="1760" y="300"/>
+  <use href="#chipSm" x="820" y="420"/>
+  <use href="#chipSm" x="1020" y="760"/>
+  <use href="#chipSm" x="560" y="540"/>
+  <use href="#chipSm" x="1460" y="540"/>
+  <use href="#chipSm" x="1320" y="860"/>
+  <use href="#chipSm" x="700" y="180"/>
+
+  <!-- wafer motif -->
+  <g transform="translate(1024 512)" fill="none" stroke="#34d399" stroke-opacity="0.25" stroke-width="2">
+    <circle r="150"/><circle r="110"/><circle r="70"/>
+    <path d="M-150 0H150M0 -150V150" stroke-opacity="0.18"/>
+  </g>
+</svg>

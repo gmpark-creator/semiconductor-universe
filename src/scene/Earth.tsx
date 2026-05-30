@@ -1,5 +1,4 @@
-import { useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useMemo } from "react";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -29,9 +28,6 @@ const atmosphereFragment = /* glsl */ `
 `;
 
 export function Earth() {
-  const spinRef = useRef<THREE.Group>(null);
-  const cloudRef = useRef<THREE.Mesh>(null);
-
   // 런타임 로드 텍스처 — vite base(상대경로)를 따르도록 BASE_URL 접두.
   // (서브패스 배포·iframe 임베드에서 절대경로 "/textures/..."가 깨지는 문제 방지)
   const B = import.meta.env.BASE_URL;
@@ -62,15 +58,11 @@ export function Earth() {
     [],
   );
 
-  useFrame((_, dt) => {
-    if (spinRef.current) spinRef.current.rotation.y += dt * 0.018;
-    if (cloudRef.current) cloudRef.current.rotation.y += dt * 0.024;
-  });
-
+  // 자전·기울기 없음(정적) — 본사 위경도 핀이 대륙 텍스처와 정확히 정합되도록.
   return (
-    <group rotation={[0, 0, 0.41]}>
-      {/* 지구 본체 (자전) */}
-      <group ref={spinRef}>
+    <group>
+      {/* 지구 본체 */}
+      <group>
         <mesh>
           <sphereGeometry args={[EARTH_RADIUS, 96, 96]} />
           <meshStandardMaterial
@@ -86,8 +78,8 @@ export function Earth() {
         </mesh>
       </group>
 
-      {/* 구름 (약간 더 빠른 자전) */}
-      <mesh ref={cloudRef}>
+      {/* 구름 */}
+      <mesh>
         <sphereGeometry args={[EARTH_RADIUS * 1.012, 64, 64]} />
         <meshStandardMaterial
           map={clouds}

@@ -53,7 +53,7 @@ const WORDMARK: Record<string, string> = {
   cadence: "cadence",
 };
 
-/** 기업별 브랜드 액센트색 (테두리·글로우). 어두운 배경에서 빛나도록 살짝 밝게 보정한 브랜드 색조. */
+/** 기업별 브랜드 액센트색 (테두리). 어두운 배경에서 읽히도록 살짝 밝게 보정. */
 const BRAND_HEX: Record<string, string> = {
   nvidia: "#8CD600",
   apple: "#D7DBE0",
@@ -106,22 +106,19 @@ function makeEmblemTexture(id: string, brand: string): THREE.CanvasTexture {
 
   // 배경 글래스 패널
   roundRectPath(ctx, 20, 20, CANVAS - 40, CANVAS - 40, 40);
-  ctx.fillStyle = "rgba(9,13,21,0.85)";
+  ctx.fillStyle = "rgba(9,13,21,0.9)";
   ctx.fill();
 
-  // 브랜드색 테두리 + 글로우
+  // 브랜드색 테두리 (그림자/글로우 없이 — 깔끔)
   ctx.save();
   ctx.lineWidth = 5;
   ctx.strokeStyle = brand;
-  ctx.shadowColor = brand;
-  ctx.shadowBlur = 22;
   roundRectPath(ctx, 20, 20, CANVAS - 40, CANVAS - 40, 40);
   ctx.stroke();
   ctx.restore();
 
   const path = LOGO_PATHS[id];
   if (path) {
-    // 공식 로고 (흰색 글리프)
     const box = 132;
     const off = (CANVAS - box) / 2;
     const scale = box / 24;
@@ -132,7 +129,6 @@ function makeEmblemTexture(id: string, brand: string): THREE.CanvasTexture {
     ctx.fill(new Path2D(path));
     ctx.restore();
   } else {
-    // 워드마크 텍스트 (흰색, 폭에 맞춰 자동 축소, 줄바꿈 지원)
     const lines = (WORDMARK[id] ?? id.toUpperCase()).split("\n");
     const maxW = CANVAS - 70;
     let size = 60;
@@ -157,25 +153,6 @@ function makeEmblemTexture(id: string, brand: string): THREE.CanvasTexture {
   return tex;
 }
 
-/** 뒤에 깔리는 방사형 글로우 텍스처. */
-function makeGlowTexture(brand: string): THREE.CanvasTexture {
-  const canvas = document.createElement("canvas");
-  canvas.width = CANVAS;
-  canvas.height = CANVAS;
-  const ctx = canvas.getContext("2d")!;
-  const g = ctx.createRadialGradient(CANVAS / 2, CANVAS / 2, 0, CANVAS / 2, CANVAS / 2, CANVAS / 2);
-  const c = new THREE.Color(brand);
-  const rgb = `${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)}`;
-  g.addColorStop(0, `rgba(${rgb},0.85)`);
-  g.addColorStop(0.4, `rgba(${rgb},0.35)`);
-  g.addColorStop(1, `rgba(${rgb},0)`);
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, CANVAS, CANVAS);
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
-
 /** 빌보드 평면 크기 ∝ √시가총액. (모회사 통합=0 인 곳은 매출로 크기 산정) */
 function sizeFor(c: { marketCapB: number; revenueB: number }): number {
   const basis = c.marketCapB > 0 ? c.marketCapB : c.revenueB * 8;
@@ -191,41 +168,58 @@ function fmtCap(b: number): string {
 
 interface Props {
   company: Company;
-  position: [number, number, number];
+  /** 기본(미선택) 떠 있는 위치. */
+  floatPos: [number, number, number];
+  /** 지구 위 본사 위치 (없을 수도). */
+  geoPos?: [number, number, number];
+  /** true → 지구 본사 위치로 핀(선택 또는 연계 회사). */
+  pinned: boolean;
   selected: boolean;
-  dimmed: boolean;
+  /** false → 페이드아웃(선택과 무관한 회사). */
+  visible: boolean;
   onSelect: (id: string) => void;
 }
 
-export function CompanyEmblem({ company, position, selected, dimmed, onSelect }: Props) {
+export function CompanyEmblem({ company, floatPos, geoPos, pinned, selected, visible, onSelect }: Props) {
   const [hovered, setHovered] = useState(false);
-  const ref = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const innerRef = useRef<THREE.Group>(null);
+  const matRef = useRef<THREE.MeshBasicMaterial>(null);
   const active = hovered || selected;
   const brand = BRAND_HEX[company.id] ?? "#94a3b8";
 
   const emblemTex = useMemo(() => makeEmblemTexture(company.id, brand), [company.id, brand]);
-  const glowTex = useMemo(() => makeGlowTexture(brand), [brand]);
-  useEffect(() => () => {
-    emblemTex.dispose();
-    glowTex.dispose();
-  }, [emblemTex, glowTex]);
+  useEffect(() => () => emblemTex.dispose(), [emblemTex]);
 
-  const size = sizeFor(company);
-  const fade = dimmed && !active ? 0.25 : 1;
+  const baseSize = sizeFor(company);
+  const target = useMemo<[number, number, number]>(
+    () => (pinned && geoPos ? geoPos : floatPos),
+    [pinned, geoPos, floatPos],
+  );
+  const labelY = pinned ? 0.95 : baseSize * 0.62 + 0.45;
 
   useFrame(() => {
-    if (ref.current) {
-      const t = active ? 1.18 : 1;
-      ref.current.scale.lerp(new THREE.Vector3(t, t, t), 0.15);
+    const g = groupRef.current;
+    if (g) g.position.lerp(new THREE.Vector3(target[0], target[1], target[2]), 0.08);
+    if (innerRef.current) {
+      // 핀(지구 위)일 땐 작게, 떠 있을 땐 시총 비례. 선택/호버 시 살짝 확대.
+      const s = (pinned ? (selected ? 0.85 : 0.62) : baseSize) * (active ? 1.12 : 1);
+      innerRef.current.scale.lerp(new THREE.Vector3(s, s, s), 0.14);
+    }
+    if (matRef.current) {
+      const o = visible ? (active ? 1 : 0.92) : 0;
+      matRef.current.opacity += (o - matRef.current.opacity) * 0.14;
+      matRef.current.visible = matRef.current.opacity > 0.02;
     }
   });
 
   return (
-    <group position={position}>
+    <group ref={groupRef} position={floatPos}>
       <Billboard>
         <group
-          ref={ref}
+          ref={innerRef}
           onPointerOver={(e) => {
+            if (!visible) return;
             e.stopPropagation();
             setHovered(true);
             document.body.style.cursor = "pointer";
@@ -235,50 +229,40 @@ export function CompanyEmblem({ company, position, selected, dimmed, onSelect }:
             document.body.style.cursor = "auto";
           }}
           onClick={(e) => {
+            if (!visible) return;
             e.stopPropagation();
             onSelect(company.id);
           }}
         >
-          {/* 방사형 글로우 */}
-          <mesh position={[0, 0, -0.02]} scale={[size * 1.75, size * 1.75, 1]}>
+          <mesh renderOrder={2}>
             <planeGeometry args={[1, 1]} />
-            <meshBasicMaterial
-              map={glowTex}
-              transparent
-              opacity={(active ? 0.95 : 0.5) * fade}
-              blending={THREE.AdditiveBlending}
-              depthWrite={false}
-              toneMapped={false}
-            />
-          </mesh>
-          {/* 앰블럼 배지 */}
-          <mesh scale={[size, size, 1]}>
-            <planeGeometry args={[1, 1]} />
-            <meshBasicMaterial map={emblemTex} transparent opacity={fade} depthWrite={false} />
+            <meshBasicMaterial ref={matRef} map={emblemTex} transparent opacity={0.92} depthWrite={false} />
           </mesh>
         </group>
       </Billboard>
 
-      <Html center position={[0, size * 0.62 + 0.4, 0]} distanceFactor={13} zIndexRange={[20, 0]}>
-        <div
-          style={{
-            color: "#e2e8f0",
-            fontWeight: 600,
-            fontSize: active ? 14 : 12,
-            whiteSpace: "nowrap",
-            textShadow: "0 1px 6px rgba(0,0,0,0.9)",
-            opacity: dimmed && !active ? 0.4 : active ? 1 : 0.85,
-            pointerEvents: "none",
-            transition: "all .2s ease",
-            fontFamily: "Inter, 'Noto Sans KR', system-ui, sans-serif",
-          }}
-        >
-          {company.name}
-          {company.marketCapB > 0 && (
-            <span style={{ opacity: 0.55, fontWeight: 400, marginLeft: 6 }}>{fmtCap(company.marketCapB)}</span>
-          )}
-        </div>
-      </Html>
+      {visible && (
+        <Html center position={[0, labelY, 0]} distanceFactor={13} zIndexRange={[20, 0]}>
+          <div
+            style={{
+              color: "#e2e8f0",
+              fontWeight: 600,
+              fontSize: active ? 14 : 12,
+              whiteSpace: "nowrap",
+              textShadow: "0 1px 6px rgba(0,0,0,0.9)",
+              opacity: active ? 1 : 0.85,
+              pointerEvents: "none",
+              transition: "all .2s ease",
+              fontFamily: "Inter, 'Noto Sans KR', system-ui, sans-serif",
+            }}
+          >
+            {company.name}
+            {company.marketCapB > 0 && (
+              <span style={{ opacity: 0.55, fontWeight: 400, marginLeft: 6 }}>{fmtCap(company.marketCapB)}</span>
+            )}
+          </div>
+        </Html>
+      )}
     </group>
   );
 }
