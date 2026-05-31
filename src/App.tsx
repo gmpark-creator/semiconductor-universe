@@ -6,15 +6,12 @@ import { InfoPanel } from "./ui/InfoPanel";
 import { Legend } from "./ui/Legend";
 import { ViewToggle } from "./ui/ViewToggle";
 import { ItemList } from "./ui/ItemList";
-import { CATEGORIES, DATA_DISCLAIMER, DATA_AS_OF, FAMILY_LABEL_KO } from "./data/semiconductors";
-import { COMPANIES, GROUP_LABEL_KO } from "./data/companies";
+import { AreaSelector } from "./ui/AreaSelector";
+import { AREAS, DEFAULT_AREA_ID, getArea } from "./data/areas";
 
 /** prefers-reduced-motion 구독 훅. */
 function useReducedMotion(): boolean {
-  // 초기값을 lazy initializer로 동기 확정 → effect 안에서 setState 하지 않음.
-  const [reduced, setReduced] = useState(
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
+  const [reduced, setReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const on = () => setReduced(mq.matches);
@@ -25,12 +22,20 @@ function useReducedMotion(): boolean {
 }
 
 export default function App() {
+  const [areaId, setAreaId] = useState<string>(DEFAULT_AREA_ID);
   const [mode, setMode] = useState<Mode>("taxonomy");
   const [selected, setSelected] = useState<string | null>(null);
   const reducedMotion = useReducedMotion();
 
+  const area = getArea(areaId);
+
   const changeMode = (m: Mode) => {
     setMode(m);
+    setSelected(null);
+  };
+  const changeArea = (id: string) => {
+    setAreaId(id);
+    setMode("taxonomy");
     setSelected(null);
   };
 
@@ -44,52 +49,46 @@ export default function App() {
         aria-hidden="true"
       >
         <Suspense fallback={null}>
-          <Scene mode={mode} selectedId={selected} onSelect={setSelected} reducedMotion={reducedMotion} />
+          <Scene area={area} mode={mode} selectedId={selected} onSelect={setSelected} reducedMotion={reducedMotion} />
         </Suspense>
       </Canvas>
 
-      {/* Title (top-left) */}
-      <div style={{ position: "absolute", top: 16, left: 16, zIndex: 20 }} className="pointer-events-none">
-        <h1 className="text-xl font-bold text-white tracking-tight" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6)" }}>
-          반도체 유니버스
-        </h1>
-        <p className="text-xs text-slate-400 mt-0.5">
-          {mode === "taxonomy"
-            ? "칩 분류 — 노드를 선택하면 자세한 정보가 열립니다"
-            : "공급망 — 기업을 선택하면 자세한 정보가 열립니다"}
+      {/* 영역 선택기 (좌상단) */}
+      <AreaSelector areas={AREAS} current={area} onChange={changeArea} />
+
+      {/* 모드 안내 (선택기 아래) */}
+      <div style={{ position: "absolute", top: 66, left: 18, zIndex: 20, pointerEvents: "none" }}>
+        <p className="text-[11px] text-slate-400" style={{ margin: 0 }}>
+          {mode === "taxonomy" ? area.taxonomyHint : area.supplyHint}
         </p>
-        <p className="text-[10px] text-slate-500 mt-0.5" style={{ letterSpacing: "0.04em" }}>
-          {DATA_AS_OF} · {mode === "taxonomy" ? `${CATEGORIES.length}개 분류` : `${COMPANIES.length}개 기업`}
+        <p className="text-[10px] text-slate-500" style={{ margin: "2px 0 0", letterSpacing: "0.04em" }}>
+          {area.dataAsOf} · {mode === "taxonomy" ? `${area.categories.length}개 분류` : `${area.companies.length}개 기업·기관`}
         </p>
       </div>
 
-      <ViewToggle mode={mode} onChange={changeMode} />
-      <ItemList mode={mode} selectedId={selected} onSelect={setSelected} />
-      <Legend mode={mode} />
-      <InfoPanel mode={mode} selectedId={selected} onClose={() => setSelected(null)} />
+      <ViewToggle area={area} mode={mode} onChange={changeMode} />
+      <ItemList area={area} mode={mode} selectedId={selected} onSelect={setSelected} />
+      <Legend area={area} mode={mode} />
+      <InfoPanel area={area} mode={mode} selectedId={selected} onClose={() => setSelected(null)} />
 
       {/* Disclaimer (bottom-right) */}
       <div style={{ position: "absolute", bottom: 16, right: 16, zIndex: 20 }} className="pointer-events-none">
-        <p className="text-[11px] text-slate-500">{DATA_DISCLAIMER}</p>
+        <p className="text-[11px] text-slate-500">{area.dataDisclaimer}</p>
       </div>
 
-      {/* 접근성: 스크린리더·키보드용 대체 콘텐츠. 시각적으로 숨기되 DOM·포커스에는 존재. */}
-      <nav className="sr-only" aria-label={mode === "taxonomy" ? "칩 분류 목록" : "반도체 기업 목록"}>
-        <h2>{mode === "taxonomy" ? "칩 분류" : "반도체 공급망 기업"} (키보드 탐색)</h2>
+      {/* 접근성: 스크린리더·키보드용 대체 콘텐츠. */}
+      <nav className="sr-only" aria-label={`${area.name} ${mode === "taxonomy" ? "분류" : "기업"} 목록`}>
+        <h2>{area.name} — {mode === "taxonomy" ? area.taxonomyListTitle : area.supplyListTitle} (키보드 탐색)</h2>
         <ul>
           {mode === "taxonomy"
-            ? CATEGORIES.map((c) => (
+            ? area.categories.map((c) => (
                 <li key={c.id}>
-                  <button onClick={() => setSelected(c.id)}>
-                    {c.name} — {FAMILY_LABEL_KO[c.family]}. {c.definition}
-                  </button>
+                  <button onClick={() => setSelected(c.id)}>{c.name} — {area.familyLabelKo[c.family]}. {c.definition}</button>
                 </li>
               ))
-            : COMPANIES.map((c) => (
+            : area.companies.map((c) => (
                 <li key={c.id}>
-                  <button onClick={() => setSelected(c.id)}>
-                    {c.name} — {GROUP_LABEL_KO[c.group]}, {c.type}. {c.note}
-                  </button>
+                  <button onClick={() => setSelected(c.id)}>{c.name} — {area.groupLabelKo[c.group]}, {c.type}. {c.note}</button>
                 </li>
               ))}
         </ul>
@@ -99,7 +98,7 @@ export default function App() {
         containerStyles={{ background: "#05060a" }}
         barStyles={{ background: "linear-gradient(90deg,#6366f1,#22d3ee)" }}
         dataStyles={{ color: "#94a3b8", fontFamily: "Inter, 'Noto Sans KR', system-ui, sans-serif", fontSize: 13 }}
-        dataInterpolation={(p) => `반도체 유니버스 불러오는 중… ${p.toFixed(0)}%`}
+        dataInterpolation={(p) => `불러오는 중… ${p.toFixed(0)}%`}
       />
     </div>
   );
