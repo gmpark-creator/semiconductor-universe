@@ -750,8 +750,8 @@ export const powerArea: AtlasArea = {
   hq: POWER_HQ,
   mapFocus: {
     iso3: "KOR",
-    center: [36.2, 127.8],
-    spanDeg: 5.4,
+    center: [36.0, 127.8],
+    spanDeg: 6.2,
     cities: [
       { name: "Seoul", lat: 37.57, lon: 126.98 },
       { name: "Incheon", lat: 37.46, lon: 126.71 },

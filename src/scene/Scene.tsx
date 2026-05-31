@@ -8,6 +8,7 @@ import { CategoryNode } from "./CategoryNode";
 import { CompanyGraph } from "./CompanyGraph";
 import { computeCompanyGeoPositions, companyHqVec3, latLonToVec3, PIN_RADIUS } from "./companyLayout";
 import { VectorGlobe } from "./VectorGlobe";
+import { KoreaCartoonMap } from "./KoreaCartoonMap";
 import { TaxonomyBackdrop } from "./TaxonomyBackdrop";
 
 export type Mode = "taxonomy" | "supply";
@@ -144,8 +145,12 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
         <Lightformer intensity={0.8} position={[0, -6, 2]} scale={[12, 4, 1]} color="#8090c0" />
       </Environment>
 
-      {/* 배경: 공급망=지구(전력=대한민국 한정) / 분류=카툰 배경 */}
-      {mode === "supply" ? <VectorGlobe focus={area.mapFocus} /> : <TaxonomyBackdrop backdrop={area.backdrop} />}
+      {/* 배경: 공급망 — 전력=카툰 대한민국 지도(react-spring) / 그 외=벡터 지구본 · 분류=카툰 배경 */}
+      {mode === "supply"
+        ? area.mapFocus
+          ? <KoreaCartoonMap focus={area.mapFocus} />
+          : <VectorGlobe />
+        : <TaxonomyBackdrop backdrop={area.backdrop} />}
 
       {mode === "taxonomy" ? (
         area.categories.map((c) => (

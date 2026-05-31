@@ -1,16 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { Billboard, Text } from "@react-three/drei";
 import * as THREE from "three";
 import earcut from "earcut";
-import type { MapFocus } from "../data/types";
 import { GLOBE_RADIUS, latLonToVec3 } from "./companyLayout";
 import { MapLabels } from "./MapLabels";
 
-const LABEL_FONT = import.meta.env.BASE_URL + "fonts/inter-600.woff";
-
 /**
  * 벡터 지도 지구본 — 나라 폴리곤을 단색(카툰)으로 채우고 국경·행정경계·격자선을 라인으로 그린다.
- * 래스터 텍스처와 달리 벡터라 아무리 확대해도 선명(본사 주소까지 딥하게 줌인 가능).
+ * 래스터 텍스처와 달리 벡터라 아무리 확대해도 선명. (전 지구본 — 반도체 글로벌 공급망용.
+ *  대한민국 한정 공급망은 KoreaCartoonMap이 담당한다.)
  */
 
 const R = GLOBE_RADIUS;
@@ -61,11 +58,11 @@ function pushTri(pos: number[], col: number[], a: Pt, b: Pt, c: Pt, rgb: number[
   }
 }
 
-function buildLand(features: GeoFeature[], fixedColor?: string): THREE.BufferGeometry {
+function buildLand(features: GeoFeature[]): THREE.BufferGeometry {
   const pos: number[] = [];
   const col: number[] = [];
   features.forEach((f, fi) => {
-    const c = new THREE.Color(fixedColor ?? PALETTE[fi % PALETTE.length]);
+    const c = new THREE.Color(PALETTE[fi % PALETTE.length]);
     const rgb = [c.r, c.g, c.b];
     for (const poly of polysOf(f.geometry)) {
       if (poly.some(crossesAntimeridian)) continue; // 날짜변경선 가로지르는 폴리곤 스킵(아티팩트 방지)
@@ -133,42 +130,7 @@ const atmFrag = /* glsl */ `
   void main(){ float rim=pow(1.0-abs(dot(vN,vE)),2.6); gl_FragColor=vec4(uColor, clamp(rim,0.0,1.0)*uIntensity); }
 `;
 
-/** 한정 지도(예: 대한민국)의 소형 참조 도시 라벨 — 작은 점 + 작은 글자. */
-function FocusCityLabels({ focus }: { focus: MapFocus }) {
-  return (
-    <group>
-      {focus.cities.map((c) => {
-        const p = latLonToVec3(c.lat, c.lon, R * 1.004);
-        return (
-          <group key={c.name} position={p}>
-            <mesh>
-              <sphereGeometry args={[0.006, 8, 8]} />
-              <meshBasicMaterial color="#bfe0ff" transparent opacity={0.45} toneMapped={false} />
-            </mesh>
-            <Billboard>
-              <Text
-                position={[0, 0.02, 0]}
-                font={LABEL_FONT}
-                fontSize={0.019}
-                letterSpacing={-0.01}
-                color="#9fc3e6"
-                fillOpacity={0.65}
-                anchorX="center"
-                anchorY="bottom"
-                outlineWidth={0.0016}
-                outlineColor="#05070e"
-              >
-                {c.name}
-              </Text>
-            </Billboard>
-          </group>
-        );
-      })}
-    </group>
-  );
-}
-
-export function VectorGlobe({ focus }: { focus?: MapFocus }) {
+export function VectorGlobe() {
   const B = import.meta.env.BASE_URL;
   const [data, setData] = useState<{ c: GeoJson; s: GeoJson; cities: GeoJson } | null>(null);
 
@@ -185,42 +147,17 @@ export function VectorGlobe({ focus }: { focus?: MapFocus }) {
 
   const built = useMemo(() => {
     if (!data) return null;
-    if (focus) {
-      // 한정 모드: 세계지도(지구본·바다·주변국)는 그리지 않고 대상 국가만 단색 지도로.
-      const home = data.c.features.filter((f) => f.properties.ADM0_A3 === focus.iso3);
-      return {
-        focus: true as const,
-        land: buildLand(home, "#2f7d5a"),
-        homeBorder: buildBorders(home, R * 1.004),
-      };
-    }
     return {
-      focus: false as const,
       land: buildLand(data.c.features),
       borders: buildBorders(data.c.features, R * 1.002),
       states: buildBorders(data.s.features, R * 1.0014),
       grat: buildGraticule(R * 1.0008),
     };
-  }, [data, focus]);
+  }, [data]);
 
   const atmUniforms = useMemo(() => ({ uColor: { value: new THREE.Color("#5aa9ff") }, uIntensity: { value: 0.9 } }), []);
 
   if (!built) return null;
-
-  if (built.focus) {
-    // 세계지도 없이 대상 국가(대한민국) 단색 지도 + 국경 + 소형 도시 라벨만.
-    return (
-      <group>
-        <mesh geometry={built.land}>
-          <meshBasicMaterial color="#2f7d5a" side={THREE.DoubleSide} />
-        </mesh>
-        <lineSegments geometry={built.homeBorder}>
-          <lineBasicMaterial color="#d8f0e2" transparent opacity={0.9} depthWrite={false} />
-        </lineSegments>
-        {focus && <FocusCityLabels focus={focus} />}
-      </group>
-    );
-  }
 
   return (
     <group>
