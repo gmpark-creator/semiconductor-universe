@@ -68,8 +68,8 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
     return { target: sp, cam, normal, camHeight };
   }, [area, camera]);
 
-  // 선택 시 본사로 다가갈 거리 — 한정 지도는 가깝게(도시 단위), 전 지구본은 기존값.
-  const selectZoom = area.mapFocus ? 1.2 : 2.2;
+  // 선택 시 본사로 다가갈 거리 — 한정 지도는 도시·행정구가 보이도록 깊게(구글어스식 줌인), 전 지구본은 기존값.
+  const selectZoom = area.mapFocus ? 0.05 : 2.2;
   const supplyMaxDist = area.mapFocus ? 3.5 : 90;
 
   const defaultView = useMemo(() => {
@@ -92,7 +92,8 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
       if (p) {
         const tp = new THREE.Vector3(...p);
         const normal = tp.clone().normalize();
-        const cam = tp.clone().addScaledVector(normal, selectZoom).add(new THREE.Vector3(0, 0.3, 0));
+        // 약간의 기울기(완전 수직 탑다운 방지) — 줌 거리에 비례.
+        const cam = tp.clone().addScaledVector(normal, selectZoom).add(new THREE.Vector3(0, selectZoom * 0.16, 0));
         focusRef.current = { target: tp, cam };
         settlingRef.current = true;
       }

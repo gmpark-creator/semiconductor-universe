@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
 import { Billboard, Text } from "@react-three/drei";
 import { useSpring, animated, config } from "@react-spring/three";
 import * as THREE from "three";
@@ -7,9 +8,14 @@ import type { MapFocus } from "../data/types";
 import { GLOBE_RADIUS, latLonToVec3 } from "./companyLayout";
 
 /**
- * 카툰 대한민국 지도 — 세계지도(지구본·바다) 없이 17개 광역시도만 파스텔 색으로.
- * 미사용 기술 **react-spring(@react-spring/three)** 을 메인으로 사용: 각 시도가
- * 자기 중심에서 아래에서 위로 통통 튀어 오르며(스프링·스태거) 지도가 조립되듯 등장한다.
+ * 카툰 대한민국 지도 — 세계지도(지구본·바다) 없이 한반도만.
+ *
+ * 미사용 기술 **react-spring(@react-spring/three)** 을 메인으로: 17개 광역시도가 자기 중심에서
+ * 아래→위로 통통 튀어 오르며(스프링·스태거) 지도가 조립되듯 등장한다.
+ *
+ * 구글어스식 LOD(카메라 거리별 상세화):
+ *   멀리 = 시도(컬러)  →  줌인 = 시군구(행정구) 경계 페이드인  →  더 줌인 = 읍면동(행정동) 경계.
+ * 기업을 클릭하면(Scene) 카메라가 본사 도시까지 깊게 날아들어가 어느 구/동에 있는지 보인다.
  * 좌표는 latLonToVec3(반경 GLOBE_RADIUS)로 — 기업 본사 핀과 같은 좌표계라 정합.
  */
 
@@ -29,13 +35,15 @@ interface GeoFeature {
 }
 interface GeoJson { features: GeoFeature[] }
 
+const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x);
+
 function polysOf(geom: { type: string; coordinates: unknown }): Pt[][][] {
   if (geom.type === "Polygon") return [geom.coordinates as Pt[][]];
   if (geom.type === "MultiPolygon") return geom.coordinates as Pt[][][];
   return [];
 }
 
-/** 가장 큰 외곽 링의 평균으로 시도 중심 추정. */
+/** 가장 큰 외곽 링의 평균으로 중심(lon,lat) 추정. */
 function centroidLonLat(geom: { type: string; coordinates: unknown }): [number, number] {
   let best: Pt[] | null = null;
   for (const poly of polysOf(geom)) {
@@ -88,7 +96,7 @@ function buildFill(geom: { type: string; coordinates: unknown }, center: THREE.V
   return geo;
 }
 
-/** 시도 외곽·내경계 라인(중심 기준 상대좌표, 살짝 띄워 채움 위에). */
+/** 시도 외곽·내경계 라인(중심 기준 상대좌표). */
 function buildOutline(geom: { type: string; coordinates: unknown }, center: THREE.Vector3): THREE.BufferGeometry {
   const pos: number[] = [];
   const seg = (a: Pt, b: Pt) => {
@@ -102,6 +110,25 @@ function buildOutline(geom: { type: string; coordinates: unknown }, center: THRE
     }
   };
   for (const poly of polysOf(geom)) for (const ring of poly) for (let i = 1; i < ring.length; i++) seg(ring[i - 1], ring[i]);
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  return geo;
+}
+
+/** 여러 피처의 경계선을 하나의 절대좌표 라인 지오메트리로 병합(단일 draw call) — 시군구·읍면동 LOD용. */
+function buildMergedBorders(features: GeoFeature[], radius: number): THREE.BufferGeometry {
+  const pos: number[] = [];
+  const seg = (a: Pt, b: Pt) => {
+    const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 0.5));
+    let prev = latLonToVec3(a[1], a[0], radius);
+    for (let k = 1; k <= n; k++) {
+      const t = k / n;
+      const cur = latLonToVec3(a[1] + (b[1] - a[1]) * t, a[0] + (b[0] - a[0]) * t, radius);
+      pos.push(prev[0], prev[1], prev[2], cur[0], cur[1], cur[2]);
+      prev = cur;
+    }
+  };
+  for (const f of features) for (const poly of polysOf(f.geometry)) for (const ring of poly) for (let i = 1; i < ring.length; i++) seg(ring[i - 1], ring[i]);
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
   return geo;
@@ -139,22 +166,32 @@ function Province({ p, index }: { p: ProvinceData; index: number }) {
   );
 }
 
+interface LabelData { pos: [number, number, number]; nrm: [number, number, number]; name: string }
+
 export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
   const B = import.meta.env.BASE_URL;
-  const [data, setData] = useState<GeoJson | null>(null);
+  const [prov, setProv] = useState<GeoJson | null>(null);
+  const [muni, setMuni] = useState<GeoJson | null>(null);
+  const [submuni, setSubmuni] = useState<GeoJson | null>(null);
+  const submuniReq = useRef(false);
 
+  const muniMat = useRef<THREE.LineBasicMaterial>(null);
+  const submuniMat = useRef<THREE.LineBasicMaterial>(null);
+  const muniLabelGroup = useRef<THREE.Group>(null);
+  const cityGroup = useRef<THREE.Group>(null);
+
+  // 시도·시군구는 진입 시 로드. 읽면동(대용량)은 충분히 줌인할 때 지연 로드.
   useEffect(() => {
     let alive = true;
-    fetch(`${B}geo/kr-provinces.geojson`)
-      .then((r) => r.json() as Promise<GeoJson>)
-      .catch(() => ({ features: [] }) as GeoJson)
-      .then((g) => { if (alive) setData(g); });
+    const get = (f: string) => fetch(`${B}geo/${f}`).then((r) => r.json() as Promise<GeoJson>).catch(() => ({ features: [] }) as GeoJson);
+    get("kr-provinces.geojson").then((g) => { if (alive) setProv(g); });
+    get("kr-municipalities.geojson").then((g) => { if (alive) setMuni(g); });
     return () => { alive = false; };
   }, [B]);
 
   const provinces = useMemo<ProvinceData[]>(() => {
-    if (!data) return [];
-    return data.features.map((f, i) => {
+    if (!prov) return [];
+    return prov.features.map((f, i) => {
       const [lon, lat] = centroidLonLat(f.geometry);
       const cv = new THREE.Vector3(...latLonToVec3(lat, lon, R));
       const nrm = cv.clone().normalize();
@@ -166,7 +203,57 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
         color: PALETTE[i % PALETTE.length],
       };
     });
-  }, [data]);
+  }, [prov]);
+
+  const muniGeo = useMemo(() => (muni ? buildMergedBorders(muni.features, R * 1.0016) : null), [muni]);
+  const submuniGeo = useMemo(() => (submuni ? buildMergedBorders(submuni.features, R * 1.0019) : null), [submuni]);
+
+  const muniLabels = useMemo<LabelData[]>(() => {
+    if (!muni) return [];
+    return muni.features.map((f) => {
+      const [lon, lat] = centroidLonLat(f.geometry);
+      const v = latLonToVec3(lat, lon, R * 1.003);
+      const n = new THREE.Vector3(...v).normalize();
+      return { pos: v, nrm: [n.x, n.y, n.z], name: (f.properties.name_eng as string) || "" };
+    });
+  }, [muni]);
+
+  const _cdir = useMemo(() => new THREE.Vector3(), []);
+
+  useFrame(({ camera }) => {
+    const r = camera.position.length();
+    // LOD 페이드: 멀면 0, 가까우면 1.
+    const mO = clamp01((5.72 - r) / (5.72 - 5.46));   // 시군구(행정구)
+    const sO = clamp01((5.42 - r) / (5.42 - 5.22));   // 읍면동(행정동)
+    if (muniMat.current) muniMat.current.opacity = mO * 0.55;
+    if (submuniMat.current) submuniMat.current.opacity = sO * 0.42;
+
+    // 읽면동 지연 로드(가까워지면 한 번).
+    if (!submuniReq.current && r < 5.55) {
+      submuniReq.current = true;
+      fetch(`${B}geo/kr-submunicipalities.geojson`).then((res) => res.json()).then((g: GeoJson) => setSubmuni(g)).catch(() => {});
+    }
+
+    _cdir.copy(camera.position).normalize();
+    // 시군구 라벨: 줌인했고(LOD) 화면 중앙 근처(좁은 콘)인 것만 표시.
+    const g = muniLabelGroup.current;
+    if (g) {
+      const show = mO > 0.65;
+      const ch = g.children;
+      for (let i = 0; i < ch.length; i++) {
+        const child = ch[i];
+        child.quaternion.copy(camera.quaternion);
+        const n = muniLabels[i]?.nrm;
+        const dot = n ? n[0] * _cdir.x + n[1] * _cdir.y + n[2] * _cdir.z : -1;
+        const vis = show && dot > 0.99986; // 화면 중앙 ~1° 콘만 → 과밀 방지
+        child.visible = vis;
+        // 줌과 무관하게 화면상 일정 크기(구글어스 라벨처럼) — 거리에 비례 스케일.
+        if (vis) child.scale.setScalar(camera.position.distanceTo(child.position) * 1.5);
+      }
+    }
+    // 주요 도시 라벨: 개요(멀 때)만 — 줌인하면 시군구 라벨에 양보.
+    if (cityGroup.current) cityGroup.current.visible = mO < 0.35;
+  });
 
   if (!provinces.length) return null;
 
@@ -175,34 +262,71 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
       {provinces.map((p, i) => (
         <Province key={i} p={p} index={i} />
       ))}
-      {/* 주요 도시 참조 라벨(소형) */}
-      {focus.cities.map((c) => {
-        const v = latLonToVec3(c.lat, c.lon, R * 1.004);
-        return (
-          <group key={c.name} position={v}>
-            <mesh>
-              <sphereGeometry args={[0.006, 8, 8]} />
-              <meshBasicMaterial color="#1a2e22" toneMapped={false} />
-            </mesh>
-            <Billboard>
-              <Text
-                position={[0, 0.02, 0]}
-                font={FONT}
-                fontSize={0.019}
-                letterSpacing={-0.01}
-                color="#15321f"
-                fillOpacity={0.8}
-                anchorX="center"
-                anchorY="bottom"
-                outlineWidth={0.0014}
-                outlineColor="#eafff2"
-              >
-                {c.name}
-              </Text>
-            </Billboard>
-          </group>
-        );
-      })}
+
+      {/* 시군구(행정구) 경계 — 줌인 시 페이드인 */}
+      {muniGeo && (
+        <lineSegments geometry={muniGeo} renderOrder={2}>
+          <lineBasicMaterial ref={muniMat} color="#143226" transparent opacity={0} depthWrite={false} />
+        </lineSegments>
+      )}
+      {/* 읍면동(행정동) 경계 — 더 깊이 줌인 시 페이드인(지연 로드) */}
+      {submuniGeo && (
+        <lineSegments geometry={submuniGeo} renderOrder={2}>
+          <lineBasicMaterial ref={submuniMat} color="#1c3b2c" transparent opacity={0} depthWrite={false} />
+        </lineSegments>
+      )}
+
+      {/* 시군구 영문 라벨(근접·LOD 컬링) */}
+      <group ref={muniLabelGroup}>
+        {muniLabels.map((l, i) => (
+          <Text
+            key={i}
+            position={l.pos}
+            font={FONT}
+            fontSize={0.0075}
+            letterSpacing={-0.01}
+            color="#10301f"
+            anchorX="center"
+            anchorY="middle"
+            outlineWidth={0.0009}
+            outlineColor="#eafff2"
+            visible={false}
+          >
+            {l.name}
+          </Text>
+        ))}
+      </group>
+
+      {/* 주요 도시 참조 라벨(소형, 개요 전용) */}
+      <group ref={cityGroup}>
+        {focus.cities.map((c) => {
+          const v = latLonToVec3(c.lat, c.lon, R * 1.004);
+          return (
+            <group key={c.name} position={v}>
+              <mesh>
+                <sphereGeometry args={[0.006, 8, 8]} />
+                <meshBasicMaterial color="#1a2e22" toneMapped={false} />
+              </mesh>
+              <Billboard>
+                <Text
+                  position={[0, 0.02, 0]}
+                  font={FONT}
+                  fontSize={0.019}
+                  letterSpacing={-0.01}
+                  color="#15321f"
+                  fillOpacity={0.8}
+                  anchorX="center"
+                  anchorY="bottom"
+                  outlineWidth={0.0014}
+                  outlineColor="#eafff2"
+                >
+                  {c.name}
+                </Text>
+              </Billboard>
+            </group>
+          );
+        })}
+      </group>
     </group>
   );
 }
