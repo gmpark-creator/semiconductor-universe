@@ -13,6 +13,8 @@ interface Props {
 export function CompanyGraph({ area, selected, onSelect }: Props) {
   const floatPos = useMemo(() => computeCompanyPositions(area.companies, area.groupCenters), [area]);
   const geoPos = useMemo(() => computeCompanyGeoPositions(area.companies, area.hq), [area]);
+  // 한정 지도(전력=대한민국): 선택과 무관하게 모든 기업을 지도 위 본사 위치에 표기.
+  const geoDefault = !!area.mapFocus;
 
   const related = useMemo(() => {
     const set = new Set<string>();
@@ -41,8 +43,9 @@ export function CompanyGraph({ area, selected, onSelect }: Props) {
         const partnerId = e.from === selected ? e.to : e.from;
         const partner = area.companies.find((c) => c.id === partnerId)?.name ?? partnerId;
         const labelT = e.from === selected ? 0.24 : 0.76;
+        // 한정 지도에선 모든 본사 핀에 이미 기업명이 표기되므로 화살표 라벨은 생략(중복·과밀 방지).
         return (
-          <SupplyArrow key={e.id} start={from} end={to} color={area.edgeColors[e.relationship] ?? "#94a3b8"} label={partner} labelT={labelT} />
+          <SupplyArrow key={e.id} start={from} end={to} color={area.edgeColors[e.relationship] ?? "#94a3b8"} label={geoDefault ? undefined : partner} labelT={labelT} />
         );
       })}
 
@@ -55,9 +58,11 @@ export function CompanyGraph({ area, selected, onSelect }: Props) {
             badge={area.badges[c.id]}
             floatPos={floatPos[c.id]}
             geoPos={c.id === selected ? companyHqVec3(c.id, area.hq) ?? geoPos[c.id] : geoPos[c.id]}
+            alwaysGeo={geoDefault}
             pinned={selected != null && isRelated}
+            faded={geoDefault && selected != null && !isRelated}
             selected={selected === c.id}
-            visible={selected == null || isRelated}
+            visible={geoDefault || selected == null || isRelated}
             onSelect={onSelect}
           />
         );

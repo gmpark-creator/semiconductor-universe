@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
+import { Billboard, Text } from "@react-three/drei";
 import * as THREE from "three";
 import earcut from "earcut";
+import type { MapFocus } from "../data/types";
 import { GLOBE_RADIUS, latLonToVec3 } from "./companyLayout";
 import { MapLabels } from "./MapLabels";
+
+const LABEL_FONT = import.meta.env.BASE_URL + "fonts/inter-600.woff";
 
 /**
  * 벡터 지도 지구본 — 나라 폴리곤을 단색(카툰)으로 채우고 국경·행정경계·격자선을 라인으로 그린다.
@@ -57,11 +61,11 @@ function pushTri(pos: number[], col: number[], a: Pt, b: Pt, c: Pt, rgb: number[
   }
 }
 
-function buildLand(features: GeoFeature[]): THREE.BufferGeometry {
+function buildLand(features: GeoFeature[], fixedColor?: string): THREE.BufferGeometry {
   const pos: number[] = [];
   const col: number[] = [];
   features.forEach((f, fi) => {
-    const c = new THREE.Color(PALETTE[fi % PALETTE.length]);
+    const c = new THREE.Color(fixedColor ?? PALETTE[fi % PALETTE.length]);
     const rgb = [c.r, c.g, c.b];
     for (const poly of polysOf(f.geometry)) {
       if (poly.some(crossesAntimeridian)) continue; // 날짜변경선 가로지르는 폴리곤 스킵(아티팩트 방지)
@@ -129,7 +133,42 @@ const atmFrag = /* glsl */ `
   void main(){ float rim=pow(1.0-abs(dot(vN,vE)),2.6); gl_FragColor=vec4(uColor, clamp(rim,0.0,1.0)*uIntensity); }
 `;
 
-export function VectorGlobe() {
+/** 한정 지도(예: 대한민국)의 소형 참조 도시 라벨 — 작은 점 + 작은 글자. */
+function FocusCityLabels({ focus }: { focus: MapFocus }) {
+  return (
+    <group>
+      {focus.cities.map((c) => {
+        const p = latLonToVec3(c.lat, c.lon, R * 1.004);
+        return (
+          <group key={c.name} position={p}>
+            <mesh>
+              <sphereGeometry args={[0.012, 8, 8]} />
+              <meshBasicMaterial color="#bfe0ff" transparent opacity={0.5} toneMapped={false} />
+            </mesh>
+            <Billboard>
+              <Text
+                position={[0, 0.045, 0]}
+                font={LABEL_FONT}
+                fontSize={0.052}
+                letterSpacing={-0.01}
+                color="#9fc3e6"
+                fillOpacity={0.7}
+                anchorX="center"
+                anchorY="bottom"
+                outlineWidth={0.004}
+                outlineColor="#05070e"
+              >
+                {c.name}
+              </Text>
+            </Billboard>
+          </group>
+        );
+      })}
+    </group>
+  );
+}
+
+export function VectorGlobe({ focus }: { focus?: MapFocus }) {
   const B = import.meta.env.BASE_URL;
   const [data, setData] = useState<{ c: GeoJson; s: GeoJson; cities: GeoJson } | null>(null);
 
@@ -146,17 +185,73 @@ export function VectorGlobe() {
 
   const built = useMemo(() => {
     if (!data) return null;
+    if (focus) {
+      // 한정 모드: 대상 국가만 단색으로 채우고, 주변국은 옅은 외곽선만(맥락용).
+      const home = data.c.features.filter((f) => f.properties.ADM0_A3 === focus.iso3);
+      const others = data.c.features.filter((f) => f.properties.ADM0_A3 !== focus.iso3);
+      return {
+        focus: true as const,
+        land: buildLand(home, "#2f7d5a"),
+        homeBorder: buildBorders(home, R * 1.004),
+        neighborBorder: buildBorders(others, R * 1.002),
+        grat: buildGraticule(R * 1.0008),
+      };
+    }
     return {
+      focus: false as const,
       land: buildLand(data.c.features),
       borders: buildBorders(data.c.features, R * 1.002),
       states: buildBorders(data.s.features, R * 1.0014),
       grat: buildGraticule(R * 1.0008),
     };
-  }, [data]);
+  }, [data, focus]);
 
   const atmUniforms = useMemo(() => ({ uColor: { value: new THREE.Color("#5aa9ff") }, uIntensity: { value: 0.9 } }), []);
 
   if (!built) return null;
+
+  if (built.focus) {
+    return (
+      <group>
+        {/* 바다 */}
+        <mesh>
+          <sphereGeometry args={[R * 0.985, 96, 96]} />
+          <meshBasicMaterial color="#0a1f38" />
+        </mesh>
+        {/* 주변국 외곽선(옅게) */}
+        <lineSegments geometry={built.neighborBorder}>
+          <lineBasicMaterial color="#5f7da0" transparent opacity={0.18} depthWrite={false} />
+        </lineSegments>
+        {/* 위경도 격자(아주 옅게) */}
+        <lineSegments geometry={built.grat}>
+          <lineBasicMaterial color="#86b0d8" transparent opacity={0.08} depthWrite={false} />
+        </lineSegments>
+        {/* 대상 국가 육지(단색) */}
+        <mesh geometry={built.land}>
+          <meshBasicMaterial color="#2f7d5a" side={THREE.DoubleSide} />
+        </mesh>
+        {/* 대상 국가 국경(또렷하게) */}
+        <lineSegments geometry={built.homeBorder}>
+          <lineBasicMaterial color="#d8f0e2" transparent opacity={0.85} depthWrite={false} />
+        </lineSegments>
+        {/* 대기광 */}
+        <mesh scale={1.16}>
+          <sphereGeometry args={[R, 64, 64]} />
+          <shaderMaterial
+            vertexShader={atmVert}
+            fragmentShader={atmFrag}
+            uniforms={atmUniforms}
+            side={THREE.BackSide}
+            blending={THREE.AdditiveBlending}
+            transparent
+            depthWrite={false}
+          />
+        </mesh>
+        {focus && <FocusCityLabels focus={focus} />}
+      </group>
+    );
+  }
+
   return (
     <group>
       {/* 바다 */}

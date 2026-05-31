@@ -26,6 +26,8 @@ export interface Category {
 
 export interface CompanyStat { label: string; value: string }
 export interface Share { field: string; pct: string }
+/** 주주 현황 — 주주명 + 지분율. */
+export interface Shareholder { name: string; pct: string }
 
 /** 공급망 노드 — 기업/기관. */
 export interface Company {
@@ -40,6 +42,12 @@ export interface Company {
   metric?: string; // 엠블럼 라벨 접미(예: "≈$5.1T", "≈24GW")
   stats: CompanyStat[]; // InfoPanel 상단 통계 셀(0~2)
   shares: Share[]; // 점유/비중
+
+  // ── 상세 지표(선택) — InfoPanel 우측 패널 확장용 ──
+  listing?: string; // 상장 시장·종목코드 (예: "KOSPI 015760") · 비상장이면 "비상장"
+  marketCap?: string; // 시가총액 근사 (상장사) — 예: "≈14.2조 원"
+  shareholders?: Shareholder[]; // 주요 주주 및 지분율
+  financials?: CompanyStat[]; // 세부 재무·운영 지표(매출·영업이익·부채비율·배당 등)
 }
 
 export interface SupplyEdge {
@@ -53,6 +61,15 @@ export interface SupplyEdge {
 /** 엠블럼 배지 — 로고 path(있으면) 또는 워드마크 텍스트 + 브랜드색. */
 export interface CompanyBadge { brand: string; wordmark?: string; logoPath?: string }
 export interface HqCoord { lat: number; lon: number }
+
+/** 공급망 지도를 특정 국가로 한정·확대할 때의 설정(예: 전력=대한민국).
+ *  없으면 전 지구본(반도체=글로벌). */
+export interface MapFocus {
+  iso3: string; // 강조할 국가 ADM0_A3 (예: "KOR")
+  center: [number, number]; // 기본 카메라가 바라볼 중심 [lat, lon]
+  spanDeg: number; // 대략적인 위경도 폭 — 카메라 거리·라벨 스케일 산정용
+  cities: { name: string; lat: number; lon: number }[]; // 소형 참조 도시 라벨
+}
 
 /** 하나의 지식 영역(반도체 유니버스 / 전력 유니버스 / …). */
 export interface AtlasArea {
@@ -84,6 +101,7 @@ export interface AtlasArea {
   relationshipLegend: { color: string; label: string }[];
   badges: Record<string, CompanyBadge>;
   hq: Record<string, HqCoord>;
+  mapFocus?: MapFocus; // 지정 시 공급망 지도를 해당 국가로 한정·확대(전력=KOR). 없으면 전 지구본.
   nodeSizeNote: string; // 범례(예: "크기 ∝ √시가총액")
   supplyListTitle: string; // 좌측 목록 제목(예: "기업")
 

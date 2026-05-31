@@ -80,13 +80,18 @@ interface Props {
   badge: CompanyBadge;
   floatPos: [number, number, number];
   geoPos?: [number, number, number];
+  /** 한정 지도(예: 대한민국): 선택 여부와 무관하게 항상 지도 위 본사 위치에 핀. */
+  alwaysGeo: boolean;
+  /** (전 지구본) 선택 시 관련 기업을 지도에 핀. */
   pinned: boolean;
+  /** 다른 기업이 선택되어 이 기업이 비관련 → 흐리게. */
+  faded: boolean;
   selected: boolean;
   visible: boolean;
   onSelect: (id: string) => void;
 }
 
-export function CompanyEmblem({ company, badge, floatPos, geoPos, pinned, selected, visible, onSelect }: Props) {
+export function CompanyEmblem({ company, badge, floatPos, geoPos, alwaysGeo, pinned, faded, selected, visible, onSelect }: Props) {
   const [hovered, setHovered] = useState(false);
   const groupRef = useRef<THREE.Group>(null);
   const innerRef = useRef<THREE.Group>(null);
@@ -98,27 +103,31 @@ export function CompanyEmblem({ company, badge, floatPos, geoPos, pinned, select
   useEffect(() => () => emblemTex.dispose(), [emblemTex]);
 
   const baseSize = sizeFor(company.weight);
+  // 지도 위 핀 모드: 항상-지오(한정지도) 또는 선택연계 핀.
+  const onMap = (alwaysGeo || pinned) && !!geoPos;
   const target = useMemo<[number, number, number]>(
-    () => (pinned && geoPos ? geoPos : floatPos),
-    [pinned, geoPos, floatPos],
+    () => (onMap && geoPos ? geoPos : floatPos),
+    [onMap, geoPos, floatPos],
   );
-  const labelY = pinned ? 0.26 : baseSize * 0.62 + 0.45;
+  const labelY = onMap ? 0.22 : baseSize * 0.62 + 0.45;
 
   useFrame(() => {
     const g = groupRef.current;
     if (g) g.position.lerp(new THREE.Vector3(target[0], target[1], target[2]), 0.08);
     if (innerRef.current && g) {
-      const s = pinned
-        ? (selected ? 0.055 : 0.04) * camera.position.distanceTo(g.position) * (active ? 1.15 : 1)
+      const s = onMap
+        ? (selected ? 0.05 : 0.033) * camera.position.distanceTo(g.position) * (active ? 1.18 : 1)
         : baseSize * (active ? 1.18 : 1);
       innerRef.current.scale.lerp(new THREE.Vector3(s, s, s), 0.2);
     }
     if (matRef.current) {
-      const o = visible ? (active ? 1 : 0.92) : 0;
+      const o = !visible ? 0 : faded && !hovered ? 0.16 : active ? 1 : 0.9;
       matRef.current.opacity += (o - matRef.current.opacity) * 0.14;
       matRef.current.visible = matRef.current.opacity > 0.02;
     }
   });
+
+  const showLabel = visible && (!faded || hovered);
 
   return (
     <group ref={groupRef} position={floatPos}>
@@ -143,29 +152,30 @@ export function CompanyEmblem({ company, badge, floatPos, geoPos, pinned, select
         >
           <mesh renderOrder={2}>
             <planeGeometry args={[1, 1]} />
-            <meshBasicMaterial ref={matRef} map={emblemTex} transparent opacity={0.92} depthWrite={false} />
+            <meshBasicMaterial ref={matRef} map={emblemTex} transparent opacity={0.9} depthWrite={false} />
           </mesh>
         </group>
       </Billboard>
 
-      {visible && (
-        <Html center position={[0, labelY, 0]} distanceFactor={pinned ? undefined : 13} zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
+      {showLabel && (
+        <Html center position={[0, labelY, 0]} distanceFactor={onMap ? undefined : 13} zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
           <div
             style={{
-              color: "#e2e8f0",
-              fontWeight: 600,
-              fontSize: pinned ? 11 : active ? 14 : 12,
+              color: selected ? "#ffffff" : "#dbe5f2",
+              fontWeight: selected ? 700 : 600,
+              fontSize: onMap ? (active ? 10 : 9) : active ? 12 : 10.5,
               whiteSpace: "nowrap",
-              textShadow: "0 1px 6px rgba(0,0,0,0.9)",
-              opacity: active ? 1 : 0.85,
+              textShadow: "0 1px 5px rgba(0,0,0,0.92)",
+              opacity: active ? 1 : 0.82,
               pointerEvents: "none",
-              transition: "all .2s ease",
+              transition: "all .18s ease",
               fontFamily: "Inter, 'Noto Sans KR', system-ui, sans-serif",
+              letterSpacing: "-0.01em",
             }}
           >
             {company.name}
             {company.metric && (
-              <span style={{ opacity: 0.55, fontWeight: 400, marginLeft: 6 }}>{company.metric}</span>
+              <span style={{ opacity: 0.5, fontWeight: 400, marginLeft: 5 }}>{company.metric}</span>
             )}
           </div>
         </Html>

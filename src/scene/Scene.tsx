@@ -6,7 +6,7 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { AtlasArea, Category } from "../data/types";
 import { CategoryNode } from "./CategoryNode";
 import { CompanyGraph } from "./CompanyGraph";
-import { computeCompanyGeoPositions, companyHqVec3 } from "./companyLayout";
+import { computeCompanyGeoPositions, companyHqVec3, latLonToVec3, PIN_RADIUS } from "./companyLayout";
 import { VectorGlobe } from "./VectorGlobe";
 import { TaxonomyBackdrop } from "./TaxonomyBackdrop";
 
@@ -50,12 +50,30 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
   const focusRef = useRef<{ target: THREE.Vector3; cam: THREE.Vector3 } | null>(null);
   const settlingRef = useRef(false);
 
+  // 한정 지도(예: 대한민국)일 때, 대상 국가가 화면을 채우도록 카메라 거리를 산정.
+  const focusFraming = useMemo(() => {
+    const f = area.mapFocus;
+    if (!f) return null;
+    const sp = new THREE.Vector3(...latLonToVec3(f.center[0], f.center[1], PIN_RADIUS));
+    const normal = sp.clone().normalize();
+    const fov = (camera instanceof THREE.PerspectiveCamera ? camera.fov : 50) * (Math.PI / 180);
+    const arc = PIN_RADIUS * f.spanDeg * (Math.PI / 180);
+    const camHeight = Math.max(0.6, arc / 0.55 / (2 * Math.tan(fov / 2)));
+    const cam = sp.clone().addScaledVector(normal, camHeight);
+    return { target: sp, cam, normal, camHeight };
+  }, [area, camera]);
+
+  // 선택 시 본사로 다가갈 거리 — 한정 지도는 가깝게(도시 단위), 전 지구본은 기존값.
+  const selectZoom = area.mapFocus ? 1.5 : 2.2;
+  const supplyMaxDist = area.mapFocus ? 5 : 90;
+
   const defaultView = useMemo(() => {
     if (mode === "supply") {
+      if (focusFraming) return { target: focusFraming.target.clone(), cam: focusFraming.cam.clone() };
       return { target: new THREE.Vector3(0, 0, 0), cam: new THREE.Vector3(0, 4, 30) };
     }
     return { target: new THREE.Vector3(0, 0, 0), cam: new THREE.Vector3(0, 0, 30) };
-  }, [mode]);
+  }, [mode, focusFraming]);
 
   useEffect(() => {
     if (!selectedId) {
@@ -69,7 +87,7 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
       if (p) {
         const tp = new THREE.Vector3(...p);
         const normal = tp.clone().normalize();
-        const cam = tp.clone().addScaledVector(normal, 2.2).add(new THREE.Vector3(0, 0.3, 0));
+        const cam = tp.clone().addScaledVector(normal, selectZoom).add(new THREE.Vector3(0, 0.3, 0));
         focusRef.current = { target: tp, cam };
         settlingRef.current = true;
       }
@@ -81,7 +99,7 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
         settlingRef.current = true;
       }
     }
-  }, [selectedId, mode, catPos, geoPos, defaultView, area]);
+  }, [selectedId, mode, catPos, geoPos, defaultView, area, selectZoom]);
 
   useEffect(() => {
     focusRef.current = { target: defaultView.target.clone(), cam: defaultView.cam.clone() };
@@ -122,8 +140,8 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
         <Lightformer intensity={0.8} position={[0, -6, 2]} scale={[12, 4, 1]} color="#8090c0" />
       </Environment>
 
-      {/* 배경: 공급망=지구 / 분류=카툰 배경 */}
-      {mode === "supply" ? <VectorGlobe /> : <TaxonomyBackdrop backdrop={area.backdrop} />}
+      {/* 배경: 공급망=지구(전력=대한민국 한정) / 분류=카툰 배경 */}
+      {mode === "supply" ? <VectorGlobe focus={area.mapFocus} /> : <TaxonomyBackdrop backdrop={area.backdrop} />}
 
       {mode === "taxonomy" ? (
         area.categories.map((c) => (
@@ -152,7 +170,7 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
         enableZoom
         zoomSpeed={1.15}
         minDistance={0.02}
-        maxDistance={90}
+        maxDistance={mode === "supply" ? supplyMaxDist : 90}
         mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.ROTATE }}
         onStart={() => {
           settlingRef.current = false;

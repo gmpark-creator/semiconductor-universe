@@ -20,14 +20,20 @@ interface Props {
  * 큰 포물선 대신 지구 표면을 따라 흐르는 항로 같은 선으로 그려 방향이 또렷하고 세련되게.
  */
 export function SupplyArrow({ start, end, color, label, labelT = 0.22 }: Props) {
-  const { tubeGeo, headPos, headQuat, curve } = useMemo(() => {
+  const { tubeGeo, headPos, headQuat, headRad, headLen, curve, fontSize } = useMemo(() => {
     const a = new THREE.Vector3(...start);
     const b = new THREE.Vector3(...end);
     const na = a.clone().normalize();
     const nb = b.clone().normalize();
     let ang = na.angleTo(nb);
     if (!Number.isFinite(ang)) ang = 0;
-    const lift = Math.min(0.95, 0.06 + ang * 0.26); // 호 최고 높이(작게 → 지표 밀착)
+    const arcLen = ang * PIN_RADIUS; // 대권 호의 실제 표면 길이 — 모든 크기를 여기에 비례시킨다.
+    // 짧은 호(한국 내 도시 간)는 화살촉·선·라벨이 작게, 긴 호(대륙 간)는 적당히 크게.
+    const headLen = THREE.MathUtils.clamp(arcLen * 0.2, 0.028, 0.3);
+    const headRad = headLen * 0.42;
+    const tubeRad = THREE.MathUtils.clamp(arcLen * 0.02, 0.006, 0.045);
+    const fontSize = THREE.MathUtils.clamp(arcLen * 0.16, 0.04, 0.1);
+    const lift = Math.min(0.9, 0.035 + arcLen * 0.16); // 호 최고 높이(짧으면 지표 밀착)
     const N = 56;
     const pts: THREE.Vector3[] = [];
     for (let i = 0; i <= N; i++) {
@@ -43,11 +49,13 @@ export function SupplyArrow({ start, end, color, label, labelT = 0.22 }: Props) 
       pts.push(dir.multiplyScalar(PIN_RADIUS + lift * Math.sin(t * Math.PI)));
     }
     const curve = new THREE.CatmullRomCurve3(pts);
-    const tube = new THREE.TubeGeometry(curve, 64, 0.013, 8, false);
-    const hp = curve.getPoint(0.985);
-    const tan = curve.getTangent(0.985).normalize();
+    const tube = new THREE.TubeGeometry(curve, 64, tubeRad, 8, false);
+    // 화살촉 '끝'이 도착지 핀에 닿도록 머리 중심을 머리 길이의 절반만큼 안쪽에 둔다.
+    const headT = THREE.MathUtils.clamp(1 - headLen / (2 * Math.max(arcLen, 1e-3)), 0.5, 0.99);
+    const hp = curve.getPoint(headT);
+    const tan = curve.getTangent(headT).normalize();
     const hq = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan);
-    return { tubeGeo: tube, headPos: hp, headQuat: hq, curve };
+    return { tubeGeo: tube, headPos: hp, headQuat: hq, headRad, headLen, curve, fontSize };
   }, [start, end]);
 
   const labelPos = label ? curve.getPoint(labelT) : null;
@@ -57,9 +65,9 @@ export function SupplyArrow({ start, end, color, label, labelT = 0.22 }: Props) 
       <mesh geometry={tubeGeo} renderOrder={1}>
         <meshBasicMaterial color={color} transparent opacity={0.62} depthWrite={false} toneMapped={false} />
       </mesh>
-      {/* 도착지 화살촉 — 방향 표시 */}
+      {/* 도착지 화살촉 — 방향 표시(호 길이에 비례) */}
       <mesh position={headPos} quaternion={headQuat} renderOrder={2}>
-        <coneGeometry args={[0.05, 0.15, 18]} />
+        <coneGeometry args={[headRad, headLen, 18]} />
         <meshBasicMaterial color={color} transparent opacity={0.95} depthWrite={false} toneMapped={false} />
       </mesh>
       {/* 연계 기업명 라벨 (어느 기업과의 관계인지) */}
@@ -67,11 +75,11 @@ export function SupplyArrow({ start, end, color, label, labelT = 0.22 }: Props) 
         <Billboard position={labelPos}>
           <Text
             font={FONT}
-            fontSize={0.072}
+            fontSize={fontSize}
             color={color}
             anchorX="center"
             anchorY="middle"
-            outlineWidth={0.012}
+            outlineWidth={fontSize * 0.16}
             outlineColor="#04060c"
           >
             {label}

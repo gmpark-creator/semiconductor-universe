@@ -26,6 +26,8 @@ export function InfoPanel({ area, mode, selectedId, onClose }: Props) {
   const serves = company ? area.edges.filter((e) => e.from === company.id) : [];
   const suppliedBy = company ? area.edges.filter((e) => e.to === company.id) : [];
   const shares = company ? company.shares : [];
+  const shareholders = company?.shareholders ?? [];
+  const financials = company?.financials ?? [];
   const nameOf = (id: string) => area.companies.find((c) => c.id === id)?.name ?? id;
   const groupColor = company ? area.groupColors[company.group] ?? "#94a3b8" : "#94a3b8";
 
@@ -103,6 +105,38 @@ export function InfoPanel({ area, mode, selectedId, onClose }: Props) {
                   {company.stats.map((s) => <Stat key={s.label} label={s.label} value={s.value} />)}
                 </div>
               )}
+              {(company.listing || company.marketCap) && (
+                <Section title="상장 · 시가총액">
+                  <div className="space-y-2">
+                    {company.listing && <KV label="상장" value={company.listing} color={groupColor} />}
+                    {company.marketCap && <KV label="시가총액" value={company.marketCap} color={groupColor} strong />}
+                  </div>
+                </Section>
+              )}
+              {shareholders.length > 0 && (
+                <Section title="주요 주주 · 지분율">
+                  <ul className="space-y-2">
+                    {shareholders.map((s, i) => (
+                      <li key={`${s.name}-${i}`} className="flex items-start justify-between gap-3 text-sm">
+                        <span className="text-slate-300">{s.name}</span>
+                        {s.pct && <span className="font-semibold whitespace-nowrap" style={{ color: groupColor }}>{s.pct}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </Section>
+              )}
+              {financials.length > 0 && (
+                <Section title="세부 지표 (2024~2025 근사)">
+                  <ul className="space-y-2.5">
+                    {financials.map((f) => (
+                      <li key={f.label}>
+                        <div className="text-[11px] text-slate-400">{f.label}</div>
+                        <div className="text-sm text-slate-100" style={{ lineHeight: 1.35 }}>{f.value}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </Section>
+              )}
               <Section title="개요"><p className="text-slate-300 text-sm leading-relaxed">{company.detail}</p></Section>
               {shares.length > 0 && (
                 <Section title={area.sharesTitle}>
@@ -158,6 +192,15 @@ function Stat({ label, value }: { label: string; value: string }) {
     <div className="glass rounded-lg px-3 py-2">
       <div className="text-[11px] text-slate-400">{label}</div>
       <div className="text-sm font-semibold text-white" style={{ lineHeight: 1.3 }}>{value}</div>
+    </div>
+  );
+}
+
+function KV({ label, value, color, strong = false }: { label: string; value: string; color: string; strong?: boolean }) {
+  return (
+    <div className="flex items-start justify-between gap-3 text-sm">
+      <span className="text-slate-400 whitespace-nowrap">{label}</span>
+      <span className="text-right" style={{ color: strong ? color : "#e2e8f0", fontWeight: strong ? 700 : 500, lineHeight: 1.35 }}>{value}</span>
     </div>
   );
 }
