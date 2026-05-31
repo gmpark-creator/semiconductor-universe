@@ -11,10 +11,13 @@ interface Props {
 }
 
 export function CompanyGraph({ area, selected, onSelect }: Props) {
-  const floatPos = useMemo(() => computeCompanyPositions(area.companies, area.groupCenters), [area]);
-  const geoPos = useMemo(() => computeCompanyGeoPositions(area.companies, area.hq), [area]);
   // 한정 지도(전력=대한민국): 선택과 무관하게 모든 기업을 지도 위 본사 위치에 표기.
   const geoDefault = !!area.mapFocus;
+  const floatPos = useMemo(() => computeCompanyPositions(area.companies, area.groupCenters), [area]);
+  const geoPos = useMemo(
+    () => computeCompanyGeoPositions(area.companies, area.hq, geoDefault ? 0.3 : 1),
+    [area, geoDefault],
+  );
 
   const related = useMemo(() => {
     const set = new Set<string>();

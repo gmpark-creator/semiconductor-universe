@@ -45,7 +45,10 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
   const { camera } = useThree();
 
   const catPos = useMemo(() => computeCategoryGrid(area), [area]);
-  const geoPos = useMemo(() => computeCompanyGeoPositions(area.companies, area.hq), [area]);
+  const geoPos = useMemo(
+    () => computeCompanyGeoPositions(area.companies, area.hq, area.mapFocus ? 0.3 : 1),
+    [area],
+  );
 
   const focusRef = useRef<{ target: THREE.Vector3; cam: THREE.Vector3 } | null>(null);
   const settlingRef = useRef(false);
@@ -58,14 +61,15 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
     const normal = sp.clone().normalize();
     const fov = (camera instanceof THREE.PerspectiveCamera ? camera.fov : 50) * (Math.PI / 180);
     const arc = PIN_RADIUS * f.spanDeg * (Math.PI / 180);
-    const camHeight = Math.max(0.6, arc / 0.55 / (2 * Math.tan(fov / 2)));
+    // 대상국이 화면 높이의 ≈82%를 채우도록(크게) 카메라 거리 산정.
+    const camHeight = Math.max(0.45, arc / 0.82 / (2 * Math.tan(fov / 2)));
     const cam = sp.clone().addScaledVector(normal, camHeight);
     return { target: sp, cam, normal, camHeight };
   }, [area, camera]);
 
   // 선택 시 본사로 다가갈 거리 — 한정 지도는 가깝게(도시 단위), 전 지구본은 기존값.
-  const selectZoom = area.mapFocus ? 1.5 : 2.2;
-  const supplyMaxDist = area.mapFocus ? 5 : 90;
+  const selectZoom = area.mapFocus ? 1.2 : 2.2;
+  const supplyMaxDist = area.mapFocus ? 3.5 : 90;
 
   const defaultView = useMemo(() => {
     if (mode === "supply") {

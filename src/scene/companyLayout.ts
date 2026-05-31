@@ -55,7 +55,11 @@ export function latLonToVec3(lat: number, lon: number, radius: number): [number,
 export function computeCompanyGeoPositions(
   companies: Company[],
   hqMap: Record<string, HqCoord>,
+  spreadScale = 1,
 ): Record<string, [number, number, number]> {
+  // 같은 도시(반올림 좌표)에 본사가 몰린 회사들을 도시 중심 주위 작은 링으로 분산.
+  // spreadScale: 전 지구본은 1(넓게), 국가 한정 지도(예: 대한민국)는 작게(<1) 줘
+  // 확대해도 핀이 그 도시·국토 밖으로 튀지 않게 한다.
   const groups: Record<string, string[]> = {};
   for (const c of companies) {
     const hq = hqMap[c.id];
@@ -72,10 +76,11 @@ export function computeCompanyGeoPositions(
       if (n === 1) {
         pos[id] = latLonToVec3(hq.lat, hq.lon, PIN_RADIUS);
       } else {
-        const ringDeg = 0.8 + n * 0.3;
+        const ringDeg = (0.8 + n * 0.3) * spreadScale;
         const ang = (i / n) * Math.PI * 2;
         const dLat = Math.sin(ang) * ringDeg;
-        const dLon = (Math.cos(ang) * ringDeg) / Math.max(0.3, Math.cos((hq.lat * Math.PI) / 180));
+        // 경도(동·서) 분산은 줄여 한반도처럼 남북으로 긴 국토에서 핀이 바다로 덜 튀게.
+        const dLon = (Math.cos(ang) * ringDeg * 0.6) / Math.max(0.3, Math.cos((hq.lat * Math.PI) / 180));
         pos[id] = latLonToVec3(hq.lat + dLat, hq.lon + dLon, PIN_RADIUS);
       }
     });

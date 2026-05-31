@@ -142,20 +142,20 @@ function FocusCityLabels({ focus }: { focus: MapFocus }) {
         return (
           <group key={c.name} position={p}>
             <mesh>
-              <sphereGeometry args={[0.012, 8, 8]} />
-              <meshBasicMaterial color="#bfe0ff" transparent opacity={0.5} toneMapped={false} />
+              <sphereGeometry args={[0.006, 8, 8]} />
+              <meshBasicMaterial color="#bfe0ff" transparent opacity={0.45} toneMapped={false} />
             </mesh>
             <Billboard>
               <Text
-                position={[0, 0.045, 0]}
+                position={[0, 0.02, 0]}
                 font={LABEL_FONT}
-                fontSize={0.052}
+                fontSize={0.019}
                 letterSpacing={-0.01}
                 color="#9fc3e6"
-                fillOpacity={0.7}
+                fillOpacity={0.65}
                 anchorX="center"
                 anchorY="bottom"
-                outlineWidth={0.004}
+                outlineWidth={0.0016}
                 outlineColor="#05070e"
               >
                 {c.name}
@@ -186,15 +186,12 @@ export function VectorGlobe({ focus }: { focus?: MapFocus }) {
   const built = useMemo(() => {
     if (!data) return null;
     if (focus) {
-      // 한정 모드: 대상 국가만 단색으로 채우고, 주변국은 옅은 외곽선만(맥락용).
+      // 한정 모드: 세계지도(지구본·바다·주변국)는 그리지 않고 대상 국가만 단색 지도로.
       const home = data.c.features.filter((f) => f.properties.ADM0_A3 === focus.iso3);
-      const others = data.c.features.filter((f) => f.properties.ADM0_A3 !== focus.iso3);
       return {
         focus: true as const,
         land: buildLand(home, "#2f7d5a"),
         homeBorder: buildBorders(home, R * 1.004),
-        neighborBorder: buildBorders(others, R * 1.002),
-        grat: buildGraticule(R * 1.0008),
       };
     }
     return {
@@ -211,42 +208,15 @@ export function VectorGlobe({ focus }: { focus?: MapFocus }) {
   if (!built) return null;
 
   if (built.focus) {
+    // 세계지도 없이 대상 국가(대한민국) 단색 지도 + 국경 + 소형 도시 라벨만.
     return (
       <group>
-        {/* 바다 */}
-        <mesh>
-          <sphereGeometry args={[R * 0.985, 96, 96]} />
-          <meshBasicMaterial color="#0a1f38" />
-        </mesh>
-        {/* 주변국 외곽선(옅게) */}
-        <lineSegments geometry={built.neighborBorder}>
-          <lineBasicMaterial color="#5f7da0" transparent opacity={0.18} depthWrite={false} />
-        </lineSegments>
-        {/* 위경도 격자(아주 옅게) */}
-        <lineSegments geometry={built.grat}>
-          <lineBasicMaterial color="#86b0d8" transparent opacity={0.08} depthWrite={false} />
-        </lineSegments>
-        {/* 대상 국가 육지(단색) */}
         <mesh geometry={built.land}>
           <meshBasicMaterial color="#2f7d5a" side={THREE.DoubleSide} />
         </mesh>
-        {/* 대상 국가 국경(또렷하게) */}
         <lineSegments geometry={built.homeBorder}>
-          <lineBasicMaterial color="#d8f0e2" transparent opacity={0.85} depthWrite={false} />
+          <lineBasicMaterial color="#d8f0e2" transparent opacity={0.9} depthWrite={false} />
         </lineSegments>
-        {/* 대기광 */}
-        <mesh scale={1.16}>
-          <sphereGeometry args={[R, 64, 64]} />
-          <shaderMaterial
-            vertexShader={atmVert}
-            fragmentShader={atmFrag}
-            uniforms={atmUniforms}
-            side={THREE.BackSide}
-            blending={THREE.AdditiveBlending}
-            transparent
-            depthWrite={false}
-          />
-        </mesh>
         {focus && <FocusCityLabels focus={focus} />}
       </group>
     );

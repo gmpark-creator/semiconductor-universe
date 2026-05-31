@@ -28,12 +28,12 @@ export function SupplyArrow({ start, end, color, label, labelT = 0.22 }: Props) 
     let ang = na.angleTo(nb);
     if (!Number.isFinite(ang)) ang = 0;
     const arcLen = ang * PIN_RADIUS; // 대권 호의 실제 표면 길이 — 모든 크기를 여기에 비례시킨다.
-    // 짧은 호(한국 내 도시 간)는 화살촉·선·라벨이 작게, 긴 호(대륙 간)는 적당히 크게.
-    const headLen = THREE.MathUtils.clamp(arcLen * 0.2, 0.028, 0.3);
-    const headRad = headLen * 0.42;
-    const tubeRad = THREE.MathUtils.clamp(arcLen * 0.02, 0.006, 0.045);
-    const fontSize = THREE.MathUtils.clamp(arcLen * 0.16, 0.04, 0.1);
-    const lift = Math.min(0.9, 0.035 + arcLen * 0.16); // 호 최고 높이(짧으면 지표 밀착)
+    // 짧은 호(한국 내 도시 간)는 화살촉·선·라벨을 작게, 긴 호(대륙 간)는 적당히.
+    const headLen = THREE.MathUtils.clamp(arcLen * 0.13, 0.014, 0.17);
+    const headRad = headLen * 0.4;
+    const tubeRad = THREE.MathUtils.clamp(arcLen * 0.012, 0.0035, 0.026);
+    const fontSize = THREE.MathUtils.clamp(arcLen * 0.12, 0.028, 0.075);
+    const lift = Math.min(0.7, 0.022 + arcLen * 0.12); // 호 최고 높이(짧으면 지표 밀착)
     const N = 56;
     const pts: THREE.Vector3[] = [];
     for (let i = 0; i <= N; i++) {

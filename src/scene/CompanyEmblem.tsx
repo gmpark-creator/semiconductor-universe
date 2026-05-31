@@ -109,14 +109,14 @@ export function CompanyEmblem({ company, badge, floatPos, geoPos, alwaysGeo, pin
     () => (onMap && geoPos ? geoPos : floatPos),
     [onMap, geoPos, floatPos],
   );
-  const labelY = onMap ? 0.22 : baseSize * 0.62 + 0.45;
+  const labelY = onMap ? 0.05 : baseSize * 0.62 + 0.45;
 
   useFrame(() => {
     const g = groupRef.current;
     if (g) g.position.lerp(new THREE.Vector3(target[0], target[1], target[2]), 0.08);
     if (innerRef.current && g) {
       const s = onMap
-        ? (selected ? 0.05 : 0.033) * camera.position.distanceTo(g.position) * (active ? 1.18 : 1)
+        ? (selected ? 0.04 : 0.026) * camera.position.distanceTo(g.position) * (active ? 1.2 : 1)
         : baseSize * (active ? 1.18 : 1);
       innerRef.current.scale.lerp(new THREE.Vector3(s, s, s), 0.2);
     }
@@ -127,7 +127,8 @@ export function CompanyEmblem({ company, badge, floatPos, geoPos, alwaysGeo, pin
     }
   });
 
-  const showLabel = visible && (!faded || hovered);
+  // 지도 모드: 배지 안에 이미 기업 워드마크가 있으므로 이름 라벨은 hover/선택 시에만(과밀·큰글자 방지).
+  const showLabel = onMap ? visible && active : visible && (!faded || hovered);
 
   return (
     <group ref={groupRef} position={floatPos}>
