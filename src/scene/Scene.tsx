@@ -178,8 +178,8 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
         screenSpacePanning
         panSpeed={0.9}
         enableZoom
-        zoomSpeed={1.15}
-        minDistance={0.02}
+        zoomSpeed={1.5}
+        minDistance={0.004}
         maxDistance={mode === "supply" ? supplyMaxDist : 90}
         mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.ROTATE }}
         onStart={() => {

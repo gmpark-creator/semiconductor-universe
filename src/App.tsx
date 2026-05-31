@@ -42,7 +42,7 @@ export default function App() {
   return (
     <div className="relative w-full h-full overflow-hidden">
       <Canvas
-        camera={{ position: [6, 8, 36], fov: 50 }}
+        camera={{ position: [6, 8, 36], fov: 50, near: 0.01, far: 1000 }}
         dpr={[1, 2]}
         gl={{ antialias: true, powerPreference: "high-performance" }}
         onPointerMissed={() => setSelected(null)}

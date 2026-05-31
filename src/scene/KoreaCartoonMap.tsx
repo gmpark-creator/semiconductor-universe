@@ -172,15 +172,12 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
   const B = import.meta.env.BASE_URL;
   const [prov, setProv] = useState<GeoJson | null>(null);
   const [muni, setMuni] = useState<GeoJson | null>(null);
-  const [submuni, setSubmuni] = useState<GeoJson | null>(null);
-  const submuniReq = useRef(false);
 
   const muniMat = useRef<THREE.LineBasicMaterial>(null);
-  const submuniMat = useRef<THREE.LineBasicMaterial>(null);
   const muniLabelGroup = useRef<THREE.Group>(null);
   const cityGroup = useRef<THREE.Group>(null);
 
-  // 시도·시군구는 진입 시 로드. 읽면동(대용량)은 충분히 줌인할 때 지연 로드.
+  // 시도·시군구(행정구)만 로드. 읍면동(행정동)은 표시하지 않음(구 단위까지).
   useEffect(() => {
     let alive = true;
     const get = (f: string) => fetch(`${B}geo/${f}`).then((r) => r.json() as Promise<GeoJson>).catch(() => ({ features: [] }) as GeoJson);
@@ -206,7 +203,6 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
   }, [prov]);
 
   const muniGeo = useMemo(() => (muni ? buildMergedBorders(muni.features, R * 1.0016) : null), [muni]);
-  const submuniGeo = useMemo(() => (submuni ? buildMergedBorders(submuni.features, R * 1.0019) : null), [submuni]);
 
   const muniLabels = useMemo<LabelData[]>(() => {
     if (!muni) return [];
@@ -222,17 +218,9 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
 
   useFrame(({ camera }) => {
     const r = camera.position.length();
-    // LOD 페이드: 멀면 0, 가까우면 1.
-    const mO = clamp01((5.72 - r) / (5.72 - 5.46));   // 시군구(행정구)
-    const sO = clamp01((5.42 - r) / (5.42 - 5.22));   // 읍면동(행정동)
-    if (muniMat.current) muniMat.current.opacity = mO * 0.55;
-    if (submuniMat.current) submuniMat.current.opacity = sO * 0.42;
-
-    // 읽면동 지연 로드(가까워지면 한 번).
-    if (!submuniReq.current && r < 5.55) {
-      submuniReq.current = true;
-      fetch(`${B}geo/kr-submunicipalities.geojson`).then((res) => res.json()).then((g: GeoJson) => setSubmuni(g)).catch(() => {});
-    }
+    // LOD 페이드: 멀면 0, 가까우면 1 — 시군구(행정구)까지만.
+    const mO = clamp01((5.72 - r) / (5.72 - 5.46));
+    if (muniMat.current) muniMat.current.opacity = mO * 0.6;
 
     _cdir.copy(camera.position).normalize();
     // 시군구 라벨: 줌인했고(LOD) 화면 중앙 근처(좁은 콘)인 것만 표시.
@@ -263,16 +251,10 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
         <Province key={i} p={p} index={i} />
       ))}
 
-      {/* 시군구(행정구) 경계 — 줌인 시 페이드인 */}
+      {/* 시군구(행정구) 경계 — 줌인 시 페이드인 (구 단위까지) */}
       {muniGeo && (
         <lineSegments geometry={muniGeo} renderOrder={2}>
           <lineBasicMaterial ref={muniMat} color="#143226" transparent opacity={0} depthWrite={false} />
-        </lineSegments>
-      )}
-      {/* 읍면동(행정동) 경계 — 더 깊이 줌인 시 페이드인(지연 로드) */}
-      {submuniGeo && (
-        <lineSegments geometry={submuniGeo} renderOrder={2}>
-          <lineBasicMaterial ref={submuniMat} color="#1c3b2c" transparent opacity={0} depthWrite={false} />
         </lineSegments>
       )}
 
