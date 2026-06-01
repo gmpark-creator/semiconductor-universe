@@ -14,6 +14,10 @@ import { highPhysics } from "./high-physics";
 import { highChemistry } from "./high-chemistry";
 import { high2Biology } from "./high2Biology";
 import { high2EarthScience } from "./high2EarthScience";
+import { highAdvMechanics } from "./high-adv-mechanics";
+import { highAdvEmQuantum } from "./high-adv-em-quantum";
+import { highAdvMatterEnergy } from "./high-adv-matter-energy";
+import { highAdvReactions } from "./high-adv-reactions";
 import { highCareerCellMetabolism } from "./high-career-cell-metabolism";
 import { highCareerGenetics } from "./high-career-genetics";
 import { highCareerEarthSystems } from "./high-career-earth-systems";
@@ -53,6 +57,10 @@ export const scienceSubject: TheorySubject = {
         highChemistry,
         high2Biology,
         high2EarthScience,
+        highAdvMechanics,
+        highAdvEmQuantum,
+        highAdvMatterEnergy,
+        highAdvReactions,
         highCareerCellMetabolism,
         highCareerGenetics,
         highCareerEarthSystems,

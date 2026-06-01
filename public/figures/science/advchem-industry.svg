@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">화학과 산업·환경</text>
+  <!-- 암모니아 합성 -->
+  <g transform="translate(40,80)" text-anchor="middle">
+    <rect x="0" y="0" width="60" height="36" rx="8" fill="#13203a" stroke="#a5b4fc"/><text x="30" y="23" fill="#c7d2fe" font-size="12" font-weight="700">N₂</text>
+    <text x="78" y="23" fill="#cbd5e1" font-size="14">+</text>
+    <rect x="96" y="0" width="60" height="36" rx="8" fill="#13203a" stroke="#34d399"/><text x="126" y="23" fill="#6ee7b7" font-size="12" font-weight="700">H₂</text>
+    <path d="M162 18 H210" stroke="#f59e0b" stroke-width="2.4" marker-end="url(#id)"/><text x="186" y="10" fill="#fdba74" font-size="8">촉매·고압</text>
+    <rect x="214" y="0" width="74" height="36" rx="8" fill="#7f1d1d" stroke="#f87171"/><text x="251" y="23" fill="#fecaca" font-size="12" font-weight="700">NH₃</text>
+    <text x="144" y="58" fill="#94a3b8" font-size="9">암모니아 합성 → 화학 비료 → 식량 증산</text>
+  </g>
+  <!-- 자원 순환 -->
+  <g transform="translate(110,200)">
+    <path d="M0 0 A40 40 0 1 1 -8 30" fill="none" stroke="#34d399" stroke-width="2.4" marker-end="url(#id)"/>
+    <text x="-15" y="8" fill="#6ee7b7" font-size="11" text-anchor="middle" font-weight="700">♻</text>
+    <text x="-15" y="60" fill="#a7f3d0" font-size="9" text-anchor="middle">자원 순환</text>
+  </g>
+  <g transform="translate(210,180)">
+    <text x="0" y="0" fill="#cbd5e1" font-size="10.5" font-weight="700">친환경(녹색) 화학</text>
+    <text x="0" y="18" fill="#94a3b8" font-size="9">폐기물·위험 줄이기, 안전한 용매</text>
+    <text x="0" y="34" fill="#94a3b8" font-size="9">플라스틱 분해 재원료화</text>
+    <text x="0" y="50" fill="#94a3b8" font-size="9">이산화 탄소 포집·활용</text>
+    <text x="0" y="74" fill="#fbbf24" font-size="9.5">지속 가능: 청정 에너지·신소재</text>
+  </g>
+  <text x="240" y="298" fill="#94a3b8" font-size="10.5" text-anchor="middle">화학은 환경 문제의 원인이자 해결의 핵심 열쇠 — 책임 있는 과학 시민의 안목</text>
+  <defs><marker id="id" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="context-stroke"/></marker></defs>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">전기장과 전위</text>
+  <!-- 두 전하 전기력선 -->
+  <g transform="translate(140,170)">
+    <circle cx="-70" cy="0" r="22" fill="#7f1d1d" stroke="#f87171" stroke-width="2"/><text x="-70" y="6" fill="#fecaca" font-size="18" text-anchor="middle" font-weight="700">+</text>
+    <circle cx="70" cy="0" r="22" fill="#1e3a5f" stroke="#60a5fa" stroke-width="2"/><text x="70" y="7" fill="#bfdbfe" font-size="20" text-anchor="middle" font-weight="700">−</text>
+    <path d="M-48 0 H48" stroke="#f59e0b" stroke-width="2" marker-end="url(#ef)"/>
+    <path d="M-58 -22 Q0 -54 58 -22" fill="none" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#ef)"/>
+    <path d="M-58 22 Q0 54 58 22" fill="none" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#ef)"/>
+    <path d="M-62 -14 Q0 -78 62 -14" fill="none" stroke="#f59e0b" stroke-width="1.2" marker-end="url(#ef)" opacity="0.6"/>
+    <path d="M-62 14 Q0 78 62 14" fill="none" stroke="#f59e0b" stroke-width="1.2" marker-end="url(#ef)" opacity="0.6"/>
+  </g>
+  <g transform="translate(300,90)">
+    <text x="0" y="0" fill="#cbd5e1" font-size="11" font-weight="700">전기장 E</text>
+    <text x="0" y="18" fill="#94a3b8" font-size="9">단위 양전하가 받는 힘 (벡터)</text>
+    <text x="0" y="44" fill="#cbd5e1" font-size="11" font-weight="700">전기력선</text>
+    <text x="0" y="62" fill="#94a3b8" font-size="9">+에서 나와 −로 들어감</text>
+    <text x="0" y="88" fill="#cbd5e1" font-size="11" font-weight="700">전위 · 전위차(전압)</text>
+    <text x="0" y="106" fill="#94a3b8" font-size="9">등전위면 ⊥ 전기력선</text>
+  </g>
+  <text x="240" y="300" fill="#94a3b8" font-size="11" text-anchor="middle">쿨롱 법칙 F ∝ q₁q₂ / r² · 전기장은 전위가 높은 곳에서 낮은 곳을 향한다</text>
+  <defs><marker id="ef" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="#f59e0b"/></marker></defs>
+</svg>

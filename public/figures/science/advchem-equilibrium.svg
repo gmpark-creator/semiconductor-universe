@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">화학 평형</text>
+  <!-- 가역 반응 -->
+  <g transform="translate(240,80)" text-anchor="middle">
+    <rect x="-150" y="-20" width="96" height="40" rx="10" fill="#13203a" stroke="#22d3ee"/><text x="-102" y="6" fill="#a5f3fc" font-size="12" font-weight="700">반응물</text>
+    <rect x="54" y="-20" width="96" height="40" rx="10" fill="#13203a" stroke="#34d399"/><text x="102" y="6" fill="#6ee7b7" font-size="12" font-weight="700">생성물</text>
+    <path d="M-50 -7 H50" stroke="#f59e0b" stroke-width="2.4" marker-end="url(#eq)"/><text x="0" y="-12" fill="#fdba74" font-size="9">정반응</text>
+    <path d="M50 9 H-50" stroke="#60a5fa" stroke-width="2.4" marker-end="url(#eq)"/><text x="0" y="24" fill="#93c5fd" font-size="9">역반응</text>
+  </g>
+  <!-- 속도 그래프 -->
+  <g transform="translate(50,150)">
+    <line x1="0" y1="90" x2="0" y2="0" stroke="#64748b"/><line x1="0" y1="90" x2="190" y2="90" stroke="#64748b"/>
+    <text x="-6" y="8" fill="#94a3b8" font-size="9" text-anchor="end">속도</text><text x="190" y="104" fill="#94a3b8" font-size="9" text-anchor="end">시간</text>
+    <path d="M0 8 C40 50 120 72 190 74" fill="none" stroke="#f59e0b" stroke-width="2.4"/>
+    <path d="M0 90 C40 70 120 72 190 74" fill="none" stroke="#60a5fa" stroke-width="2.4"/>
+    <line x1="0" y1="74" x2="190" y2="74" stroke="#475569" stroke-dasharray="3 3"/>
+    <text x="140" y="66" fill="#cbd5e1" font-size="8.5">정반응속도=역반응속도</text>
+  </g>
+  <g transform="translate(280,150)">
+    <text x="0" y="0" fill="#a5f3fc" font-size="11" font-weight="700">동적 평형</text>
+    <text x="0" y="16" fill="#94a3b8" font-size="9">멈춘 게 아니라 양방향 같은 속도</text>
+    <text x="0" y="40" fill="#cbd5e1" font-size="10.5" font-weight="700">평형 상수 K</text>
+    <text x="0" y="56" fill="#94a3b8" font-size="9">온도에만 의존 · K↑면 정반응 우세</text>
+    <text x="0" y="80" fill="#fbbf24" font-size="9.5" font-weight="700">르샤틀리에 원리</text>
+    <text x="0" y="96" fill="#94a3b8" font-size="9">변화를 줄이는 방향으로 평형 이동</text>
+  </g>
+  <text x="240" y="296" fill="#94a3b8" font-size="11" text-anchor="middle">농도·압력·온도를 조절해 원하는 생성물을 더 얻는다(암모니아 합성)</text>
+  <defs><marker id="eq" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="context-stroke"/></marker></defs>
+</svg>

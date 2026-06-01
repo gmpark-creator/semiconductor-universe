@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">주기율표와 주기적 성질</text>
+  <!-- 간단 주기율표 격자 -->
+  <g transform="translate(60,70)">
+    <g fill="#13203a" stroke="#334155">
+      <rect x="0" y="0" width="22" height="22"/><rect x="154" y="0" width="22" height="22"/>
+      <rect x="0" y="24" width="22" height="22"/><rect x="22" y="24" width="22" height="22"/>
+      <rect x="88" y="24" width="22" height="22"/><rect x="110" y="24" width="22" height="22"/><rect x="132" y="24" width="22" height="22"/><rect x="154" y="24" width="22" height="22"/>
+      <rect x="0" y="48" width="22" height="22"/><rect x="22" y="48" width="22" height="22"/>
+      <rect x="88" y="48" width="22" height="22"/><rect x="110" y="48" width="22" height="22"/><rect x="132" y="48" width="22" height="22"/><rect x="154" y="48" width="22" height="22"/>
+    </g>
+    <rect x="154" y="0" width="22" height="70" fill="none" stroke="#a5b4fc" stroke-width="2"/>
+    <text x="165" y="86" fill="#c7d2fe" font-size="8" text-anchor="middle">18족</text>
+    <text x="11" y="-6" fill="#94a3b8" font-size="8" text-anchor="middle">1족</text>
+    <!-- 경향 화살표 -->
+    <line x1="0" y1="92" x2="176" y2="92" stroke="#f59e0b" stroke-width="2" marker-end="url(#pt)"/>
+    <text x="88" y="106" fill="#fdba74" font-size="9" text-anchor="middle">→ 이온화E·전기음성도 ↑, 반지름 ↓</text>
+    <line x1="-14" y1="0" x2="-14" y2="70" stroke="#34d399" stroke-width="2" marker-end="url(#pt)"/>
+    <text x="-30" y="40" fill="#6ee7b7" font-size="9" text-anchor="middle" transform="rotate(-90 -30 40)">↓ 반지름 ↑</text>
+  </g>
+  <g transform="translate(280,90)">
+    <text x="0" y="0" fill="#cbd5e1" font-size="10.5" font-weight="700">주기 = 가로줄(최외각 같음)</text>
+    <text x="0" y="20" fill="#cbd5e1" font-size="10.5" font-weight="700">족 = 세로줄(원자가전자 같음)</text>
+    <text x="0" y="46" fill="#94a3b8" font-size="9">전자 배치가 주기율표 구조를 만든다</text>
+    <text x="0" y="68" fill="#a5b4fc" font-size="9">18족 비활성 기체: 최외각 가득 → 안정</text>
+    <text x="0" y="90" fill="#94a3b8" font-size="9">금속: 전자 잃음 / 비금속: 전자 얻음</text>
+  </g>
+  <text x="240" y="300" fill="#94a3b8" font-size="11" text-anchor="middle">위치만 알면 원소가 전자를 내줄지 받을지, 어떤 결합을 할지 예측할 수 있다</text>
+  <defs><marker id="pt" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="context-stroke"/></marker></defs>
+</svg>
