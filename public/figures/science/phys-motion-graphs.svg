@@ -16,7 +16,7 @@
     <line x1="0" y1="100" x2="150" y2="20" stroke="#f59e0b" stroke-width="3"/>
     <polygon points="0,100 150,20 150,110 0,110" fill="#f59e0b" opacity="0.18"/>
     <text x="120" y="50" fill="#fbbf24" font-size="9">기울기=가속도</text>
-    <text x="70" y="98" fill="#fde68a" font-size="9">넓이=이동거리</text>
+    <text x="70" y="98" fill="#fde68a" font-size="9">넓이=변위</text>
     <text x="-6" y="6" fill="#94a3b8" font-size="9" text-anchor="end">v</text><text x="172" y="122" fill="#94a3b8" font-size="9">t</text>
   </g>
   <text x="240" y="232" fill="#cbd5e1" font-size="12" text-anchor="middle">등속(v 일정) · 등가속도(a 일정) · 자유낙하(g≈9.8 m/s²)</text>

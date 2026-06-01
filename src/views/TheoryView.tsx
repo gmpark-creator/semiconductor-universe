@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { scienceSubject } from "../data/theory";
-import { DOMAIN_META, figureUrl, gradeLabel, type ScienceDomain } from "../data/theory/types";
+import { DOMAIN_META, figureUrl, gradeLabel, unitLabel, type ScienceDomain } from "../data/theory/types";
 import { useIsMobile } from "../hooks/useIsMobile";
 
 /**
@@ -112,7 +112,7 @@ export function TheoryView() {
                 style={{ width: "100%", padding: "10px 12px", borderRadius: 10, border: "1px solid rgba(255,255,255,0.12)", background: "#0f1729", color: "#e2e8f0", fontSize: 14, fontWeight: 600 }}
               >
                 {grade.units.map((u, i) => (
-                  <option key={u.id} value={u.id}>{`${String(i + 1).padStart(2, "0")}. ${u.title} — ${DOMAIN_META[u.domain].label}`}</option>
+                  <option key={u.id} value={u.id}>{`${String(i + 1).padStart(2, "0")}. ${u.title} — ${unitLabel(u)}`}</option>
                 ))}
               </select>
             </>
@@ -157,7 +157,7 @@ export function TheoryView() {
                       <span style={{ width: 8, height: 8, borderRadius: 99, background: dm.color, flexShrink: 0 }} />
                       <span style={{ minWidth: 0 }}>
                         <span style={{ display: "block", fontSize: 13, fontWeight: active ? 700 : 500 }}>{String(i + 1).padStart(2, "0")}. {u.title}</span>
-                        <span style={{ display: "block", fontSize: 10, color: "#64748b" }}>{dm.label}</span>
+                        <span style={{ display: "block", fontSize: 10, color: "#64748b" }}>{unitLabel(u)}</span>
                       </span>
                     </button>
                   );
@@ -183,7 +183,7 @@ export function TheoryView() {
 
             <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
               <h1 style={{ fontSize: isMobile ? 23 : 30, fontWeight: 800, color: "#f8fafc", margin: 0, letterSpacing: "-0.01em" }}>{unit.title}</h1>
-              <DomainBadge domain={unit.domain} />
+              <DomainBadge domain={unit.domain} strand={unit.strand} />
             </div>
             <p style={{ fontSize: isMobile ? 14 : 15, color: "#94a3b8", lineHeight: 1.7, margin: "0 0 22px" }}>{unit.summary}</p>
 
@@ -250,12 +250,12 @@ export function TheoryView() {
   );
 }
 
-function DomainBadge({ domain }: { domain: ScienceDomain }) {
+function DomainBadge({ domain, strand }: { domain: ScienceDomain; strand?: string }) {
   const dm = DOMAIN_META[domain];
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 11px", borderRadius: 999, background: `${dm.color}1f`, border: `1px solid ${dm.color}55`, color: dm.color, fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>
       <span>{dm.emoji}</span>
-      {dm.label}
+      {unitLabel({ domain, strand })}
     </span>
   );
 }

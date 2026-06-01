@@ -24,6 +24,7 @@ export interface Unit {
   id: string;
   title: string;
   domain: ScienceDomain;
+  strand?: string; // 고등 물리학처럼 한 domain 안에서 세부 영역 구분(예: "전기와 자기"). 배지·네비 라벨에 우선 사용.
   summary: string;
   figureId: string; // public/figures/science/<id>.svg
   lessons: Lesson[];
@@ -70,6 +71,11 @@ export const DOMAIN_META: Record<ScienceDomain, { color: string; emoji: string; 
   "지구와 우주": { color: "#818cf8", emoji: "🪐", label: "지구과학 · 지구와 우주" },
   "과학과 사회": { color: "#fb7185", emoji: "🌐", label: "통합 · 과학과 사회" },
 };
+
+/** 단원 배지·네비에 표시할 영역 라벨. strand(세부 영역)가 있으면 "물리 · {strand}", 없으면 도메인 라벨. */
+export function unitLabel(u: { domain: ScienceDomain; strand?: string }): string {
+  return u.strand ? `물리 · ${u.strand}` : DOMAIN_META[u.domain].label;
+}
 
 /** 도해 SVG 경로. */
 export function figureUrl(figureId: string): string {
