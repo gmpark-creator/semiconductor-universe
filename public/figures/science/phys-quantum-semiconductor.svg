@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">빛과 물질의 이중성, 반도체</text>
+  <!-- 광전효과 -->
+  <g transform="translate(40,62)">
+    <text x="90" y="0" fill="#cbd5e1" font-size="11" text-anchor="middle">광전 효과 (E = hf)</text>
+    <line x1="0" y1="10" x2="60" y2="50" stroke="#fde047" stroke-width="2.5" marker-end="url(#q1)"/>
+    <text x="6" y="10" fill="#fde68a" font-size="9">광자(빛)</text>
+    <rect x="60" y="50" width="120" height="20" fill="#94a3b8"/><text x="120" y="64" font-size="9" text-anchor="middle">금속</text>
+    <circle cx="150" cy="44" r="6" fill="#38bdf8"/><line x1="150" y1="38" x2="170" y2="14" stroke="#38bdf8" stroke-width="2" marker-end="url(#q1)"/>
+    <text x="178" y="14" fill="#7dd3fc" font-size="9">전자↑</text>
+  </g>
+  <!-- 에너지띠 -->
+  <g transform="translate(250,62)">
+    <text x="100" y="0" fill="#cbd5e1" font-size="11" text-anchor="middle">에너지띠와 반도체</text>
+    <g text-anchor="middle" font-size="8.5" fill="#cbd5e1">
+      <rect x="10" y="60" width="44" height="14" fill="#3b82f6"/><rect x="10" y="16" width="44" height="14" fill="#475569"/><text x="32" y="90">도체</text><text x="32" y="50" fill="#64748b" font-size="7">틈 없음</text>
+      <rect x="78" y="64" width="44" height="14" fill="#3b82f6"/><rect x="78" y="14" width="44" height="14" fill="#475569"/><text x="100" y="90">반도체</text><text x="100" y="50" fill="#fbbf24" font-size="7">적당한 틈</text>
+      <rect x="146" y="66" width="44" height="14" fill="#3b82f6"/><rect x="146" y="10" width="44" height="14" fill="#475569"/><text x="168" y="90">절연체</text><text x="168" y="46" fill="#64748b" font-size="7">큰 틈</text>
+    </g>
+  </g>
+  <text x="240" y="186" fill="#6ee7b7" font-size="11" text-anchor="middle">물질도 파동성을 가짐(물질파) — 전자 현미경</text>
+  <!-- pn 접합 -->
+  <g transform="translate(150,206)">
+    <rect x="0" y="0" width="90" height="36" fill="#1e3a5f"/><rect x="90" y="0" width="90" height="36" fill="#7f1d1d"/>
+    <text x="45" y="23" fill="#fff" font-size="12" text-anchor="middle">n형</text><text x="135" y="23" fill="#fff" font-size="12" text-anchor="middle">p형</text>
+    <text x="90" y="56" fill="#94a3b8" font-size="9" text-anchor="middle">p-n 접합 → 다이오드·트랜지스터</text>
+  </g>
+  <text x="240" y="298" fill="#fbbf24" font-size="11" text-anchor="middle">▶ 이 원리가 산업영역 「반도체 유니버스」로 이어진다</text>
+  <defs><marker id="q1" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="context-stroke"/></marker></defs>
+</svg>

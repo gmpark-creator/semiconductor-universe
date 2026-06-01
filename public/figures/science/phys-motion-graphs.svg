@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">여러 가지 운동과 그래프</text>
+  <!-- 위치-시간 -->
+  <g transform="translate(40,70)">
+    <text x="80" y="-4" fill="#cbd5e1" font-size="11" text-anchor="middle">위치-시간</text>
+    <line x1="0" y1="110" x2="0" y2="0" stroke="#64748b"/><line x1="0" y1="110" x2="160" y2="110" stroke="#64748b"/>
+    <line x1="0" y1="110" x2="150" y2="20" stroke="#38bdf8" stroke-width="3"/>
+    <text x="120" y="56" fill="#7dd3fc" font-size="9">기울기=속도</text>
+    <text x="-6" y="6" fill="#94a3b8" font-size="9" text-anchor="end">x</text><text x="162" y="122" fill="#94a3b8" font-size="9">t</text>
+  </g>
+  <!-- 속도-시간 -->
+  <g transform="translate(270,70)">
+    <text x="90" y="-4" fill="#cbd5e1" font-size="11" text-anchor="middle">속도-시간 (등가속도)</text>
+    <line x1="0" y1="110" x2="0" y2="0" stroke="#64748b"/><line x1="0" y1="110" x2="170" y2="110" stroke="#64748b"/>
+    <line x1="0" y1="100" x2="150" y2="20" stroke="#f59e0b" stroke-width="3"/>
+    <polygon points="0,100 150,20 150,110 0,110" fill="#f59e0b" opacity="0.18"/>
+    <text x="120" y="50" fill="#fbbf24" font-size="9">기울기=가속도</text>
+    <text x="70" y="98" fill="#fde68a" font-size="9">넓이=이동거리</text>
+    <text x="-6" y="6" fill="#94a3b8" font-size="9" text-anchor="end">v</text><text x="172" y="122" fill="#94a3b8" font-size="9">t</text>
+  </g>
+  <text x="240" y="232" fill="#cbd5e1" font-size="12" text-anchor="middle">등속(v 일정) · 등가속도(a 일정) · 자유낙하(g≈9.8 m/s²)</text>
+  <text x="240" y="262" fill="#94a3b8" font-size="11" text-anchor="middle">포물선 운동 = 수평 등속 + 수직 자유낙하</text>
+  <path d="M60 296 Q150 250 240 296" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="4 3"/>
+</svg>

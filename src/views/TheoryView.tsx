@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { scienceSubject } from "../data/theory";
-import { DOMAIN_META, figureUrl, type ScienceDomain } from "../data/theory/types";
+import { DOMAIN_META, figureUrl, gradeLabel, type ScienceDomain } from "../data/theory/types";
 import { useIsMobile } from "../hooks/useIsMobile";
 
 /**
@@ -70,7 +70,7 @@ export function TheoryView() {
         const active = i === gradeIdx;
         return (
           <button
-            key={g.grade}
+            key={g.id ?? `${g.grade}-${g.label ?? i}`}
             onClick={() => pickGrade(i)}
             style={{
               flexShrink: 0,
@@ -84,7 +84,7 @@ export function TheoryView() {
               cursor: "pointer",
             }}
           >
-            {g.grade}학년
+            {gradeLabel(g)}
           </button>
         );
       })}
@@ -142,7 +142,7 @@ export function TheoryView() {
             <>
               <div style={{ marginBottom: 14 }}>{gradeChips}</div>
               <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#475569", padding: "4px 4px 8px" }}>
-                {grade.grade}학년 단원 · {grade.units.length}
+                {gradeLabel(grade)} 단원 · {grade.units.length}
               </div>
               <nav style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                 {grade.units.map((u, i) => {
@@ -178,7 +178,7 @@ export function TheoryView() {
         {unit ? (
           <article style={{ maxWidth: 760, margin: "0 auto", padding: isMobile ? "0 18px" : "0 40px" }}>
             <div style={{ fontSize: 11.5, color: "#64748b", marginBottom: 12, letterSpacing: "0.02em" }}>
-              기초이론 <span style={{ opacity: 0.5 }}>›</span> {subject.name} <span style={{ opacity: 0.5 }}>›</span> {level.name} <span style={{ opacity: 0.5 }}>›</span> {grade?.grade}학년
+              기초이론 <span style={{ opacity: 0.5 }}>›</span> {subject.name} <span style={{ opacity: 0.5 }}>›</span> {level.name} <span style={{ opacity: 0.5 }}>›</span> {grade ? gradeLabel(grade) : ""}
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
@@ -235,7 +235,7 @@ export function TheoryView() {
             })}
 
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 16, color: "#475569", fontSize: 11.5 }}>
-              놀리지 아틀라스 · 기초이론 · {subject.name} · {level.name} {grade?.grade}학년
+              놀리지 아틀라스 · 기초이론 · {subject.name} · {level.name} {grade ? gradeLabel(grade) : ""}
             </div>
           </article>
         ) : (

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">일과 역학적 에너지 보존</text>
+  <g font-size="13" fill="#fde047" font-weight="700">
+    <text x="120" y="70" text-anchor="middle">W = Fs</text>
+    <text x="360" y="70" text-anchor="middle">역학E = ½mv² + mgh</text>
+  </g>
+  <!-- 진자/낙하 -->
+  <g transform="translate(60,96)">
+    <path d="M0 10 Q120 -10 240 10" fill="none" stroke="#475569"/>
+    <!-- 높은 곳 -->
+    <circle cx="6" cy="20" r="12" fill="#f59e0b"/>
+    <text x="6" y="-2" fill="#fbbf24" font-size="9" text-anchor="middle">위치E 최대</text>
+    <line x1="6" y1="32" x2="6" y2="120" stroke="#334155" stroke-dasharray="3 3"/>
+    <!-- 낮은 곳 -->
+    <circle cx="120" cy="116" r="12" fill="#f87171"/>
+    <text x="120" y="140" fill="#fca5a5" font-size="9" text-anchor="middle">운동E 최대</text>
+    <!-- 반대편 -->
+    <circle cx="234" cy="20" r="12" fill="#f59e0b"/>
+    <line x1="6" y1="20" x2="120" y2="116" stroke="#f59e0b" stroke-width="1.5" opacity="0.5"/>
+    <line x1="120" y1="116" x2="234" y2="20" stroke="#f59e0b" stroke-width="1.5" opacity="0.5"/>
+  </g>
+  <text x="240" y="250" fill="#cbd5e1" font-size="12" text-anchor="middle">위치 E ↓ 만큼 운동 E ↑ — 마찰 없으면 역학적 E 일정</text>
+  <text x="240" y="278" fill="#94a3b8" font-size="11" text-anchor="middle">일률 P = W/t (단위 와트 W) · 에너지 단위 줄(J)</text>
+</svg>

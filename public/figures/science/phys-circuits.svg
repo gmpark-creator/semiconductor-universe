@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">전류와 전기 회로</text>
+  <text x="240" y="70" fill="#fde047" font-size="16" font-weight="800" text-anchor="middle">V = I R     P = V I</text>
+  <!-- 직렬 -->
+  <g transform="translate(40,96)">
+    <text x="90" y="0" fill="#cbd5e1" font-size="12" text-anchor="middle">직렬 (R 합 = 커짐)</text>
+    <rect x="0" y="14" width="180" height="86" rx="6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <rect x="40" y="6" width="40" height="16" fill="#0f1729"/><line x1="55" y1="6" x2="55" y2="22" stroke="#1e293b"/>
+    <rect x="48" y="92" width="26" height="14" fill="#f87171"/><rect x="106" y="92" width="26" height="14" fill="#f87171"/>
+    <text x="90" y="124" fill="#94a3b8" font-size="9" text-anchor="middle">같은 전류, 하나 끊기면 다 꺼짐</text>
+  </g>
+  <!-- 병렬 -->
+  <g transform="translate(260,96)">
+    <text x="90" y="0" fill="#cbd5e1" font-size="12" text-anchor="middle">병렬 (R 합 = 작아짐)</text>
+    <rect x="0" y="14" width="180" height="86" rx="6" fill="none" stroke="#34d399" stroke-width="2"/>
+    <line x1="60" y1="14" x2="60" y2="100" stroke="#34d399" stroke-width="2"/><line x1="120" y1="14" x2="120" y2="100" stroke="#34d399" stroke-width="2"/>
+    <rect x="48" y="50" width="26" height="14" fill="#f87171"/><rect x="106" y="50" width="26" height="14" fill="#f87171"/>
+    <text x="90" y="124" fill="#94a3b8" font-size="9" text-anchor="middle">같은 전압, 하나 꺼져도 나머지 작동</text>
+  </g>
+  <text x="240" y="252" fill="#cbd5e1" font-size="12" text-anchor="middle">가정 콘센트는 병렬 — 각 기구에 같은 220V</text>
+  <text x="240" y="280" fill="#94a3b8" font-size="11" text-anchor="middle">송전은 고전압으로(전류↓) 도선 열손실(∝I²) 줄임 · 단위 kWh</text>
+</svg>

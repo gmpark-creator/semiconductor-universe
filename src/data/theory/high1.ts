@@ -3,6 +3,7 @@ import type { Grade } from "./types";
 
 export const high1: Grade = {
   "grade": 1,
+  "label": "통합과학",
   "units": [
     {
       "id": "h1-science-foundations",

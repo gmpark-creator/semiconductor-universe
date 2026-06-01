@@ -29,10 +29,19 @@ export interface Unit {
   lessons: Lesson[];
 }
 
-/** 한 학년 — 단원 묶음. */
+/** 한 학년(또는 과목) — 단원 묶음.
+ *  초·중등은 학년 단위(label 없으면 "N학년"으로 표시).
+ *  고등 선택과목(물리학 등)은 label로 과목명을 표시. */
 export interface Grade {
-  grade: number; // 3,4,5,6 …
+  id?: string; // 고등 선택과목처럼 같은 grade 값이 반복될 때 쓰는 안정 식별자
+  grade: number; // 초등 3~6, 중등 1~3, 고등 1=통합과학 / 2~=선택과목
+  label?: string; // 지정 시 학년 칩·브레드크럼에 "N학년" 대신 이 이름(예: "물리학")
   units: Unit[];
+}
+
+/** 학년/과목 칩에 표시할 이름. label 우선, 없으면 "N학년". */
+export function gradeLabel(g: { grade: number; label?: string }): string {
+  return g.label ?? `${g.grade}학년`;
 }
 
 /** 학교급(초등/중등/고등). 아직 콘텐츠가 없으면 status="준비 중". */
