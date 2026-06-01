@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">주기율표와 주기성</text>
+  <!-- 미니 주기율표 -->
+  <g transform="translate(40,64)" font-size="9" text-anchor="middle">
+    <g>
+      <rect x="0" y="0" width="22" height="22" fill="#13203a" stroke="#fb7185"/><text x="11" y="15" fill="#fda4af">H</text>
+      <rect x="220" y="0" width="22" height="22" fill="#13203a" stroke="#a5b4fc"/><text x="231" y="15" fill="#c7d2fe">He</text>
+      <rect x="0" y="24" width="22" height="22" fill="#13203a" stroke="#fbbf24"/><text x="11" y="39" fill="#fde68a">Li</text>
+      <rect x="22" y="24" width="22" height="22" fill="#13203a" stroke="#fbbf24"/><text x="33" y="39" fill="#fde68a">Be</text>
+      <rect x="132" y="24" width="22" height="22" fill="#13203a" stroke="#34d399"/><text x="143" y="39" fill="#6ee7b7">C</text>
+      <rect x="176" y="24" width="22" height="22" fill="#13203a" stroke="#34d399"/><text x="187" y="39" fill="#6ee7b7">O</text>
+      <rect x="220" y="24" width="22" height="22" fill="#13203a" stroke="#a5b4fc"/><text x="231" y="39" fill="#c7d2fe">Ne</text>
+      <rect x="0" y="48" width="22" height="22" fill="#13203a" stroke="#fbbf24"/><text x="11" y="63" fill="#fde68a">Na</text>
+      <rect x="198" y="48" width="22" height="22" fill="#13203a" stroke="#67e8f9"/><text x="209" y="63" fill="#a5f3fc">Cl</text>
+    </g>
+    <text x="0" y="86" fill="#94a3b8" font-size="9" text-anchor="start">가로=주기(껍질 수) / 세로=족(원자가 전자 수)</text>
+  </g>
+  <!-- 주기성 화살표 -->
+  <g transform="translate(40,180)">
+    <text x="0" y="0" fill="#cbd5e1" font-size="12" font-weight="700">주기적 성질</text>
+    <line x1="0" y1="20" x2="160" y2="20" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#cp)"/>
+    <text x="0" y="38" fill="#fdba74" font-size="10">→ 이온화 에너지 ↑, 반지름 ↓ (오른쪽)</text>
+    <line x1="0" y1="56" x2="0" y2="92" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#cp)"/>
+    <text x="14" y="84" fill="#7dd3fc" font-size="10">↓ 반지름 ↑, 이온화 에너지 ↓ (아래)</text>
+  </g>
+  <text x="300" y="200" fill="#cbd5e1" font-size="11">금속(왼쪽·전자 잃음) ↔</text>
+  <text x="300" y="222" fill="#cbd5e1" font-size="11">비금속(오른쪽·전자 얻음)</text>
+  <text x="300" y="248" fill="#a5f3fc" font-size="10">경계=준금속(규소 등 반도체)</text>
+  <text x="240" y="296" fill="#94a3b8" font-size="11" text-anchor="middle">멘델레예프는 빈칸 원소의 성질을 예측했고 실제로 발견됨</text>
+  <defs><marker id="cp" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="context-stroke"/></marker></defs>
+</svg>

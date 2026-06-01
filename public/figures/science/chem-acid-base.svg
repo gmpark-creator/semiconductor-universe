@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">산과 염기, 중화 반응</text>
+  <!-- pH 척도 -->
+  <defs><linearGradient id="ph2" x1="0" x2="1"><stop offset="0" stop-color="#ef4444"/><stop offset="0.5" stop-color="#22c55e"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+  <rect x="40" y="64" width="400" height="22" rx="11" fill="url(#ph2)"/>
+  <g font-size="10" fill="#e2e8f0" text-anchor="middle">
+    <text x="60" y="102">0</text><text x="240" y="102">7</text><text x="420" y="102">14</text>
+    <text x="100" y="116" fill="#fca5a5">산성(H⁺ 많음)</text><text x="240" y="116" fill="#86efac">중성</text><text x="360" y="116" fill="#c7d2fe">염기성(OH⁻ 많음)</text>
+  </g>
+  <!-- 중화 -->
+  <g transform="translate(0,150)" text-anchor="middle">
+    <circle cx="120" cy="40" r="22" fill="#7f1d1d"/><text x="120" y="36" fill="#fff" font-size="12" font-weight="800">H⁺</text><text x="120" y="50" fill="#fca5a5" font-size="8">산</text>
+    <text x="170" y="46" fill="#fbbf24" font-size="20">+</text>
+    <circle cx="220" cy="40" r="22" fill="#312e81"/><text x="220" y="36" fill="#fff" font-size="11" font-weight="800">OH⁻</text><text x="220" y="50" fill="#c7d2fe" font-size="8">염기</text>
+    <text x="270" y="46" fill="#fbbf24" font-size="20">→</text>
+    <circle cx="330" cy="40" r="24" fill="#155e75"/><text x="330" y="45" fill="#a5f3fc" font-size="13" font-weight="800">H₂O</text>
+    <text x="384" y="40" fill="#cbd5e1" font-size="11">+ 염</text>
+  </g>
+  <text x="240" y="252" fill="#a5f3fc" font-size="12" text-anchor="middle">중화 반응: H⁺ + OH⁻ → 물 (+염), 열 발생</text>
+  <text x="240" y="280" fill="#94a3b8" font-size="11" text-anchor="middle">pH 1 작아질수록 H⁺ 10배↑ · 중화 적정으로 미지 농도 측정</text>
+</svg>

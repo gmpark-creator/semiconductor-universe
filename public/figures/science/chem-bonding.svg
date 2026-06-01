@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">화학 결합 세 가지</text>
+  <g text-anchor="middle">
+    <!-- 이온 결합 -->
+    <rect x="28" y="64" width="130" height="150" rx="12" fill="#13203a" stroke="#f87171"/>
+    <text x="93" y="86" fill="#fca5a5" font-size="13" font-weight="700">이온 결합</text>
+    <circle cx="68" cy="130" r="20" fill="#fbbf24"/><text x="68" y="135" fill="#04121f" font-size="12" font-weight="800">Na⁺</text>
+    <circle cx="118" cy="130" r="22" fill="#67e8f9"/><text x="118" y="135" fill="#04121f" font-size="12" font-weight="800">Cl⁻</text>
+    <text x="93" y="180" fill="#94a3b8" font-size="9.5">전자 주고받음</text><text x="93" y="196" fill="#94a3b8" font-size="9.5">(금속+비금속)</text>
+    <!-- 공유 결합 -->
+    <rect x="174" y="64" width="130" height="150" rx="12" fill="#13203a" stroke="#34d399"/>
+    <text x="239" y="86" fill="#6ee7b7" font-size="13" font-weight="700">공유 결합</text>
+    <circle cx="218" cy="130" r="20" fill="#a3e635"/><circle cx="262" cy="130" r="20" fill="#a3e635"/>
+    <g fill="#1e293b"><circle cx="236" cy="124" r="3.5"/><circle cx="244" cy="124" r="3.5"/></g>
+    <text x="239" y="180" fill="#94a3b8" font-size="9.5">전자쌍 공유</text><text x="239" y="196" fill="#94a3b8" font-size="9.5">(비금속끼리)</text>
+    <!-- 금속 결합 -->
+    <rect x="320" y="64" width="130" height="150" rx="12" fill="#13203a" stroke="#cbd5e1"/>
+    <text x="385" y="86" fill="#e2e8f0" font-size="13" font-weight="700">금속 결합</text>
+    <g fill="#94a3b8"><circle cx="358" cy="120" r="11"/><circle cx="412" cy="120" r="11"/><circle cx="358" cy="156" r="11"/><circle cx="412" cy="156" r="11"/><circle cx="385" cy="138" r="11"/></g>
+    <g fill="#fde047"><circle cx="376" cy="134" r="3"/><circle cx="398" cy="128" r="3"/><circle cx="390" cy="152" r="3"/><circle cx="368" cy="146" r="3"/></g>
+    <text x="385" y="184" fill="#fde68a" font-size="9.5">자유 전자</text><text x="385" y="200" fill="#94a3b8" font-size="9.5">전기·열 잘 통함</text>
+  </g>
+  <text x="240" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">원자는 안정한 전자 배치를 이루려 결합한다 — 결합 방식이 성질을 좌우</text>
+  <text x="240" y="276" fill="#94a3b8" font-size="11" text-anchor="middle">금속의 전성·연성, 이온 물질의 높은 녹는점은 모두 결합 차이</text>
+</svg>
