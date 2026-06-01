@@ -32,13 +32,17 @@ export function ItemList({ area, mode, selectedId, onSelect }: Props) {
   const listTitle =
     mode === "taxonomy" ? area.taxonomyListTitle : mode === "process" ? area.process?.listTitle ?? "공정" : area.supplyListTitle;
   const title = `${listTitle} · ${rows.length}`;
+  const subtitle = mode === "process" ? area.process?.subject ?? "" : "";
 
   return (
     <div
       className="glass rounded-xl thin-scroll"
       style={{ position: "absolute", left: 16, top: 88, width: 222, maxHeight: "calc(100vh - 330px)", overflowY: "auto", zIndex: 20, padding: "10px 6px" }}
     >
-      <div className="text-xs font-semibold uppercase tracking-wider text-slate-400" style={{ padding: "2px 10px 8px" }}>{title}</div>
+      <div className="text-xs font-semibold uppercase tracking-wider text-slate-400" style={{ padding: "2px 10px 2px" }}>{title}</div>
+      {subtitle && (
+        <div style={{ padding: "0 10px 8px", fontSize: 10.5, lineHeight: 1.4, color: "#7dd3fc" }}>{subtitle}</div>
+      )}
       <div className="space-y-0.5">
         {rows.map((r) => {
           const active = r.id === selectedId;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { scienceSubject } from "../data/theory";
 import { DOMAIN_META, figureUrl, gradeLabel, unitLabel, type Grade, type ScienceDomain } from "../data/theory/types";
 import { useIsMobile } from "../hooks/useIsMobile";
+import { BRAND } from "../brand";
 
 const TRACK_ORDER: NonNullable<Grade["track"]>[] = ["공통", "일반 선택", "진로 선택", "융합 선택"];
 
@@ -276,7 +277,7 @@ export function TheoryView() {
             })}
 
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 16, color: "#475569", fontSize: 11.5 }}>
-              놀리지 아틀라스 · 기초이론 · {subject.name} · {level.name} {grade?.track ? `· ${grade.track}` : ""} {grade ? gradeLabel(grade) : ""}
+              {BRAND.full} · 기초이론 · {subject.name} · {level.name} {grade?.track ? `· ${grade.track}` : ""} {grade ? gradeLabel(grade) : ""}
             </div>
           </article>
         ) : (

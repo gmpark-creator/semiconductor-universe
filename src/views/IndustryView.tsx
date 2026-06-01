@@ -7,6 +7,7 @@ import { Legend } from "../ui/Legend";
 import { ViewToggle } from "../ui/ViewToggle";
 import { ItemList } from "../ui/ItemList";
 import { AreaSelector } from "../ui/AreaSelector";
+import { ProcessGuide } from "../ui/ProcessGuide";
 import { AREAS, DEFAULT_AREA_ID, getArea } from "../data/areas";
 
 /** prefers-reduced-motion 구독 훅. */
@@ -73,6 +74,12 @@ export function IndustryView() {
       </div>
 
       <ViewToggle area={area} mode={mode} onChange={changeMode} />
+
+      {/* 공정 안내 배너 — 어떤 반도체를 만드는 과정인지 명시. 단계 선택 전(개요)에만 노출. */}
+      {mode === "process" && selected === null && area.process && (
+        <ProcessGuide process={area.process} areaName={area.name} />
+      )}
+
       <ItemList area={area} mode={mode} selectedId={selected} onSelect={setSelected} />
       <Legend area={area} mode={mode} />
       <InfoPanel area={area} mode={mode} selectedId={selected} onClose={() => setSelected(null)} />

@@ -1,5 +1,5 @@
 // data/types.ts
-// Knowledge Atlas — 여러 지식 "영역(area)"이 공유하는 제네릭 타입.
+// Knowledge Cosmos(놀리지 코스모스) — 여러 지식 "영역(area)"이 공유하는 제네릭 타입.
 // 반도체 유니버스·전력 유니버스 등 각 영역은 AtlasArea 하나로 표현되고,
 // 3D 엔진/UI는 이 타입만 알면 영역에 무관하게 동작한다(데이터 주도).
 
@@ -79,6 +79,8 @@ export interface ProcessStep {
 /** 공정 흐름 — 영역이 선택적으로 가질 수 있는 세 번째 모드(반도체만 보유). */
 export interface ProcessFlowData {
   hint: string; // 상단 안내문
+  subject: string; // 공정 안내 배너 제목 — "어떤 반도체를 만드는 과정인가" (예: "모든 실리콘 기반 반도체의 공통 제조 과정")
+  intro: string; // 공정 안내 배너 본문 — 대상 반도체 범위·전체 흐름을 한두 문장으로 설명
   listTitle: string; // 좌측 목록 제목 ("8대 공정")
   legendTitle: string; // 범례 제목
   steps: ProcessStep[];

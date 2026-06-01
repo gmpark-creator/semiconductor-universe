@@ -4,7 +4,7 @@ import { TheoryView } from "./views/TheoryView";
 import { SectionNav, type Section } from "./ui/SectionNav";
 
 /**
- * 놀리지 아틀라스 — 대분류 2층 구조의 최상위 셸.
+ * 놀리지 코스모스 — 대분류 2층 구조의 최상위 셸.
  *  · 산업    → 3D 지식 영역(반도체·전력 …)
  *  · 기초이론 → 학교 과학 학습 자료(초/중/고)
  */
