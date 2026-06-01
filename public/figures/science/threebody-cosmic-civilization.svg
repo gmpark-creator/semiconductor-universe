@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="context-stroke"/>
+    </marker>
+    <radialGradient id="galaxy" cx="50%" cy="50%">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset=".45" stop-color="#60a5fa"/>
+      <stop offset="1" stop-color="#1d4ed8" stop-opacity=".15"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">우주 문명: 탐색·윤리·상상</text>
+  <text x="24" y="61" fill="#94a3b8" font-size="11">외계 지성 탐색은 과학이지만, 우주 문명의 행동 법칙은 아직 검증되지 않았다.</text>
+
+  <g transform="translate(80 204)">
+    <path d="M0 0 L46 -46" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-26 -10 Q16 -68 58 -26 Q24 -8 -26 -10Z" fill="#1e293b" stroke="#67e8f9" stroke-width="2"/>
+    <path d="M-8 -16 Q16 -44 40 -28" fill="none" stroke="#67e8f9" stroke-width="1.4"/>
+    <rect x="-28" y="0" width="72" height="10" rx="5" fill="#334155"/>
+    <text x="12" y="37" fill="#a5f3fc" font-size="11" text-anchor="middle">SETI·기술징표</text>
+  </g>
+
+  <g transform="translate(238 148)">
+    <ellipse cx="0" cy="0" rx="84" ry="42" fill="url(#galaxy)" opacity=".55"/>
+    <ellipse cx="0" cy="0" rx="84" ry="42" fill="none" stroke="#475569" stroke-dasharray="5 5"/>
+    <circle cx="-44" cy="-8" r="4" fill="#facc15"/>
+    <circle cx="-6" cy="18" r="5" fill="#34d399"/>
+    <circle cx="38" cy="-18" r="4" fill="#f472b6"/>
+    <circle cx="54" cy="16" r="3" fill="#e0f2fe"/>
+    <path d="M-98 42 C-56 10 -28 2 -6 18" fill="none" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M54 16 C100 38 116 74 126 100" fill="none" stroke="#fb7185" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+    <text x="0" y="-61" fill="#c4b5fd" font-size="11" text-anchor="middle">발견·침묵·위험을 함께 묻는 사고실험</text>
+  </g>
+
+  <g transform="translate(314 210)">
+    <rect width="132" height="54" rx="8" fill="#3b0f1c" stroke="#fb7185" stroke-opacity=".75"/>
+    <text x="14" y="21" fill="#fecdd3" font-size="10" font-weight="700">소설적 상상</text>
+    <text x="14" y="38" fill="#cbd5e1" font-size="9.5">암흑의 숲, 차원 무기</text>
+  </g>
+  <g transform="translate(24 82)">
+    <rect width="132" height="54" rx="8" fill="#102a33" stroke="#22d3ee" stroke-opacity=".7"/>
+    <text x="14" y="21" fill="#a5f3fc" font-size="10" font-weight="700">현실 과학</text>
+    <text x="14" y="38" fill="#cbd5e1" font-size="9.5">전파 탐색, 생명 흔적</text>
+  </g>
+  <g transform="translate(320 82)">
+    <rect width="126" height="54" rx="8" fill="#1e293b" stroke="#64748b"/>
+    <text x="14" y="21" fill="#e2e8f0" font-size="10" font-weight="700">판정 기준</text>
+    <text x="14" y="38" fill="#cbd5e1" font-size="9.5">관측 증거와 윤리 구분</text>
+  </g>
+  <text x="240" y="296" fill="#94a3b8" font-size="11" text-anchor="middle">좋은 SF는 검증된 사실과 아직 모르는 영역의 경계를 드러낸다.</text>
+</svg>

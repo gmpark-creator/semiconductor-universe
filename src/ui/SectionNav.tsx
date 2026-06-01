@@ -5,7 +5,7 @@ export type Section = "industry" | "theory";
 
 const SECTIONS: { id: Section; label: string; sub: string; emoji: string }[] = [
   { id: "industry", label: "산업", sub: "반도체 · 전력", emoji: "🏭" },
-  { id: "theory", label: "기초이론", sub: "과학 · 초중고", emoji: "📚" },
+  { id: "theory", label: "기초이론", sub: "과학 · 초중고·심화·SF", emoji: "📚" },
 ];
 
 export function SectionNav({ section, onChange }: { section: Section; onChange: (s: Section) => void }) {

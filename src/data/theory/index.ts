@@ -25,12 +25,13 @@ import { highCareerPlanetarySpace } from "./high-career-planetary-space";
 import { highFusionHistoryCulture } from "./high-fusion-history-culture";
 import { highFusionClimateEcology } from "./high-fusion-climate-ecology";
 import { highFusionInquiry } from "./high-fusion-inquiry";
+import { threeBodyScience } from "./threebody-science";
 
 export const scienceSubject: TheorySubject = {
   id: "science",
   name: "과학",
   accent: "#38bdf8",
-  tagline: "초등학교부터 차근차근 — 물리·화학·생물·지구과학 기초 이론",
+  tagline: "초등학교부터 차근차근 — 물리·화학·생물·지구과학, 그리고 SF 과학 판별",
   levels: [
     {
       id: "elementary",
@@ -69,6 +70,13 @@ export const scienceSubject: TheorySubject = {
         highFusionClimateEcology,
         highFusionInquiry,
       ],
+    },
+    {
+      id: "sf",
+      name: "SF 과학 판별",
+      shortName: "SF",
+      status: "ready",
+      grades: [threeBodyScience],
     },
   ],
 };
