@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">동적 평형</text>
+  <!-- 가역 반응 -->
+  <g transform="translate(240,96)" text-anchor="middle">
+    <rect x="-150" y="-22" width="100" height="44" rx="10" fill="#13203a" stroke="#22d3ee"/><text x="-100" y="5" fill="#a5f3fc" font-size="13" font-weight="700">반응물</text>
+    <rect x="50" y="-22" width="100" height="44" rx="10" fill="#13203a" stroke="#34d399"/><text x="100" y="5" fill="#6ee7b7" font-size="13" font-weight="700">생성물</text>
+    <path d="M-46 -8 H46" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#ce)"/><text x="0" y="-14" fill="#fdba74" font-size="10">정반응</text>
+    <path d="M46 10 H-46" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#ce)"/><text x="0" y="26" fill="#93c5fd" font-size="10">역반응</text>
+  </g>
+  <!-- 속도 그래프 -->
+  <g transform="translate(60,170)">
+    <line x1="0" y1="90" x2="0" y2="0" stroke="#64748b"/><line x1="0" y1="90" x2="200" y2="90" stroke="#64748b"/>
+    <text x="-6" y="8" fill="#94a3b8" font-size="9" text-anchor="end">속도</text><text x="200" y="104" fill="#94a3b8" font-size="9" text-anchor="end">시간</text>
+    <path d="M0 8 C40 50 120 74 200 76" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+    <path d="M0 90 C40 70 120 74 200 76" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+    <line x1="0" y1="76" x2="200" y2="76" stroke="#475569" stroke-dasharray="3 3"/>
+    <text x="150" y="68" fill="#cbd5e1" font-size="9">정반응 속도 = 역반응 속도</text>
+  </g>
+  <text x="320" y="210" fill="#a5f3fc" font-size="12" text-anchor="middle">동적 평형</text>
+  <text x="320" y="232" fill="#94a3b8" font-size="10" text-anchor="middle">멈춘 게 아니라</text>
+  <text x="320" y="248" fill="#94a3b8" font-size="10" text-anchor="middle">양방향 같은 속도</text>
+  <text x="240" y="296" fill="#94a3b8" font-size="11" text-anchor="middle">용해 평형(포화 용액)도 동적 평형 — 녹고 석출되는 속도가 같다</text>
+  <defs><marker id="ce" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="context-stroke"/></marker></defs>
+</svg>

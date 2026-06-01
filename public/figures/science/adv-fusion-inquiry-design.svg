@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs><marker id="arrow-inq" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#fb7185"/></marker></defs>
+  <rect width="480" height="320" rx="16" fill="#120f16"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#1b1621" stroke="#4a2333"/>
+  <text x="34" y="50" fill="#fff1f2" font-size="20" font-weight="700">융합 탐구의 설계</text>
+  <text x="34" y="72" fill="#fecdd3" font-size="11">질문, 가설, 변인, 모형을 구조화해 탐구를 시작한다</text>
+  <g transform="translate(42 128)" text-anchor="middle" font-size="11" font-weight="700">
+    <rect x="0" y="0" width="86" height="54" rx="12" fill="#3b1d2b" stroke="#fb7185"/><text x="43" y="32" fill="#fecdd3">문제 발견</text>
+    <path d="M94 27 H132" stroke="#fb7185" stroke-width="3" marker-end="url(#arrow-inq)"/>
+    <rect x="140" y="0" width="86" height="54" rx="12" fill="#2a1832" stroke="#c084fc"/><text x="183" y="32" fill="#e9d5ff">가설</text>
+    <path d="M234 27 H272" stroke="#fb7185" stroke-width="3" marker-end="url(#arrow-inq)"/>
+    <rect x="280" y="0" width="86" height="54" rx="12" fill="#132d23" stroke="#34d399"/><text x="323" y="32" fill="#bbf7d0">자료 계획</text>
+    <path d="M322 62 V104 H44 V68" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+  </g>
+  <g transform="translate(74 238)" text-anchor="middle" font-size="10">
+    <rect x="0" y="0" width="86" height="28" rx="8" fill="#3b1d2b" stroke="#fb7185"/><text x="43" y="18" fill="#fecdd3">독립 변인</text>
+    <rect x="108" y="0" width="86" height="28" rx="8" fill="#2a1832" stroke="#c084fc"/><text x="151" y="18" fill="#e9d5ff">종속 변인</text>
+    <rect x="216" y="0" width="86" height="28" rx="8" fill="#132d23" stroke="#34d399"/><text x="259" y="18" fill="#bbf7d0">모형</text>
+  </g>
+</svg>

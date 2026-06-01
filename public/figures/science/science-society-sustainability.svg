@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">과학 → 기술 → 지속가능한 삶</text>
+  <g text-anchor="middle">
+    <circle cx="100" cy="150" r="46" fill="#13203a" stroke="#fb7185" stroke-width="2"/>
+    <text x="100" y="144" font-size="26">🔬</text><text x="100" y="170" fill="#fda4af" font-size="13" font-weight="700">과학</text>
+    <circle cx="240" cy="150" r="46" fill="#13203a" stroke="#fb7185" stroke-width="2"/>
+    <text x="240" y="144" font-size="26">⚙️</text><text x="240" y="170" fill="#fda4af" font-size="13" font-weight="700">과학기술</text>
+    <circle cx="380" cy="150" r="46" fill="#13203a" stroke="#34d399" stroke-width="2"/>
+    <text x="380" y="144" font-size="26">🌱</text><text x="380" y="170" fill="#6ee7b7" font-size="12" font-weight="700">지속가능</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2.5" marker-end="url(#s1)">
+    <line x1="148" y1="150" x2="190" y2="150"/><line x1="288" y1="150" x2="330" y2="150"/>
+  </g>
+  <text x="240" y="252" fill="#cbd5e1" font-size="13" text-anchor="middle">증거 기반 의사결정 ⚖️ — 자료·사실로 판단</text>
+  <text x="240" y="280" fill="#94a3b8" font-size="11" text-anchor="middle">현재의 필요를 채우되 미래 세대의 환경·자원을 해치지 않는다</text>
+  <defs><marker id="s1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>

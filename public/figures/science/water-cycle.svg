@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">물의 순환과 상태 변화</text>
+  <!-- 태양 -->
+  <circle cx="64" cy="78" r="26" fill="#fbbf24"/>
+  <g stroke="#fbbf24" stroke-width="3"><line x1="64" y1="40" x2="64" y2="28"/><line x1="30" y1="78" x2="18" y2="78"/><line x1="40" y1="52" x2="31" y2="43"/></g>
+  <!-- 구름 -->
+  <g fill="#cbd5e1"><ellipse cx="320" cy="86" rx="52" ry="26"/><circle cx="290" cy="86" r="24"/><circle cx="350" cy="84" r="22"/></g>
+  <text x="320" y="92" fill="#1e293b" font-size="13" font-weight="700" text-anchor="middle">구름</text>
+  <!-- 비 -->
+  <g stroke="#38bdf8" stroke-width="3" stroke-linecap="round"><line x1="296" y1="118" x2="290" y2="140"/><line x1="320" y1="118" x2="314" y2="140"/><line x1="344" y1="118" x2="338" y2="140"/></g>
+  <text x="372" y="134" fill="#7dd3fc" font-size="12">강수(비·눈)</text>
+  <!-- 바다 -->
+  <path d="M0 232 q40 -14 80 0 t80 0 t80 0 t80 0 t80 0 v88 H0 z" fill="#155e75"/>
+  <text x="120" y="300" fill="#a5f3fc" font-size="13" font-weight="700">바다·강 (액체인 물)</text>
+  <!-- 증발 화살표 -->
+  <path d="M120 226 C150 170 180 150 250 120" fill="none" stroke="#34d399" stroke-width="3" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+  <text x="150" y="200" fill="#6ee7b7" font-size="12" font-weight="700">증발 ↑ (수증기)</text>
+  <!-- 응결 화살표 -->
+  <path d="M392 118 C420 160 430 190 400 222" fill="none" stroke="#f472b6" stroke-width="3" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+  <text x="404" y="180" fill="#f9a8d4" font-size="12" font-weight="700">응결</text>
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#e2e8f0"/></marker>
+  </defs>
+</svg>

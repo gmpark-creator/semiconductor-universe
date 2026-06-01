@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fef3c7"/>
+      <stop offset="0.55" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#b45309"/>
+    </radialGradient>
+    <marker id="arrow-star" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <rect x="20" y="20" width="440" height="280" rx="14" fill="#0b1120" stroke="#25314d"/>
+  <text x="30" y="44" fill="#e2e8f0" font-size="19" font-weight="700">태양계 천체와 별</text>
+  <text x="30" y="66" fill="#94a3b8" font-size="11">겉보기 운동, 태양계 탐사, 별의 물리량과 진화를 연결한다</text>
+
+  <g transform="translate(34 88)">
+    <circle cx="70" cy="78" r="34" fill="url(#sun)"/>
+    <ellipse cx="70" cy="78" rx="58" ry="30" fill="none" stroke="#475569" stroke-width="1.5"/>
+    <ellipse cx="70" cy="78" rx="90" ry="48" fill="none" stroke="#334155" stroke-width="1.5"/>
+    <ellipse cx="70" cy="78" rx="122" ry="64" fill="none" stroke="#1f2a44" stroke-width="1.5"/>
+    <circle cx="125" cy="68" r="7" fill="#60a5fa"/>
+    <circle cx="36" cy="106" r="5" fill="#fca5a5"/>
+    <circle cx="172" cy="106" r="9" fill="#fcd34d"/>
+    <path d="M132 22 C158 40 168 54 170 76" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow-star)"/>
+    <text x="70" y="164" fill="#cbd5e1" font-size="12" text-anchor="middle">행성 공전과 겉보기 운동</text>
+  </g>
+
+  <g transform="translate(258 88)">
+    <rect x="0" y="0" width="178" height="142" rx="12" fill="#111827" stroke="#334155"/>
+    <line x1="28" y1="118" x2="150" y2="118" stroke="#64748b"/>
+    <line x1="28" y1="118" x2="28" y2="22" stroke="#64748b"/>
+    <text x="14" y="24" fill="#94a3b8" font-size="9" transform="rotate(-90 14 24)">밝음</text>
+    <text x="128" y="134" fill="#94a3b8" font-size="9">낮은 온도</text>
+    <text x="24" y="134" fill="#94a3b8" font-size="9">높은 온도</text>
+    <path d="M36 34 C62 45 92 70 136 108" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="44" cy="38" r="4" fill="#93c5fd"/>
+    <circle cx="72" cy="56" r="4" fill="#fde68a"/>
+    <circle cx="106" cy="84" r="4" fill="#fca5a5"/>
+    <circle cx="136" cy="108" r="4" fill="#f87171"/>
+    <text x="89" y="18" fill="#e2e8f0" font-size="12" font-weight="700" text-anchor="middle">H-R도</text>
+  </g>
+
+  <g transform="translate(266 252)">
+    <circle cx="10" cy="0" r="7" fill="#93c5fd"/>
+    <path d="M26 0 H58" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow-star)"/>
+    <circle cx="78" cy="0" r="13" fill="#fca5a5"/>
+    <path d="M96 0 H128" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow-star)"/>
+    <circle cx="150" cy="0" r="6" fill="#e2e8f0"/>
+    <text x="80" y="26" fill="#94a3b8" font-size="10" text-anchor="middle">주계열성 → 적색 거성 → 백색 왜성</text>
+  </g>
+  <text x="94" y="282" fill="#94a3b8" font-size="11" text-anchor="middle">식 현상과 역행은 관측자의 위치를 함께 생각해야 해석된다</text>
+</svg>

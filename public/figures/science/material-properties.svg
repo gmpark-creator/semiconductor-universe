@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">물질의 특성 — 양과 무관한 고유 성질</text>
+  <!-- 밀도 -->
+  <g><rect x="30" y="64" width="130" height="120" rx="10" fill="#13203a" stroke="#22d3ee"/>
+    <text x="95" y="86" fill="#67e8f9" font-size="13" font-weight="700" text-anchor="middle">밀도</text>
+    <path d="M50 110 h60 v54 a6 6 0 0 1 -6 6 h-48 a6 6 0 0 1 -6 -6 z" fill="#1e3a5f"/>
+    <rect x="62" y="98" width="36" height="22" rx="3" fill="#92400e"/><text x="80" y="113" font-size="9" fill="#fde68a" text-anchor="middle">나무 뜸</text>
+    <circle cx="80" cy="150" r="9" fill="#64748b"/><text x="80" y="153" font-size="8" fill="#fff" text-anchor="middle">쇠</text>
+    <text x="95" y="178" font-size="9" fill="#94a3b8" text-anchor="middle">질량÷부피</text></g>
+  <!-- 용해도 -->
+  <g><rect x="175" y="64" width="130" height="120" rx="10" fill="#13203a" stroke="#34d399"/>
+    <text x="240" y="86" fill="#6ee7b7" font-size="13" font-weight="700" text-anchor="middle">용해도</text>
+    <path d="M328 0" /><g stroke="#34d399" stroke-width="2" fill="none"><path d="M195 160 C220 160 230 110 285 104"/></g>
+    <line x1="195" y1="160" x2="195" y2="100" stroke="#475569"/><line x1="195" y1="160" x2="290" y2="160" stroke="#475569"/>
+    <text x="240" y="178" font-size="9" fill="#94a3b8" text-anchor="middle">온도↑ → 더 녹음</text></g>
+  <!-- 녹는점/끓는점 -->
+  <g><rect x="320" y="64" width="130" height="120" rx="10" fill="#13203a" stroke="#f59e0b"/>
+    <text x="385" y="86" fill="#fcd34d" font-size="12" font-weight="700" text-anchor="middle">녹는점·끓는점</text>
+    <line x1="340" y1="160" x2="440" y2="160" stroke="#475569"/><line x1="340" y1="160" x2="340" y2="100" stroke="#475569"/>
+    <path d="M340 150 H360 V150 L370 120 H390 V120 L400 100 H440" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+    <text x="358" y="148" font-size="8" fill="#93c5fd">녹는점</text><text x="402" y="112" font-size="8" fill="#fda4af">끓는점</text></g>
+  <text x="240" y="232" fill="#cbd5e1" font-size="12" text-anchor="middle">물질마다 다른 고유값 → 물질을 구별하고 분리하는 기준</text>
+  <text x="240" y="258" fill="#94a3b8" font-size="11" text-anchor="middle">끓는점 차이로 원유를 휘발유·등유·경유로 분리</text>
+</svg>

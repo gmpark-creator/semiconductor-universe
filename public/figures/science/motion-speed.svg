@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">물체의 운동과 속력</text>
+  <!-- 빠르기 비교: 같은 시간 더 멀리 -->
+  <g>
+    <line x1="40" y1="96" x2="300" y2="96" stroke="#334155" stroke-width="2"/>
+    <text x="40" y="116" font-size="18">🚗</text>
+    <line x1="40" y1="100" x2="300" y2="100" stroke="#38bdf8" stroke-width="2" stroke-dasharray="2 3"/>
+    <line x1="40" y1="140" x2="180" y2="140" stroke="#334155" stroke-width="2"/>
+    <text x="40" y="160" font-size="16">🚲</text>
+    <line x1="40" y1="144" x2="180" y2="144" stroke="#f59e0b" stroke-width="2" stroke-dasharray="2 3"/>
+    <text x="316" y="100" fill="#7dd3fc" font-size="10">멀리 → 빠름</text>
+    <text x="316" y="144" fill="#fbbf24" font-size="10">가까이 → 느림</text>
+  </g>
+  <text x="170" y="74" fill="#cbd5e1" font-size="11" text-anchor="middle">같은 시간 동안 더 멀리 간 것이 빠르다</text>
+  <!-- 속력 공식 -->
+  <g transform="translate(40,182)">
+    <rect x="0" y="0" width="400" height="50" rx="10" fill="#13203a" stroke="#34d399"/>
+    <text x="200" y="32" fill="#6ee7b7" font-size="15" font-weight="700" text-anchor="middle">속력 = 이동 거리 ÷ 걸린 시간</text>
+  </g>
+  <text x="240" y="262" fill="#cbd5e1" font-size="11.5" text-anchor="middle">예: 2시간에 100km → 100÷2 = 50km/h (시속 50킬로미터)</text>
+  <text x="240" y="290" fill="#94a3b8" font-size="11" text-anchor="middle">속력이 빠를수록 멈추는 거리가 길어진다 → 어린이 보호구역 속도 제한</text>
+</svg>

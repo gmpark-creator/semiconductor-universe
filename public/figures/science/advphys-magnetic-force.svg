@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">자기장과 전자기력</text>
+  <!-- 자석 사이 도선 -->
+  <g transform="translate(70,150)">
+    <rect x="0" y="-60" width="46" height="40" rx="4" fill="#7f1d1d" stroke="#f87171"/><text x="23" y="-34" fill="#fecaca" font-size="13" text-anchor="middle" font-weight="700">N</text>
+    <rect x="0" y="40" width="46" height="40" rx="4" fill="#1e3a5f" stroke="#60a5fa"/><text x="23" y="66" fill="#bfdbfe" font-size="13" text-anchor="middle" font-weight="700">S</text>
+    <line x1="23" y1="-20" x2="23" y2="40" stroke="#a5b4fc" stroke-width="1.6" marker-end="url(#mf)"/>
+    <line x1="-30" y1="10" x2="120" y2="10" stroke="#f59e0b" stroke-width="3"/>
+    <text x="118" y="2" fill="#fdba74" font-size="10">전류 I</text>
+    <circle cx="23" cy="10" r="7" fill="#f59e0b"/>
+    <line x1="23" y1="10" x2="23" y2="-44" stroke="#34d399" stroke-width="3" marker-end="url(#mf)"/>
+    <text x="30" y="-30" fill="#6ee7b7" font-size="10" font-weight="700">힘 F</text>
+    <text x="33" y="28" fill="#c7d2fe" font-size="9">자기장 B</text>
+  </g>
+  <g transform="translate(250,90)">
+    <text x="0" y="0" fill="#cbd5e1" font-size="11" font-weight="700">전자기력</text>
+    <text x="0" y="18" fill="#94a3b8" font-size="9">전류 ⊥ 자기장 → 힘 발생</text>
+    <text x="0" y="36" fill="#94a3b8" font-size="9">방향: 왼손 법칙</text>
+    <text x="0" y="62" fill="#cbd5e1" font-size="11" font-weight="700">응용</text>
+    <text x="0" y="80" fill="#fbbf24" font-size="9.5">전동기·스피커</text>
+    <text x="0" y="98" fill="#fbbf24" font-size="9.5">자기장 속 전하 → 원운동</text>
+    <text x="0" y="116" fill="#a5b4fc" font-size="9">(오로라의 원리)</text>
+  </g>
+  <text x="240" y="302" fill="#94a3b8" font-size="11" text-anchor="middle">전류는 자기장을 만들고(오른손 법칙), 자기장 속 전류는 힘을 받는다(왼손 법칙)</text>
+  <defs><marker id="mf" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="context-stroke"/></marker></defs>
+</svg>

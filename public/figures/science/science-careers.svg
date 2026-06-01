@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">과학과 나의 미래</text>
+  <!-- 관심사 중심 -->
+  <circle cx="240" cy="150" r="40" fill="#13203a" stroke="#fb7185" stroke-width="2"/>
+  <text x="240" y="146" font-size="20" text-anchor="middle">🧭</text>
+  <text x="240" y="170" fill="#fda4af" font-size="12" font-weight="700" text-anchor="middle">나의 관심사</text>
+  <!-- 진로 가지 -->
+  <g text-anchor="middle" font-size="10.5" fill="#cbd5e1">
+    <g><circle cx="90" cy="80" r="24" fill="#13203a" stroke="#fbbf24"/><text x="90" y="84" font-size="16">🚀</text><text x="90" y="118">우주·항공</text></g>
+    <g><circle cx="90" cy="220" r="24" fill="#13203a" stroke="#34d399"/><text x="90" y="224" font-size="16">🧬</text><text x="90" y="258">생명·의료</text></g>
+    <g><circle cx="390" cy="80" r="24" fill="#13203a" stroke="#38bdf8"/><text x="390" y="84" font-size="16">💻</text><text x="390" y="118">컴퓨터·AI</text></g>
+    <g><circle cx="390" cy="220" r="24" fill="#13203a" stroke="#a5b4fc"/><text x="390" y="224" font-size="16">🌍</text><text x="390" y="258">환경·에너지</text></g>
+  </g>
+  <g stroke="#475569" stroke-width="1.8"><line x1="112" y1="96" x2="206" y2="134"/><line x1="112" y1="204" x2="206" y2="166"/><line x1="368" y1="96" x2="274" y2="134"/><line x1="368" y1="204" x2="274" y2="166"/></g>
+  <text x="240" y="296" fill="#94a3b8" font-size="11" text-anchor="middle">융합형 직업 증가 · 탐구와 포트폴리오로 미래 준비</text>
+</svg>

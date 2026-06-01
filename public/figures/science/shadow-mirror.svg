@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">빛의 직진과 그림자</text>
+  <!-- 광원 -->
+  <circle cx="62" cy="150" r="22" fill="#fde047"/>
+  <text x="62" y="196" fill="#fde047" font-size="12" font-weight="700" text-anchor="middle">손전등</text>
+  <!-- 직진 빛 -->
+  <g stroke="#facc15" stroke-width="2" opacity="0.85">
+    <line x1="84" y1="138" x2="220" y2="96"/><line x1="84" y1="150" x2="240" y2="150"/><line x1="84" y1="162" x2="220" y2="204"/>
+  </g>
+  <!-- 물체 -->
+  <rect x="220" y="110" width="36" height="80" rx="4" fill="#3b82f6"/>
+  <text x="238" y="206" fill="#93c5fd" font-size="11" text-anchor="middle">물체</text>
+  <!-- 스크린 + 그림자 -->
+  <rect x="392" y="60" width="14" height="200" fill="#cbd5e1"/>
+  <rect x="356" y="118" width="50" height="84" fill="#1e293b"/>
+  <text x="372" y="232" fill="#94a3b8" font-size="12" text-anchor="middle">그림자</text>
+  <text x="240" y="284" fill="#94a3b8" font-size="11" text-anchor="middle">빛이 곧게 나아가다 물체에 막히면, 뒤쪽에 물체 모양의 그림자가 생긴다</text>
+</svg>

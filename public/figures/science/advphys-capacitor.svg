@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">전기 에너지와 축전기</text>
+  <!-- 평행판 축전기 -->
+  <g transform="translate(150,160)">
+    <rect x="-80" y="-60" width="14" height="120" rx="3" fill="#7f1d1d" stroke="#f87171"/>
+    <rect x="66" y="-60" width="14" height="120" rx="3" fill="#1e3a5f" stroke="#60a5fa"/>
+    <text x="-73" y="-72" fill="#fca5a5" font-size="14" text-anchor="middle" font-weight="700">+</text>
+    <text x="73" y="-70" fill="#93c5fd" font-size="16" text-anchor="middle" font-weight="700">−</text>
+    <line x1="-60" y1="-36" x2="60" y2="-36" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#cp)"/>
+    <line x1="-60" y1="0" x2="60" y2="0" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#cp)"/>
+    <line x1="-60" y1="36" x2="60" y2="36" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#cp)"/>
+    <text x="3" y="-44" fill="#fdba74" font-size="9" text-anchor="middle">균일한 전기장</text>
+    <line x1="-73" y1="60" x2="-73" y2="92" stroke="#94a3b8"/><line x1="73" y1="60" x2="73" y2="92" stroke="#94a3b8"/>
+    <line x1="-73" y1="92" x2="-12" y2="92" stroke="#94a3b8"/><line x1="73" y1="92" x2="12" y2="92" stroke="#94a3b8"/>
+    <rect x="-12" y="84" width="24" height="16" rx="2" fill="#13203a" stroke="#94a3b8"/><text x="0" y="96" fill="#cbd5e1" font-size="9" text-anchor="middle">전지</text>
+  </g>
+  <g transform="translate(290,100)">
+    <text x="0" y="0" fill="#cbd5e1" font-size="11" font-weight="700">전기 용량 C</text>
+    <text x="0" y="18" fill="#94a3b8" font-size="9">단위 전압당 저장 전하 (F)</text>
+    <text x="0" y="36" fill="#94a3b8" font-size="9">넓이↑·간격↓·유전체 → C↑</text>
+    <text x="0" y="64" fill="#cbd5e1" font-size="11" font-weight="700">저장 에너지</text>
+    <text x="0" y="82" fill="#fbbf24" font-size="10">∝ C V²  (전압 2배 → 4배)</text>
+  </g>
+  <text x="240" y="300" fill="#94a3b8" font-size="11" text-anchor="middle">화학 반응 없이 전기 에너지를 저장 — 빠른 충전·방전(카메라 플래시, 제세동기)</text>
+  <defs><marker id="cp" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="#f59e0b"/></marker></defs>
+</svg>

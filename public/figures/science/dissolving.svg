@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">용해 — 용질이 용매에 녹아 용액이 돼요</text>
+  <!-- 용질 비커 -->
+  <g>
+    <path d="M70 110 h70 v110 a8 8 0 0 1 -8 8 h-54 a8 8 0 0 1 -8 -8 z" fill="#0b1220" stroke="#475569" stroke-width="2"/>
+    <path d="M70 150 h70 v70 a8 8 0 0 1 -8 8 h-54 a8 8 0 0 1 -8 -8 z" fill="#1e3a5f" opacity="0.7"/>
+    <g fill="#fef08a"><rect x="92" y="196" width="8" height="8"/><rect x="106" y="200" width="8" height="8"/><rect x="118" y="194" width="8" height="8"/></g>
+    <text x="105" y="256" fill="#fde047" font-size="12" font-weight="700" text-anchor="middle">소금(용질)</text>
+    <text x="105" y="138" fill="#93c5fd" font-size="11" text-anchor="middle">물(용매)</text>
+  </g>
+  <!-- 화살표 -->
+  <text x="216" y="190" fill="#34d399" font-size="34" text-anchor="middle">→</text>
+  <text x="216" y="216" fill="#6ee7b7" font-size="11" text-anchor="middle">젓기</text>
+  <!-- 용액 비커 -->
+  <g>
+    <path d="M300 110 h70 v110 a8 8 0 0 1 -8 8 h-54 a8 8 0 0 1 -8 -8 z" fill="#0b1220" stroke="#475569" stroke-width="2"/>
+    <path d="M300 150 h70 v70 a8 8 0 0 1 -8 8 h-54 a8 8 0 0 1 -8 -8 z" fill="#1e3a5f" opacity="0.7"/>
+    <g fill="#fef08a" opacity="0.9"><circle cx="316" cy="172" r="2.5"/><circle cx="338" cy="184" r="2.5"/><circle cx="356" cy="170" r="2.5"/><circle cx="324" cy="200" r="2.5"/><circle cx="348" cy="206" r="2.5"/><circle cx="332" cy="220" r="2.5"/><circle cx="358" cy="196" r="2.5"/></g>
+    <text x="335" y="256" fill="#a5f3fc" font-size="12" font-weight="700" text-anchor="middle">소금물(용액)</text>
+  </g>
+  <text x="240" y="296" fill="#94a3b8" font-size="11" text-anchor="middle">녹아도 사라지지 않아요 — 물 100g + 소금 10g = 소금물 110g</text>
+</svg>

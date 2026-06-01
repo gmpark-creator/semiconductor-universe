@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">힘과 뉴턴 운동 법칙</text>
+  <!-- 자유물체도 -->
+  <g transform="translate(120,150)">
+    <rect x="-34" y="-26" width="68" height="52" rx="8" fill="#13203a" stroke="#f59e0b" stroke-width="2"/>
+    <text x="0" y="6" fill="#fdba74" font-size="13" font-weight="700" text-anchor="middle">물체 m</text>
+    <line x1="34" y1="0" x2="110" y2="0" stroke="#34d399" stroke-width="2.5" marker-end="url(#nd)"/><text x="72" y="-8" fill="#6ee7b7" font-size="11">F</text>
+    <line x1="0" y1="26" x2="0" y2="92" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#nd)"/><text x="6" y="70" fill="#93c5fd" font-size="10">중력</text>
+    <line x1="0" y1="-26" x2="0" y2="-92" stroke="#a5b4fc" stroke-width="2.5" marker-end="url(#nd)"/><text x="6" y="-66" fill="#c7d2fe" font-size="10">수직항력</text>
+    <line x1="-34" y1="0" x2="-90" y2="0" stroke="#fb7185" stroke-width="2" marker-end="url(#nd)"/><text x="-78" y="-8" fill="#fda4af" font-size="10">마찰</text>
+    <text x="0" y="124" fill="#cbd5e1" font-size="11" text-anchor="middle" font-weight="700">알짜힘 = m a</text>
+  </g>
+  <!-- 작용반작용 -->
+  <g transform="translate(330,150)">
+    <circle cx="-20" cy="0" r="20" fill="#22d3ee33" stroke="#22d3ee"/><circle cx="40" cy="0" r="20" fill="#fb718533" stroke="#fb7185"/>
+    <line x1="-2" y1="-30" x2="22" y2="-30" stroke="#22d3ee" stroke-width="2.5" marker-end="url(#nd)"/>
+    <line x1="22" y1="30" x2="-2" y2="30" stroke="#fb7185" stroke-width="2.5" marker-end="url(#nd)"/>
+    <text x="10" y="-40" fill="#a5f3fc" font-size="9" text-anchor="middle">작용</text>
+    <text x="10" y="50" fill="#fda4af" font-size="9" text-anchor="middle">반작용</text>
+    <text x="10" y="78" fill="#cbd5e1" font-size="10" text-anchor="middle">크기 같고 방향 반대</text>
+    <text x="10" y="94" fill="#94a3b8" font-size="9" text-anchor="middle">서로 다른 물체에 작용</text>
+  </g>
+  <text x="240" y="298" fill="#94a3b8" font-size="11" text-anchor="middle">한 물체의 모든 힘을 그린 자유물체도로 각 축에서 F = ma 를 적용한다</text>
+  <defs><marker id="nd" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="context-stroke"/></marker></defs>
+</svg>

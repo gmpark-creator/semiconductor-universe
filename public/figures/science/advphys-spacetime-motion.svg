@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">시공간과 물체의 운동</text>
+  <!-- 벡터 분해 -->
+  <g transform="translate(40,70)">
+    <line x1="0" y1="120" x2="170" y2="120" stroke="#475569"/><line x1="0" y1="120" x2="0" y2="0" stroke="#475569"/>
+    <text x="-6" y="6" fill="#94a3b8" font-size="9" text-anchor="end">y</text><text x="172" y="134" fill="#94a3b8" font-size="9">x</text>
+    <line x1="0" y1="120" x2="120" y2="40" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#am)"/>
+    <text x="70" y="74" fill="#fdba74" font-size="11" font-weight="700">속도 v</text>
+    <line x1="0" y1="120" x2="120" y2="120" stroke="#60a5fa" stroke-width="1.6" stroke-dasharray="4 3"/>
+    <line x1="120" y1="120" x2="120" y2="40" stroke="#60a5fa" stroke-width="1.6" stroke-dasharray="4 3"/>
+    <text x="55" y="135" fill="#93c5fd" font-size="9">v cosθ</text><text x="124" y="84" fill="#93c5fd" font-size="9">v sinθ</text>
+    <text x="14" y="112" fill="#cbd5e1" font-size="9">θ</text>
+  </g>
+  <!-- v-t 그래프 (등가속도) -->
+  <g transform="translate(270,70)">
+    <line x1="0" y1="120" x2="180" y2="120" stroke="#475569"/><line x1="0" y1="120" x2="0" y2="0" stroke="#475569"/>
+    <text x="-6" y="6" fill="#94a3b8" font-size="9" text-anchor="end">속도</text><text x="182" y="134" fill="#94a3b8" font-size="9">시간</text>
+    <line x1="0" y1="100" x2="170" y2="20" stroke="#34d399" stroke-width="2.5"/>
+    <polygon points="0,100 170,20 170,120 0,120" fill="#34d39922"/>
+    <text x="120" y="50" fill="#6ee7b7" font-size="10">기울기 = 가속도</text>
+    <text x="85" y="112" fill="#a7f3d0" font-size="9" text-anchor="middle">넓이 = 변위</text>
+  </g>
+  <text x="240" y="300" fill="#94a3b8" font-size="11" text-anchor="middle">변위·속도·가속도는 방향을 가진 벡터 — 속력이 일정해도 방향이 바뀌면 가속도가 있다</text>
+  <defs><marker id="am" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#f59e0b"/></marker></defs>
+</svg>

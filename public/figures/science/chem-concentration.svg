@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">용액의 농도</text>
+  <!-- 용질+용매=용액 -->
+  <g transform="translate(40,70)" text-anchor="middle" font-size="11" fill="#cbd5e1">
+    <circle cx="30" cy="30" r="24" fill="#fde047"/><text x="30" y="34" fill="#04121f" font-weight="700">용질</text><text x="30" y="74">설탕</text>
+    <text x="80" y="36" fill="#fbbf24" font-size="20">+</text>
+    <path d="M110 16 h44 v40 a6 6 0 0 1 -6 6 h-32 a6 6 0 0 1 -6 -6 z" fill="#1e3a5f" stroke="#38bdf8"/><text x="132" y="40" fill="#7dd3fc">물</text><text x="132" y="80">용매</text>
+    <text x="172" y="36" fill="#fbbf24" font-size="20">=</text>
+    <path d="M196 16 h44 v40 a6 6 0 0 1 -6 6 h-32 a6 6 0 0 1 -6 -6 z" fill="#155e75"/><g fill="#fef08a"><circle cx="208" cy="34" r="2.5"/><circle cx="224" cy="44" r="2.5"/><circle cx="232" cy="30" r="2.5"/></g><text x="218" y="80" fill="#a5f3fc">용액(균일)</text>
+  </g>
+  <!-- 농도 공식 -->
+  <g transform="translate(40,186)">
+    <rect x="0" y="0" width="200" height="74" rx="12" fill="#13203a" stroke="#22d3ee"/>
+    <text x="100" y="26" fill="#a5f3fc" font-size="12" font-weight="700" text-anchor="middle">퍼센트 농도</text>
+    <text x="100" y="52" fill="#fde68a" font-size="13" text-anchor="middle">= 용질질량 ÷ 용액질량 ×100</text>
+  </g>
+  <g transform="translate(258,186)">
+    <rect x="0" y="0" width="182" height="74" rx="12" fill="#13203a" stroke="#34d399"/>
+    <text x="91" y="26" fill="#6ee7b7" font-size="12" font-weight="700" text-anchor="middle">몰 농도 (mol/L)</text>
+    <text x="91" y="52" fill="#fde68a" font-size="13" text-anchor="middle">= 용질 몰수 ÷ 부피(L)</text>
+  </g>
+  <text x="240" y="290" fill="#94a3b8" font-size="11" text-anchor="middle">반응은 몰수로 일어나므로 실험실 표준은 몰 농도 · 식염수 0.9%</text>
+</svg>

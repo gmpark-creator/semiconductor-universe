@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">자극에서 반응까지</text>
+  <g text-anchor="middle" font-size="11">
+    <g><circle cx="60" cy="120" r="26" fill="#13203a" stroke="#34d399"/><text x="60" y="126" font-size="18">👁️</text><text x="60" y="162" fill="#6ee7b7">감각 기관</text><text x="60" y="92" fill="#94a3b8" font-size="9">자극</text></g>
+    <g><circle cx="180" cy="120" r="22" fill="#13203a" stroke="#38bdf8"/><text x="180" y="125" font-size="9" fill="#7dd3fc">감각신경</text></g>
+    <g><circle cx="290" cy="120" r="28" fill="#13203a" stroke="#a5b4fc"/><text x="290" y="124" font-size="18">🧠</text><text x="290" y="160" fill="#c7d2fe">뇌(판단)</text></g>
+    <g><circle cx="400" cy="120" r="22" fill="#13203a" stroke="#fbbf24"/><text x="400" y="125" font-size="9" fill="#fde68a">운동신경</text></g>
+  </g>
+  <g stroke="#475569" stroke-width="2" marker-end="url(#n2)">
+    <line x1="86" y1="120" x2="156" y2="120"/><line x1="202" y1="120" x2="260" y2="120"/><line x1="318" y1="120" x2="376" y2="120"/>
+  </g>
+  <text x="448" y="124" fill="#fde68a" font-size="11" text-anchor="end" transform="translate(20,0)">→근육</text>
+  <text x="240" y="200" fill="#f87171" font-size="11" text-anchor="middle">무조건 반사: 뇌 거치지 않고 척수가 바로 명령(빠름)</text>
+  <path d="M60 146 q120 60 340 0" fill="none" stroke="#f87171" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#n2)"/>
+  <text x="240" y="262" fill="#94a3b8" font-size="11" text-anchor="middle">호르몬은 혈액 타고 느리게·오래 작용 → 신경과 함께 항상성 유지</text>
+  <defs><marker id="n2" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>

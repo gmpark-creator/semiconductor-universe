@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">지층과 화석</text>
+  <!-- 지층 -->
+  <g>
+    <rect x="70" y="80" width="240" height="34" fill="#a16207"/>
+    <rect x="70" y="114" width="240" height="40" fill="#b45309"/>
+    <rect x="70" y="154" width="240" height="34" fill="#92400e"/>
+    <rect x="70" y="188" width="240" height="46" fill="#78350f"/>
+    <rect x="70" y="80" width="240" height="154" fill="none" stroke="#1f2937" stroke-width="2"/>
+    <!-- 화석 -->
+    <g transform="translate(150,166)" fill="#fde68a"><path d="M0 0 q14 -10 28 0 q-6 12 -14 12 q-8 0 -14 -12z"/><path d="M2 2 q12 -6 24 0" fill="none" stroke="#a16207" stroke-width="1.5"/></g>
+    <text x="190" y="200" fill="#fde68a" font-size="10">조개 화석</text>
+  </g>
+  <!-- 화살표 라벨 -->
+  <g font-size="12" fill="#e2e8f0">
+    <text x="326" y="100">나중에 쌓임 (위 = 새 층)</text>
+    <text x="326" y="224">먼저 쌓임 (아래 = 오래된 층)</text>
+  </g>
+  <line x1="318" y1="92" x2="318" y2="226" stroke="#64748b" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="120" y="266" fill="#94a3b8" font-size="11">알갱이(자갈·모래·진흙)가 오랜 시간 켜켜이 쌓여 줄무늬 층이 된다.</text>
+  <text x="120" y="286" fill="#94a3b8" font-size="11">산에서 조개 화석이 나오면 그곳이 옛날엔 바다였다는 뜻!</text>
+  <defs><marker id="a2" markerWidth="9" markerHeight="9" refX="4" refY="6" orient="auto"><path d="M0 0 L8 0 L4 8 z" fill="#64748b"/></marker></defs>
+</svg>

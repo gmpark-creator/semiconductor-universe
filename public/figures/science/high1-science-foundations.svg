@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">과학의 기초 — 측정에서 정보까지</text>
+  <g fill="none" stroke="#38bdf8" stroke-width="2">
+    <line x1="72" y1="90" x2="72" y2="230"/>
+    <line x1="52" y1="210" x2="210" y2="210"/>
+    <path d="M72 170 q44 -42 88 -62" stroke="#f59e0b"/>
+    <circle cx="164" cy="108" r="6" fill="#f59e0b" stroke="none"/>
+  </g>
+  <g text-anchor="middle">
+    <rect x="244" y="72" width="172" height="46" rx="12" fill="#13203a" stroke="#22d3ee"/>
+    <text x="330" y="100" fill="#a5f3fc" font-size="13" font-weight="700">자연의 변화 = 신호</text>
+    <path d="M330 128 v34" stroke="#94a3b8" stroke-width="2" marker-end="url(#a)"/>
+    <rect x="244" y="168" width="172" height="46" rx="12" fill="#13203a" stroke="#818cf8"/>
+    <text x="330" y="196" fill="#c7d2fe" font-size="13" font-weight="700">센서·측정 = 자료</text>
+    <path d="M330 224 v28" stroke="#94a3b8" stroke-width="2" marker-end="url(#a)"/>
+    <rect x="244" y="258" width="172" height="36" rx="10" fill="#13203a" stroke="#34d399"/>
+    <text x="330" y="281" fill="#bbf7d0" font-size="12" font-weight="700">디지털 정보</text>
+  </g>
+  <g fill="#cbd5e1" font-size="12">
+    <text x="48" y="254">길이·시간·질량·전류·온도</text>
+    <text x="48" y="274">기본량과 단위로 자연을 비교</text>
+  </g>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">화산의 구조와 분출</text>
+  <!-- 산 본체 -->
+  <path d="M70 270 L210 90 L350 270 Z" fill="#3f3f46"/>
+  <path d="M70 270 L210 90 L350 270 Z" fill="none" stroke="#52525b" stroke-width="2"/>
+  <!-- 분화구 + 용암 -->
+  <path d="M186 124 L234 124 L210 90 Z" fill="#7f1d1d"/>
+  <path d="M198 110 q12 -34 24 0 q-4 -14 -12 -22 q-8 8 -12 22z" fill="#f97316"/>
+  <g fill="#fbbf24"><circle cx="206" cy="78" r="4"/><circle cx="220" cy="70" r="3"/><circle cx="198" cy="72" r="3"/></g>
+  <!-- 용암 흐름 -->
+  <path d="M214 120 q20 50 40 100 q6 30 -10 50" fill="none" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+  <text x="270" y="220" fill="#fca5a5" font-size="12">용암</text>
+  <!-- 마그마 방 + 통로 -->
+  <path d="M210 124 L210 270" stroke="#dc2626" stroke-width="6"/>
+  <ellipse cx="210" cy="292" rx="70" ry="22" fill="#b91c1c"/>
+  <text x="210" y="297" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">마그마</text>
+  <!-- 라벨 -->
+  <g font-size="12" fill="#e2e8f0">
+    <text x="248" y="96">분화구</text>
+    <text x="356" y="170">화산재·가스 ↑</text>
+  </g>
+  <line x1="234" y1="100" x2="246" y2="92" stroke="#94a3b8" stroke-width="1.5"/>
+</svg>

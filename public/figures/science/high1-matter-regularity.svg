@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">물질과 규칙성</text>
+  <g text-anchor="middle">
+    <circle cx="82" cy="118" r="34" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+    <text x="82" y="113" fill="#e0e7ff" font-size="11">우주 초기</text>
+    <text x="82" y="130" fill="#c7d2fe" font-size="11">H, He</text>
+    <path d="M124 118 h50" stroke="#94a3b8" stroke-width="2" marker-end="url(#m)"/>
+    <circle cx="216" cy="118" r="36" fill="#451a03" stroke="#f59e0b" stroke-width="2"/>
+    <text x="216" y="113" fill="#fde68a" font-size="11">별의 진화</text>
+    <text x="216" y="130" fill="#fef3c7" font-size="11">무거운 원소</text>
+    <path d="M258 118 h50" stroke="#94a3b8" stroke-width="2" marker-end="url(#m)"/>
+    <circle cx="350" cy="118" r="36" fill="#083344" stroke="#22d3ee" stroke-width="2"/>
+    <text x="350" y="113" fill="#a5f3fc" font-size="11">지구·생명</text>
+    <text x="350" y="130" fill="#cffafe" font-size="11">물질 구성</text>
+  </g>
+  <g>
+    <rect x="60" y="198" width="120" height="54" rx="12" fill="#13203a" stroke="#38bdf8"/>
+    <text x="120" y="220" fill="#e0f2fe" font-size="12" font-weight="700" text-anchor="middle">주기율</text>
+    <text x="120" y="238" fill="#94a3b8" font-size="10" text-anchor="middle">원소 성질의 반복</text>
+    <rect x="200" y="198" width="120" height="54" rx="12" fill="#13203a" stroke="#34d399"/>
+    <text x="260" y="220" fill="#bbf7d0" font-size="12" font-weight="700" text-anchor="middle">화학 결합</text>
+    <text x="260" y="238" fill="#94a3b8" font-size="10" text-anchor="middle">이온·공유 결합</text>
+    <rect x="340" y="198" width="88" height="54" rx="12" fill="#13203a" stroke="#fb7185"/>
+    <text x="384" y="220" fill="#fecdd3" font-size="12" font-weight="700" text-anchor="middle">반도체</text>
+    <text x="384" y="238" fill="#94a3b8" font-size="10" text-anchor="middle">전기적 성질</text>
+  </g>
+  <defs><marker id="m" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>

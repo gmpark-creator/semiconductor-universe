@@ -1,11 +1,13 @@
 import { useState } from "react";
 import type { AtlasArea } from "../data/types";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 /** Knowledge Atlas 영역 선택기 — 반도체 / 전력 / … 수십·수백 개까지 확장 가능한 드롭다운. */
 export function AreaSelector({ areas, current, onChange }: { areas: AtlasArea[]; current: AtlasArea; onChange: (id: string) => void }) {
   const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
   return (
-    <div style={{ position: "absolute", top: 16, left: 16, zIndex: 30 }}>
+    <div style={{ position: "absolute", top: isMobile ? 58 : 16, left: isMobile ? 10 : 16, zIndex: 30 }}>
       <button
         className="glass rounded-xl"
         onClick={() => setOpen((o) => !o)}
@@ -15,7 +17,7 @@ export function AreaSelector({ areas, current, onChange }: { areas: AtlasArea[];
       >
         <span style={{ width: 9, height: 9, borderRadius: 99, background: current.accent, boxShadow: `0 0 10px ${current.accent}`, flexShrink: 0 }} />
         <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.18, textAlign: "left" }}>
-          <span style={{ fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: "#94a3b8" }}>Knowledge Atlas</span>
+          <span style={{ fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: "#94a3b8" }}>산업 영역</span>
           <span style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{current.name}</span>
         </span>
         <span style={{ color: "#94a3b8", fontSize: 11, marginLeft: 4 }}>{open ? "▲" : "▼"}</span>

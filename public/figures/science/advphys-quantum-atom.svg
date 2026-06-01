@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">빛·물질의 이중성과 양자</text>
+  <!-- 광전 효과 -->
+  <g transform="translate(40,80)">
+    <rect x="0" y="40" width="30" height="70" rx="3" fill="#334155" stroke="#94a3b8"/><text x="15" y="126" fill="#94a3b8" font-size="9" text-anchor="middle">금속</text>
+    <line x1="-26" y1="40" x2="0" y2="60" stroke="#fbbf24" stroke-width="2"/><line x1="-26" y1="55" x2="0" y2="72" stroke="#fbbf24" stroke-width="2"/>
+    <text x="-30" y="38" fill="#fde68a" font-size="9">광자(빛)</text>
+    <circle cx="46" cy="56" r="5" fill="#60a5fa"/><line x1="34" y1="58" x2="70" y2="40" stroke="#60a5fa" stroke-width="1.6" marker-end="url(#qa)"/>
+    <text x="70" y="34" fill="#93c5fd" font-size="9">튀어나온 전자</text>
+    <text x="20" y="150" fill="#94a3b8" font-size="8.5" text-anchor="middle">진동수↑일 때만 방출 → 빛의 입자성</text>
+  </g>
+  <!-- 에너지 준위 -->
+  <g transform="translate(210,70)">
+    <line x1="0" y1="20" x2="70" y2="20" stroke="#f87171" stroke-width="2"/>
+    <line x1="0" y1="55" x2="70" y2="55" stroke="#fbbf24" stroke-width="2"/>
+    <line x1="0" y1="100" x2="70" y2="100" stroke="#34d399" stroke-width="2"/>
+    <line x1="35" y1="55" x2="35" y2="100" stroke="#a5b4fc" stroke-width="1.6" marker-end="url(#qa)"/>
+    <text x="44" y="82" fill="#c7d2fe" font-size="9">빛 방출</text>
+    <text x="0" y="124" fill="#94a3b8" font-size="8.5">에너지 준위(양자화)</text>
+  </g>
+  <!-- 오비탈 확률 구름 -->
+  <g transform="translate(360,110)">
+    <radialGradient id="cloud" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.85"/><stop offset="60%" stop-color="#22d3ee" stop-opacity="0.3"/><stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <circle cx="0" cy="0" r="46" fill="url(#cloud)"/>
+    <circle cx="0" cy="0" r="3" fill="#f8fafc"/>
+    <text x="0" y="68" fill="#a5f3fc" font-size="9.5" text-anchor="middle">오비탈 = 확률 분포</text>
+    <text x="0" y="82" fill="#94a3b8" font-size="8.5" text-anchor="middle">행성 궤도가 아님</text>
+  </g>
+  <text x="240" y="298" fill="#94a3b8" font-size="11" text-anchor="middle">빛과 물질은 입자성·파동성을 함께 가진다 · 전자는 발견될 '확률'로 기술된다</text>
+  <defs><marker id="qa" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="context-stroke"/></marker></defs>
+</svg>

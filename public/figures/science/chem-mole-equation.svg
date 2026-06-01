@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">몰과 화학 반응식</text>
+  <!-- 몰 -->
+  <g transform="translate(40,64)">
+    <rect x="0" y="0" width="190" height="70" rx="12" fill="#13203a" stroke="#22d3ee"/>
+    <text x="95" y="30" fill="#a5f3fc" font-size="14" font-weight="800" text-anchor="middle">1 몰 = 6.02×10²³ 개</text>
+    <text x="95" y="54" fill="#94a3b8" font-size="11" text-anchor="middle">아보가드로수 · 몰=입자수÷그 수</text>
+  </g>
+  <g transform="translate(250,64)">
+    <rect x="0" y="0" width="190" height="70" rx="12" fill="#13203a" stroke="#34d399"/>
+    <text x="95" y="30" fill="#6ee7b7" font-size="13" font-weight="700" text-anchor="middle">몰 질량 = 분자량 + g</text>
+    <text x="95" y="54" fill="#94a3b8" font-size="11" text-anchor="middle">입자↔질량 잇는 다리</text>
+  </g>
+  <!-- 반응식 + 계수비 -->
+  <g transform="translate(0,170)">
+    <text x="240" y="0" fill="#fde047" font-size="20" font-weight="800" text-anchor="middle">2H₂ + O₂ → 2H₂O</text>
+    <g text-anchor="middle" font-size="11" fill="#cbd5e1">
+      <text x="110" y="30">수소 2몰</text><text x="210" y="30">산소 1몰</text><text x="350" y="30">물 2몰</text>
+    </g>
+    <text x="240" y="62" fill="#a5f3fc" font-size="12" text-anchor="middle">계수비 2 : 1 : 2 = 몰비 (질량 보존: 양쪽 원자 수 같음)</text>
+  </g>
+  <text x="240" y="296" fill="#94a3b8" font-size="11" text-anchor="middle">계수만 조절(아래 첨자는 불변) — 반응의 양적 관계 계산의 바탕</text>
+</svg>

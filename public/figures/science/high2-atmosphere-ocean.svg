@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#18264a"/>
+      <stop offset="1" stop-color="#0f1729"/>
+    </linearGradient>
+    <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#155e75"/>
+      <stop offset="1" stop-color="#082f49"/>
+    </linearGradient>
+    <marker id="arrow-cyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#22d3ee"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <rect x="18" y="18" width="444" height="284" rx="14" fill="url(#sky)" stroke="#23314f"/>
+  <path d="M18 190 C80 170 120 202 178 184 C236 166 286 198 338 180 C386 164 420 176 462 164 L462 302 L18 302 Z" fill="url(#ocean)"/>
+  <path d="M18 190 C80 170 120 202 178 184 C236 166 286 198 338 180 C386 164 420 176 462 164" fill="none" stroke="#38bdf8" stroke-width="3"/>
+
+  <text x="28" y="42" fill="#e2e8f0" font-size="19" font-weight="700">대기와 해양의 상호작용</text>
+  <text x="28" y="64" fill="#94a3b8" font-size="11">바람, 해류, 열, 수증기가 함께 움직이며 날씨와 기후를 만든다</text>
+
+  <g fill="none" stroke="#22d3ee" stroke-width="3" marker-end="url(#arrow-cyan)" stroke-linecap="round">
+    <path d="M78 128 C124 96 174 94 226 116"/>
+    <path d="M402 118 C354 92 310 96 266 118"/>
+    <path d="M82 220 C138 236 200 232 256 214"/>
+  </g>
+  <g fill="none" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow-amber)" stroke-linecap="round">
+    <path d="M318 224 C356 206 390 206 430 222"/>
+    <path d="M206 270 C206 246 198 230 178 214"/>
+  </g>
+
+  <g>
+    <circle cx="384" cy="62" r="25" fill="#facc15" opacity="0.92"/>
+    <path d="M346 68 H430" stroke="#fef3c7" stroke-width="2" opacity="0.7"/>
+  </g>
+
+  <g font-size="11" font-weight="700" text-anchor="middle">
+    <rect x="54" y="82" width="96" height="28" rx="14" fill="#0f1729" stroke="#22d3ee"/>
+    <text x="102" y="101" fill="#a5f3fc">무역풍</text>
+    <rect x="286" y="84" width="112" height="28" rx="14" fill="#0f1729" stroke="#22d3ee"/>
+    <text x="342" y="103" fill="#a5f3fc">대기 순환</text>
+    <rect x="64" y="238" width="106" height="28" rx="14" fill="#0f1729" stroke="#38bdf8"/>
+    <text x="117" y="257" fill="#bae6fd">표층 해류</text>
+    <rect x="294" y="238" width="112" height="28" rx="14" fill="#0f1729" stroke="#f59e0b"/>
+    <text x="350" y="257" fill="#fde68a">열염 순환</text>
+  </g>
+
+  <g fill="#e2e8f0" font-size="10">
+    <text x="208" y="206">차가운 물 용승</text>
+    <text x="320" y="194">따뜻한 해수면</text>
+    <text x="338" y="286">엘니뇨·라니냐: 해수 온도 변화 + 대기 순환 변화</text>
+  </g>
+  <path d="M210 252 v-44" stroke="#67e8f9" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrow-cyan)"/>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#070b18"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">지구와 달, 그리고 낮과 밤</text>
+  <!-- 태양빛 -->
+  <g stroke="#fbbf24" stroke-width="3" stroke-linecap="round" opacity="0.8">
+    <line x1="20" y1="120" x2="70" y2="140"/><line x1="20" y1="170" x2="70" y2="180"/><line x1="20" y1="220" x2="70" y2="210"/>
+  </g>
+  <text x="30" y="100" fill="#fbbf24" font-size="12" font-weight="700">태양 빛 →</text>
+  <!-- 지구 -->
+  <g>
+    <circle cx="200" cy="175" r="72" fill="#1e3a5f"/>
+    <path d="M200 103 a72 72 0 0 1 0 144 z" fill="#0b1220"/>
+    <circle cx="200" cy="175" r="72" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+    <path d="M150 140 q30 -16 60 4 q30 12 50 -4 q-10 40 -40 50 q-50 14 -70 -50z" fill="#16a34a" opacity="0.85"/>
+    <text x="150" y="180" fill="#bae6fd" font-size="13" font-weight="700" text-anchor="middle">낮</text>
+    <text x="250" y="180" fill="#64748b" font-size="13" font-weight="700" text-anchor="middle">밤</text>
+    <text x="200" y="270" fill="#7dd3fc" font-size="13" font-weight="700" text-anchor="middle">지구</text>
+  </g>
+  <!-- 달 -->
+  <g>
+    <circle cx="400" cy="120" r="30" fill="#cbd5e1"/>
+    <circle cx="390" cy="112" r="5" fill="#94a3b8"/><circle cx="408" cy="128" r="4" fill="#94a3b8"/><circle cx="404" cy="106" r="3" fill="#94a3b8"/>
+    <text x="400" y="170" fill="#e2e8f0" font-size="13" font-weight="700" text-anchor="middle">달</text>
+  </g>
+  <path d="M272 175 A130 130 0 0 1 400 152" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="328" y="300" fill="#94a3b8" font-size="11" text-anchor="middle">지구가 스스로 돌면(자전) 빛을 받는 쪽은 낮, 반대쪽은 밤이 된다</text>
+</svg>

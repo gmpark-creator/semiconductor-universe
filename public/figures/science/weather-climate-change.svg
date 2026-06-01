@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">날씨와 기후변화 (온실 효과)</text>
+  <!-- 지구 표면 -->
+  <path d="M0 250 h480 v70 H0 z" fill="#1f3d2e"/>
+  <path d="M0 250 h480" stroke="#34d399" stroke-width="2"/>
+  <!-- 태양 -->
+  <circle cx="60" cy="80" r="22" fill="#fbbf24"/>
+  <line x1="78" y1="92" x2="180" y2="230" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#w2)"/>
+  <text x="96" y="120" fill="#fde68a" font-size="10">햇빛 ↓</text>
+  <!-- 온실기체 층 -->
+  <rect x="0" y="150" width="480" height="40" fill="#fb7185" opacity="0.18"/>
+  <text x="380" y="176" fill="#fda4af" font-size="11">온실 기체층(CO₂)</text>
+  <!-- 지표 복사 일부 갇힘 -->
+  <line x1="200" y1="248" x2="240" y2="170" stroke="#f87171" stroke-width="2" marker-end="url(#w2)"/>
+  <path d="M240 170 q20 -20 36 4" fill="none" stroke="#f87171" stroke-width="2" marker-end="url(#w2)"/>
+  <text x="250" y="214" fill="#fca5a5" font-size="10">열 일부 갇힘</text>
+  <!-- 구름·비 -->
+  <g fill="#cbd5e1"><ellipse cx="360" cy="96" rx="34" ry="16" fill="#cbd5e1"/><circle cx="340" cy="96" r="14"/></g>
+  <g stroke="#38bdf8" stroke-width="2"><line x1="344" y1="112" x2="340" y2="128"/><line x1="362" y1="112" x2="358" y2="128"/></g>
+  <text x="360" y="150" fill="#94a3b8" font-size="9" text-anchor="middle">구름·강수</text>
+  <text x="240" y="296" fill="#cbd5e1" font-size="11.5" text-anchor="middle">적당한 온실 효과는 이롭지만, 과도하면 기온 상승 = 기후변화</text>
+  <defs><marker id="w2" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="context-stroke"/></marker></defs>
+</svg>

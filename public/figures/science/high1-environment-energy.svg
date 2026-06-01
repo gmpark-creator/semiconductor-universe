@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">환경과 에너지</text>
+  <circle cx="112" cy="140" r="52" fill="#14532d" stroke="#34d399" stroke-width="2"/>
+  <text x="112" y="125" fill="#bbf7d0" font-size="13" font-weight="700" text-anchor="middle">생태계</text>
+  <text x="112" y="145" fill="#dcfce7" font-size="10" text-anchor="middle">생산자·소비자</text>
+  <text x="112" y="162" fill="#dcfce7" font-size="10" text-anchor="middle">분해자·평형</text>
+  <g transform="translate(240 138)">
+    <circle r="46" fill="#1e3a5f" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M-32 18 q30 -32 64 0" fill="none" stroke="#93c5fd" stroke-width="3"/>
+    <text y="-8" fill="#bfdbfe" font-size="13" font-weight="700" text-anchor="middle">기후시스템</text>
+    <text y="34" fill="#dbeafe" font-size="10" text-anchor="middle">대기·해양 열 이동</text>
+  </g>
+  <g transform="translate(368 140)" text-anchor="middle">
+    <rect x="-54" y="-44" width="108" height="88" rx="14" fill="#451a03" stroke="#f59e0b" stroke-width="2"/>
+    <text y="-15" fill="#fde68a" font-size="13" font-weight="700">에너지 전환</text>
+    <text y="7" fill="#fef3c7" font-size="10">핵융합 → 발전</text>
+    <text y="25" fill="#fef3c7" font-size="10">효율·신재생</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#e)">
+    <path d="M164 140 h26"/>
+    <path d="M286 140 h26"/>
+  </g>
+  <text x="240" y="264" fill="#94a3b8" font-size="11" text-anchor="middle">환경 문제와 에너지 문제는 생태계·기후·발전 시스템이 연결된 문제다</text>
+  <defs><marker id="e" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>

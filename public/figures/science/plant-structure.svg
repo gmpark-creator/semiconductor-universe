@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">식물의 구조와 하는 일</text>
+  <line x1="230" y1="60" x2="230" y2="250" stroke="#65a30d" stroke-width="8" stroke-linecap="round"/>
+  <!-- 흙 -->
+  <path d="M120 250 h220 v40 h-220 z" fill="#3f2d1d"/>
+  <!-- 뿌리 -->
+  <g stroke="#92400e" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M230 250 q-30 24 -44 56"/><path d="M230 250 q30 24 44 56"/><path d="M230 252 v44"/>
+  </g>
+  <!-- 잎 -->
+  <path d="M230 150 q-60 -20 -78 24 q56 16 78 -24z" fill="#22c55e"/>
+  <path d="M230 120 q60 -22 80 22 q-58 16 -80 -22z" fill="#16a34a"/>
+  <!-- 꽃 -->
+  <g transform="translate(230,66)" fill="#f472b6"><circle cx="0" cy="-10" r="9"/><circle cx="10" cy="0" r="9"/><circle cx="-10" cy="0" r="9"/><circle cx="0" cy="10" r="9"/><circle cx="0" cy="0" r="7" fill="#fbbf24"/></g>
+  <!-- 라벨 -->
+  <g font-size="13" fill="#e2e8f0">
+    <text x="300" y="66" fill="#f9a8d4">꽃 — 씨를 만듦</text>
+    <text x="320" y="138" fill="#86efac">잎 — 광합성</text>
+    <text x="252" y="200" fill="#bef264">줄기 — 물·양분 통로</text>
+    <text x="300" y="296" fill="#d6a06a">뿌리 — 흡수·지지</text>
+  </g>
+</svg>
