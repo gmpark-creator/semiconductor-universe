@@ -14,6 +14,13 @@ import { highPhysics } from "./high-physics";
 import { highChemistry } from "./high-chemistry";
 import { high2Biology } from "./high2Biology";
 import { high2EarthScience } from "./high2EarthScience";
+import { highCareerCellMetabolism } from "./high-career-cell-metabolism";
+import { highCareerGenetics } from "./high-career-genetics";
+import { highCareerEarthSystems } from "./high-career-earth-systems";
+import { highCareerPlanetarySpace } from "./high-career-planetary-space";
+import { highFusionHistoryCulture } from "./high-fusion-history-culture";
+import { highFusionClimateEcology } from "./high-fusion-climate-ecology";
+import { highFusionInquiry } from "./high-fusion-inquiry";
 
 export const scienceSubject: TheorySubject = {
   id: "science",
@@ -40,7 +47,20 @@ export const scienceSubject: TheorySubject = {
       name: "고등학교",
       shortName: "고등",
       status: "ready",
-      grades: [high1, highPhysics, highChemistry, high2Biology, high2EarthScience],
+      grades: [
+        high1,
+        highPhysics,
+        highChemistry,
+        high2Biology,
+        high2EarthScience,
+        highCareerCellMetabolism,
+        highCareerGenetics,
+        highCareerEarthSystems,
+        highCareerPlanetarySpace,
+        highFusionHistoryCulture,
+        highFusionClimateEcology,
+        highFusionInquiry,
+      ],
     },
   ],
 };

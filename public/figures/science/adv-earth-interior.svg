@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0b1020"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#10162b" stroke="#334155"/>
+  <text x="34" y="50" fill="#eef2ff" font-size="20" font-weight="700">지구의 형성과 내부 구조</text>
+  <text x="34" y="72" fill="#c7d2fe" font-size="11">지진파와 열 흐름으로 보이지 않는 내부를 추론한다</text>
+  <g transform="translate(58 96)">
+    <circle cx="108" cy="108" r="96" fill="#1e293b" stroke="#818cf8" stroke-width="3"/>
+    <path d="M108 12 A96 96 0 0 1 194 151 L108 108Z" fill="#f59e0b"/>
+    <circle cx="108" cy="108" r="62" fill="#ef4444" opacity=".9"/>
+    <circle cx="108" cy="108" r="34" fill="#fde68a"/>
+    <text x="108" y="226" fill="#c7d2fe" font-size="12" font-weight="700" text-anchor="middle">지각·맨틀·외핵·내핵</text>
+  </g>
+  <g transform="translate(272 110)">
+    <rect x="0" y="0" width="144" height="130" rx="14" fill="#111c36" stroke="#818cf8"/>
+    <path d="M18 98 C42 34 80 34 126 22" fill="none" stroke="#38bdf8" stroke-width="3"/>
+    <path d="M18 110 C54 82 78 88 126 62" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 4"/>
+    <text x="72" y="28" fill="#bae6fd" font-size="11" text-anchor="middle">P파 굴절</text>
+    <text x="72" y="118" fill="#fde68a" font-size="11" text-anchor="middle">S파 차단</text>
+  </g>
+  <text x="340" y="268" fill="#c7d2fe" font-size="11" text-anchor="middle">관측 자료 + 물리 모형 = 내부 구조 추론</text>
+</svg>

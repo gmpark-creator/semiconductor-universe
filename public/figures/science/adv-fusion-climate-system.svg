@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs><marker id="arrow-climate" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#fb7185"/></marker></defs>
+  <rect width="480" height="320" rx="16" fill="#120f16"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#1b1621" stroke="#4a2333"/>
+  <text x="34" y="50" fill="#fff1f2" font-size="20" font-weight="700">기후 시스템과 변화의 증거</text>
+  <text x="34" y="72" fill="#fecdd3" font-size="11">관측 자료와 복사 강제력이 기후 변화의 원인과 영향을 보여 준다</text>
+  <circle cx="150" cy="160" r="58" fill="#1d4ed8" stroke="#93c5fd" stroke-width="3"/>
+  <path d="M52 112 C84 126 108 138 132 152" stroke="#facc15" stroke-width="4" marker-end="url(#arrow-climate)"/>
+  <path d="M160 96 C220 72 300 84 366 114" fill="none" stroke="#fb7185" stroke-width="4" marker-end="url(#arrow-climate)"/>
+  <path d="M198 168 C260 142 330 150 398 188" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="8 5"/>
+  <g transform="translate(274 118)" text-anchor="middle">
+    <rect x="0" y="0" width="126" height="96" rx="14" fill="#3b1d2b" stroke="#fb7185"/>
+    <polyline points="20,76 42,66 64,58 86,38 108,24" fill="none" stroke="#fecdd3" stroke-width="4"/>
+    <text x="63" y="122" fill="#fecdd3" font-size="12" font-weight="700">관측 증거</text>
+  </g>
+  <text x="240" y="266" fill="#fecdd3" font-size="11" text-anchor="middle">기후 판단은 단일 사건보다 장기 자료와 여러 지표의 일관성을 본다</text>
+</svg>

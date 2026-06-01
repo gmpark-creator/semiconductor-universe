@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs><marker id="arrow-rev" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#fb7185"/></marker></defs>
+  <rect width="480" height="320" rx="16" fill="#140d16"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#1f1320" stroke="#4a2333"/>
+  <text x="34" y="50" fill="#fff1f2" font-size="20" font-weight="700">과학 혁명과 근대 과학</text>
+  <text x="34" y="72" fill="#fecdd3" font-size="11">관측, 실험, 수학적 법칙이 자연을 설명하는 방식을 바꾸었다</text>
+  <g transform="translate(54 118)" text-anchor="middle">
+    <circle cx="50" cy="50" r="18" fill="#facc15"/>
+    <ellipse cx="50" cy="50" rx="60" ry="26" fill="none" stroke="#fb7185" stroke-width="2"/>
+    <circle cx="107" cy="50" r="7" fill="#38bdf8"/>
+    <text x="50" y="112" fill="#fecdd3" font-size="12" font-weight="700">우주관 전환</text>
+  </g>
+  <path d="M166 166 H214" stroke="#fb7185" stroke-width="3" marker-end="url(#arrow-rev)"/>
+  <g transform="translate(224 118)" text-anchor="middle">
+    <rect x="4" y="10" width="92" height="80" rx="12" fill="#2a1832" stroke="#c084fc"/>
+    <path d="M24 72 H76 M34 72 V34 M66 72 V42" stroke="#e9d5ff" stroke-width="4" stroke-linecap="round"/>
+    <text x="50" y="112" fill="#e9d5ff" font-size="12" font-weight="700">실험·정량화</text>
+  </g>
+  <path d="M326 166 H374" stroke="#fb7185" stroke-width="3" marker-end="url(#arrow-rev)"/>
+  <g transform="translate(380 122)" text-anchor="middle">
+    <circle cx="36" cy="38" r="30" fill="#132d23" stroke="#34d399" stroke-width="2"/>
+    <circle cx="26" cy="34" r="7" fill="#bbf7d0"/><circle cx="44" cy="44" r="7" fill="#bbf7d0"/>
+    <text x="36" y="108" fill="#bbf7d0" font-size="12" font-weight="700">생명관 변화</text>
+  </g>
+  <text x="240" y="268" fill="#fecdd3" font-size="11" text-anchor="middle">새 이론은 도구, 자료, 논쟁, 공동 검증을 거쳐 자리 잡는다</text>
+</svg>

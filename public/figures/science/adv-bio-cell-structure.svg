@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#07130f"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#0d1f19" stroke="#1f4d3a"/>
+  <text x="34" y="50" fill="#ecfdf5" font-size="20" font-weight="700">세포의 분자와 구조</text>
+  <text x="34" y="72" fill="#9fd9bf" font-size="11">생체 분자, 세포막, 소기관이 협력해 세포 기능을 만든다</text>
+  <g transform="translate(40 105)">
+    <circle cx="78" cy="70" r="60" fill="#052e25" stroke="#34d399" stroke-width="3"/>
+    <circle cx="72" cy="62" r="24" fill="#14532d" stroke="#86efac" stroke-width="2"/>
+    <ellipse cx="105" cy="88" rx="22" ry="11" fill="#f59e0b" opacity=".85"/>
+    <ellipse cx="48" cy="96" rx="19" ry="10" fill="#38bdf8" opacity=".8"/>
+    <path d="M40 52 C68 26 105 36 118 62" fill="none" stroke="#bbf7d0" stroke-width="3" stroke-linecap="round"/>
+    <text x="78" y="148" text-anchor="middle" fill="#bbf7d0" font-size="12" font-weight="700">소기관 분업</text>
+  </g>
+  <g transform="translate(210 106)">
+    <rect x="0" y="0" width="216" height="34" rx="17" fill="#102a24" stroke="#34d399"/>
+    <circle cx="28" cy="17" r="8" fill="#a7f3d0"/><circle cx="54" cy="17" r="8" fill="#a7f3d0"/><circle cx="80" cy="17" r="8" fill="#a7f3d0"/>
+    <circle cx="136" cy="17" r="8" fill="#a7f3d0"/><circle cx="162" cy="17" r="8" fill="#a7f3d0"/><circle cx="188" cy="17" r="8" fill="#a7f3d0"/>
+    <path d="M20 25 C38 54 62 52 80 25 M130 25 C148 54 174 52 192 25" fill="none" stroke="#6ee7b7" stroke-width="2"/>
+    <rect x="86" y="-12" width="38" height="58" rx="10" fill="#0ea5e9" opacity=".8"/>
+    <text x="108" y="76" text-anchor="middle" fill="#bae6fd" font-size="12" font-weight="700">세포막</text>
+    <text x="108" y="94" text-anchor="middle" fill="#94a3b8" font-size="10">선택적 투과성</text>
+  </g>
+  <g transform="translate(54 242)" font-size="10" text-anchor="middle">
+    <rect x="0" y="0" width="82" height="34" rx="9" fill="#0f3b2f" stroke="#34d399"/>
+    <text x="41" y="21" fill="#bbf7d0">물·무기염류</text>
+    <rect x="102" y="0" width="82" height="34" rx="9" fill="#173022" stroke="#fbbf24"/>
+    <text x="143" y="21" fill="#fde68a">탄수화물·지질</text>
+    <rect x="204" y="0" width="82" height="34" rx="9" fill="#13283d" stroke="#38bdf8"/>
+    <text x="245" y="21" fill="#bae6fd">단백질</text>
+    <rect x="306" y="0" width="82" height="34" rx="9" fill="#271933" stroke="#c084fc"/>
+    <text x="347" y="21" fill="#e9d5ff">핵산</text>
+  </g>
+</svg>

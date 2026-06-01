@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs><marker id="arrow-eco" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#34d399"/></marker></defs>
+  <rect width="480" height="320" rx="16" fill="#0d130f"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#101f17" stroke="#1f4d3a"/>
+  <text x="34" y="50" fill="#ecfdf5" font-size="20" font-weight="700">생태계와 생물다양성</text>
+  <text x="34" y="72" fill="#bbf7d0" font-size="11">먹이망, 다양성, 생태계 서비스가 환경 변화의 영향을 좌우한다</text>
+  <g transform="translate(76 112)" text-anchor="middle">
+    <circle cx="164" cy="56" r="20" fill="#22c55e"/><text x="164" y="61" fill="#052e16" font-size="10" font-weight="800">식물</text>
+    <circle cx="86" cy="98" r="20" fill="#facc15"/><text x="86" y="103" fill="#422006" font-size="10" font-weight="800">초식</text>
+    <circle cx="242" cy="98" r="20" fill="#f97316"/><text x="242" y="103" fill="#431407" font-size="10" font-weight="800">포식</text>
+    <circle cx="164" cy="148" r="20" fill="#38bdf8"/><text x="164" y="153" fill="#082f49" font-size="10" font-weight="800">분해</text>
+    <path d="M150 68 L104 90 M104 103 L222 101 M229 112 L178 140 M150 142 L96 112 M164 78 V126" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrow-eco)"/>
+    <text x="164" y="190" fill="#bbf7d0" font-size="12" font-weight="700">연결성이 안정성과 회복력을 만든다</text>
+  </g>
+  <g transform="translate(72 264)" text-anchor="middle" font-size="10">
+    <rect x="0" y="0" width="86" height="26" rx="8" fill="#0f3b2f" stroke="#34d399"/><text x="43" y="17" fill="#bbf7d0">유전 다양성</text>
+    <rect x="108" y="0" width="86" height="26" rx="8" fill="#172033" stroke="#38bdf8"/><text x="151" y="17" fill="#bae6fd">종 다양성</text>
+    <rect x="216" y="0" width="96" height="26" rx="8" fill="#2a2112" stroke="#f59e0b"/><text x="264" y="17" fill="#fde68a">생태계 서비스</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs><marker id="arrow-fluid" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#38bdf8"/></marker></defs>
+  <rect width="480" height="320" rx="16" fill="#0b1020"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#101827" stroke="#334155"/>
+  <text x="34" y="50" fill="#eef2ff" font-size="20" font-weight="700">대기·해양 상호작용</text>
+  <text x="34" y="72" fill="#c7d2fe" font-size="11">복사 에너지와 물 순환이 유체권의 흐름을 만든다</text>
+  <circle cx="112" cy="132" r="28" fill="#facc15"/>
+  <g stroke="#fde68a" stroke-width="2"><line x1="112" y1="86" x2="112" y2="72"/><line x1="112" y1="192" x2="112" y2="178"/><line x1="66" y1="132" x2="52" y2="132"/><line x1="172" y1="132" x2="158" y2="132"/></g>
+  <path d="M170 136 C228 86 300 86 362 136" fill="none" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrow-fluid)"/>
+  <path d="M362 186 C300 240 220 236 160 186" fill="none" stroke="#818cf8" stroke-width="4" marker-end="url(#arrow-fluid)"/>
+  <rect x="202" y="134" width="196" height="64" rx="14" fill="#0f2742" stroke="#38bdf8"/>
+  <path d="M214 170 C246 154 276 187 310 168 C340 151 366 174 386 160" fill="none" stroke="#7dd3fc" stroke-width="4"/>
+  <text x="300" y="226" fill="#bae6fd" font-size="12" font-weight="700" text-anchor="middle">대기 대순환 · 해류 · 물 순환</text>
+  <g transform="translate(70 254)" text-anchor="middle" font-size="10">
+    <rect x="0" y="0" width="84" height="28" rx="8" fill="#2a2112" stroke="#f59e0b"/><text x="42" y="18" fill="#fde68a">복사 평형</text>
+    <rect x="104" y="0" width="84" height="28" rx="8" fill="#172033" stroke="#38bdf8"/><text x="146" y="18" fill="#bae6fd">해양 순환</text>
+    <rect x="208" y="0" width="84" height="28" rx="8" fill="#0f3b2f" stroke="#34d399"/><text x="250" y="18" fill="#bbf7d0">피드백</text>
+  </g>
+</svg>

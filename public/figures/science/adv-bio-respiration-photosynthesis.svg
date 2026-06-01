@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <defs><marker id="arrow-rp" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#34d399"/></marker></defs>
+  <rect width="480" height="320" rx="16" fill="#07130f"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#0b1f1a" stroke="#214a39"/>
+  <text x="34" y="50" fill="#ecfdf5" font-size="20" font-weight="700">세포호흡과 광합성</text>
+  <text x="34" y="72" fill="#9fd9bf" font-size="11">빛에너지와 화학 에너지가 탄소 순환 속에서 연결된다</text>
+  <g transform="translate(44 105)">
+    <rect x="0" y="0" width="172" height="128" rx="14" fill="#12221b" stroke="#fbbf24"/>
+    <text x="86" y="26" fill="#fde68a" text-anchor="middle" font-size="15" font-weight="700">광합성</text>
+    <circle cx="42" cy="62" r="18" fill="#facc15"/>
+    <path d="M75 78 C96 36 130 45 142 78 C128 98 94 98 75 78Z" fill="#22c55e"/>
+    <text x="86" y="112" fill="#bbf7d0" text-anchor="middle" font-size="11">CO2 + H2O → 유기물</text>
+  </g>
+  <g transform="translate(264 105)">
+    <rect x="0" y="0" width="172" height="128" rx="14" fill="#111c28" stroke="#38bdf8"/>
+    <text x="86" y="26" fill="#bae6fd" text-anchor="middle" font-size="15" font-weight="700">세포호흡</text>
+    <ellipse cx="82" cy="70" rx="48" ry="25" fill="#164e63" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M48 70 C62 48 103 48 116 70 C102 92 63 91 48 70Z" fill="none" stroke="#a7f3d0" stroke-width="3"/>
+    <text x="86" y="112" fill="#bae6fd" text-anchor="middle" font-size="11">유기물 + O2 → ATP</text>
+  </g>
+  <path d="M218 148 H260" stroke="#34d399" stroke-width="3" marker-end="url(#arrow-rp)"/>
+  <path d="M262 192 H220" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow-rp)"/>
+  <g transform="translate(88 256)" text-anchor="middle" font-size="10">
+    <rect x="0" y="0" width="92" height="30" rx="8" fill="#132d23" stroke="#34d399"/><text x="46" y="19" fill="#bbf7d0">탄소 고정</text>
+    <rect x="108" y="0" width="92" height="30" rx="8" fill="#172033" stroke="#38bdf8"/><text x="154" y="19" fill="#bae6fd">ATP 합성</text>
+    <rect x="216" y="0" width="92" height="30" rx="8" fill="#2a2112" stroke="#f59e0b"/><text x="262" y="19" fill="#fde68a">탄소 순환</text>
+  </g>
+</svg>

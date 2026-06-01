@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#090d1c"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#11162a" stroke="#334155"/>
+  <text x="34" y="50" fill="#eef2ff" font-size="20" font-weight="700">태양계와 행성계 형성</text>
+  <text x="34" y="72" fill="#c7d2fe" font-size="11">성운 원반에서 행성과 작은 천체가 성장한다</text>
+  <g transform="translate(58 96)">
+    <ellipse cx="168" cy="92" rx="158" ry="62" fill="none" stroke="#475569" stroke-width="2"/>
+    <ellipse cx="168" cy="92" rx="112" ry="42" fill="none" stroke="#334155" stroke-width="2"/>
+    <circle cx="168" cy="92" r="30" fill="#facc15"/>
+    <circle cx="92" cy="86" r="8" fill="#a3a3a3"/>
+    <circle cx="118" cy="120" r="10" fill="#f97316"/>
+    <circle cx="234" cy="70" r="17" fill="#f59e0b"/>
+    <circle cx="286" cy="112" r="14" fill="#38bdf8"/>
+    <text x="168" y="192" fill="#c7d2fe" font-size="12" font-weight="700" text-anchor="middle">온도 구배가 지구형·목성형 행성의 차이를 만든다</text>
+  </g>
+  <g transform="translate(82 260)" text-anchor="middle" font-size="10">
+    <rect x="0" y="0" width="86" height="28" rx="8" fill="#2a2112" stroke="#f59e0b"/><text x="43" y="18" fill="#fde68a">성운 원반</text>
+    <rect x="110" y="0" width="86" height="28" rx="8" fill="#172033" stroke="#818cf8"/><text x="153" y="18" fill="#c7d2fe">미행성</text>
+    <rect x="220" y="0" width="86" height="28" rx="8" fill="#0f2742" stroke="#38bdf8"/><text x="263" y="18" fill="#bae6fd">외계 행성</text>
+  </g>
+</svg>

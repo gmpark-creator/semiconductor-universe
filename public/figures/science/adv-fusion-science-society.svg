@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#140d16"/>
+  <rect x="22" y="22" width="436" height="276" rx="14" fill="#1f1320" stroke="#4a2333"/>
+  <text x="34" y="50" fill="#fff1f2" font-size="20" font-weight="700">현대 과학기술과 사회문화</text>
+  <text x="34" y="72" fill="#fecdd3" font-size="11">거대 과학, 위험 의사 결정, 과학 커뮤니케이션을 함께 본다</text>
+  <g transform="translate(52 112)" text-anchor="middle">
+    <rect x="0" y="0" width="110" height="94" rx="14" fill="#2a1832" stroke="#c084fc"/>
+    <circle cx="34" cy="42" r="12" fill="#e9d5ff"/><circle cx="72" cy="42" r="12" fill="#e9d5ff"/><circle cx="54" cy="64" r="12" fill="#e9d5ff"/>
+    <text x="55" y="122" fill="#e9d5ff" font-size="12" font-weight="700">협력 연구</text>
+  </g>
+  <g transform="translate(194 112)" text-anchor="middle">
+    <rect x="0" y="0" width="110" height="94" rx="14" fill="#3b1d2b" stroke="#fb7185"/>
+    <path d="M55 18 L88 74 H22Z" fill="none" stroke="#fecdd3" stroke-width="4"/>
+    <text x="55" y="62" fill="#fecdd3" font-size="18" font-weight="800">!</text>
+    <text x="55" y="122" fill="#fecdd3" font-size="12" font-weight="700">위험·불확실성</text>
+  </g>
+  <g transform="translate(336 112)" text-anchor="middle">
+    <rect x="0" y="0" width="92" height="94" rx="14" fill="#132d23" stroke="#34d399"/>
+    <path d="M22 30 H70 V58 H44 L28 74 V58 H22Z" fill="none" stroke="#bbf7d0" stroke-width="3"/>
+    <text x="46" y="122" fill="#bbf7d0" font-size="12" font-weight="700">소통</text>
+  </g>
+  <text x="240" y="262" fill="#fecdd3" font-size="11" text-anchor="middle">과학기술의 선택은 근거, 가치, 책임을 함께 요구한다</text>
+</svg>
