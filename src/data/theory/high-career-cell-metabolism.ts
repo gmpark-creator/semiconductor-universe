@@ -5,6 +5,7 @@ export const highCareerCellMetabolism: Grade = {
   id: "high-career-cell-metabolism",
   grade: 3,
   label: "세포와 물질대사",
+  track: "진로 선택",
   units: [
     {
       id: "adv-cell-structure",

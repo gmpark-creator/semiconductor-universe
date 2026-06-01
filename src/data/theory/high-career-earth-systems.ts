@@ -5,6 +5,7 @@ export const highCareerEarthSystems: Grade = {
   id: "high-career-earth-systems",
   grade: 3,
   label: "지구시스템과학",
+  track: "진로 선택",
   units: [
     {
       id: "adv-earth-origin-interior",

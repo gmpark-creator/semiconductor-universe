@@ -1,7 +1,27 @@
 import { useState } from "react";
 import { scienceSubject } from "../data/theory";
-import { DOMAIN_META, figureUrl, gradeLabel, unitLabel, type ScienceDomain } from "../data/theory/types";
+import { DOMAIN_META, figureUrl, gradeLabel, unitLabel, type Grade, type ScienceDomain } from "../data/theory/types";
 import { useIsMobile } from "../hooks/useIsMobile";
+
+const TRACK_ORDER: NonNullable<Grade["track"]>[] = ["공통", "일반 선택", "진로 선택", "융합 선택"];
+
+function gradeTrack(g: Grade): Grade["track"] | null {
+  return g.track ?? null;
+}
+
+function groupGrades(grades: Grade[]) {
+  const groups = new Map<Grade["track"] | null, { track: Grade["track"] | null; items: { grade: Grade; index: number }[] }>();
+  grades.forEach((g, index) => {
+    const track = gradeTrack(g);
+    const existing = groups.get(track);
+    if (existing) existing.items.push({ grade: g, index });
+    else groups.set(track, { track, items: [{ grade: g, index }] });
+  });
+
+  const ordered = TRACK_ORDER.map((track) => groups.get(track)).filter((group): group is { track: Grade["track"]; items: { grade: Grade; index: number }[] } => Boolean(group));
+  const untracked = groups.get(null);
+  return untracked ? [{ track: null, items: untracked.items }, ...ordered] : ordered;
+}
 
 /**
  * 기초이론 — 학교 과학 학습 자료 뷰(읽기 레이아웃).
@@ -19,6 +39,7 @@ export function TheoryView() {
   const ready = level.status === "ready" && level.grades.length > 0;
   const grade = ready ? level.grades[Math.min(gradeIdx, level.grades.length - 1)] : null;
   const unit = grade?.units.find((u) => u.id === unitId) ?? grade?.units[0] ?? null;
+  const gradeGroups = ready ? groupGrades(level.grades) : [];
 
   const pickLevel = (id: string) => {
     const lv = subject.levels.find((l) => l.id === id);
@@ -63,31 +84,51 @@ export function TheoryView() {
     </div>
   );
 
-  // ── 학년 칩 (공용) ──
+  // ── 학년/과목 칩 (공용) ──
   const gradeChips = grade && (
-    <div className="thin-scroll" style={{ display: "flex", flexWrap: isMobile ? "nowrap" : "wrap", gap: 6, overflowX: isMobile ? "auto" : "visible", paddingBottom: isMobile ? 4 : 0 }}>
-      {level.grades.map((g, i) => {
-        const active = i === gradeIdx;
-        return (
-          <button
-            key={g.id ?? `${g.grade}-${g.label ?? i}`}
-            onClick={() => pickGrade(i)}
-            style={{
-              flexShrink: 0,
-              padding: "5px 12px",
-              borderRadius: 999,
-              border: "none",
-              background: active ? subject.accent : "rgba(255,255,255,0.06)",
-              color: active ? "#04121f" : "#cbd5e1",
-              fontWeight: 700,
-              fontSize: 12,
-              cursor: "pointer",
-            }}
-          >
-            {gradeLabel(g)}
-          </button>
-        );
-      })}
+    <div
+      className="thin-scroll"
+      style={{
+        display: "flex",
+        flexDirection: isMobile ? "row" : "column",
+        gap: isMobile ? 12 : 10,
+        overflowX: isMobile ? "auto" : "visible",
+        paddingBottom: isMobile ? 5 : 0,
+      }}
+    >
+      {gradeGroups.map((group) => (
+        <div key={group.track ?? "grade-default"} style={{ flexShrink: 0, minWidth: isMobile ? 160 : "auto" }}>
+          {group.track && (
+            <div style={{ fontSize: 10, color: "#64748b", fontWeight: 800, letterSpacing: "0.04em", margin: "0 2px 5px" }}>
+              {group.track}
+            </div>
+          )}
+          <div style={{ display: "flex", flexWrap: isMobile ? "nowrap" : "wrap", gap: 6 }}>
+            {group.items.map(({ grade: g, index }) => {
+              const active = index === gradeIdx;
+              return (
+                <button
+                  key={g.id ?? `${g.grade}-${g.label ?? index}`}
+                  onClick={() => pickGrade(index)}
+                  style={{
+                    flexShrink: 0,
+                    padding: "5px 12px",
+                    borderRadius: 999,
+                    border: "none",
+                    background: active ? subject.accent : "rgba(255,255,255,0.06)",
+                    color: active ? "#04121f" : "#cbd5e1",
+                    fontWeight: 700,
+                    fontSize: 12,
+                    cursor: "pointer",
+                  }}
+                >
+                  {gradeLabel(g)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
     </div>
   );
 
@@ -142,7 +183,7 @@ export function TheoryView() {
             <>
               <div style={{ marginBottom: 14 }}>{gradeChips}</div>
               <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#475569", padding: "4px 4px 8px" }}>
-                {gradeLabel(grade)} 단원 · {grade.units.length}
+                {grade.track ? `${grade.track} · ` : ""}{gradeLabel(grade)} 단원 · {grade.units.length}
               </div>
               <nav style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                 {grade.units.map((u, i) => {
@@ -178,7 +219,7 @@ export function TheoryView() {
         {unit ? (
           <article style={{ maxWidth: 760, margin: "0 auto", padding: isMobile ? "0 18px" : "0 40px" }}>
             <div style={{ fontSize: 11.5, color: "#64748b", marginBottom: 12, letterSpacing: "0.02em" }}>
-              기초이론 <span style={{ opacity: 0.5 }}>›</span> {subject.name} <span style={{ opacity: 0.5 }}>›</span> {level.name} <span style={{ opacity: 0.5 }}>›</span> {grade ? gradeLabel(grade) : ""}
+              기초이론 <span style={{ opacity: 0.5 }}>›</span> {subject.name} <span style={{ opacity: 0.5 }}>›</span> {level.name} {grade?.track && <><span style={{ opacity: 0.5 }}>›</span> {grade.track} </>}<span style={{ opacity: 0.5 }}>›</span> {grade ? gradeLabel(grade) : ""}
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
@@ -235,7 +276,7 @@ export function TheoryView() {
             })}
 
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 16, color: "#475569", fontSize: 11.5 }}>
-              놀리지 아틀라스 · 기초이론 · {subject.name} · {level.name} {grade ? gradeLabel(grade) : ""}
+              놀리지 아틀라스 · 기초이론 · {subject.name} · {level.name} {grade?.track ? `· ${grade.track}` : ""} {grade ? gradeLabel(grade) : ""}
             </div>
           </article>
         ) : (
