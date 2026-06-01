@@ -13,7 +13,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "물체의 운동을 속도와 가속도로 구분하고, 그래프와 자유 낙하·포물선 운동을 통해 운동을 정량적으로 분석한다.",
       "figureId": "phys-motion-graphs",
-      "strand": "힘과 에너지",
+      "strand": "물리 · 힘과 에너지",
       "lessons": [
         {
           "id": "p-motion-1",
@@ -69,7 +69,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "관성, 가속도, 작용·반작용이라는 뉴턴의 세 가지 운동 법칙으로 힘과 운동의 관계를 설명한다.",
       "figureId": "phys-newton-laws",
-      "strand": "힘과 에너지",
+      "strand": "물리 · 힘과 에너지",
       "lessons": [
         {
           "id": "p-newton-1",
@@ -125,7 +125,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "운동량과 충격량의 관계를 이해하고, 운동량 보존 법칙으로 충돌과 반발 현상을 설명한다.",
       "figureId": "phys-momentum-impulse",
-      "strand": "힘과 에너지",
+      "strand": "물리 · 힘과 에너지",
       "lessons": [
         {
           "id": "p-momentum-1",
@@ -181,7 +181,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "일과 일률의 의미를 이해하고, 운동 에너지와 위치 에너지의 합인 역학적 에너지가 보존되는 원리를 설명한다.",
       "figureId": "phys-work-energy",
-      "strand": "힘과 에너지",
+      "strand": "물리 · 힘과 에너지",
       "lessons": [
         {
           "id": "p-energy-1",
@@ -236,7 +236,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "온도와 열, 내부 에너지의 관계를 이해하고, 열역학 제1법칙과 열기관의 효율로 열에너지의 이용을 설명한다.",
       "figureId": "phys-thermodynamics",
-      "strand": "힘과 에너지",
+      "strand": "물리 · 힘과 에너지",
       "lessons": [
         {
           "id": "p-thermo-1",
@@ -292,7 +292,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "전하 사이에 작용하는 전기력에서 출발해 전기장·전위·축전기로 이어지는 전기 에너지의 기본 개념을 다룬다.",
       "figureId": "phys-electric-field",
-      "strand": "전기와 자기",
+      "strand": "물리 · 전기와 자기",
       "lessons": [
         {
           "id": "p-efield-1",
@@ -347,7 +347,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "전하의 흐름인 전류를 옴의 법칙으로 이해하고, 저항의 연결과 전력을 통해 전기 에너지의 사용을 다룬다.",
       "figureId": "phys-circuits",
-      "strand": "전기와 자기",
+      "strand": "물리 · 전기와 자기",
       "lessons": [
         {
           "id": "p-circuit-1",
@@ -401,7 +401,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "전류가 자기장을 만들고, 거꾸로 자기장의 변화가 전류를 만드는 전자기 유도를 통해 발전기와 변압기의 원리를 이해한다.",
       "figureId": "phys-electromagnetic-induction",
-      "strand": "전기와 자기",
+      "strand": "물리 · 전기와 자기",
       "lessons": [
         {
           "id": "p-induction-1",
@@ -456,7 +456,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "파동의 기본 표현과 종류를 익히고, 빛의 간섭·회절과 전자기파 스펙트럼을 통해 빛의 파동성을 이해한다.",
       "figureId": "phys-waves-light",
-      "strand": "빛과 물질",
+      "strand": "물리 · 빛과 물질",
       "lessons": [
         {
           "id": "p-waves-1",
@@ -511,7 +511,7 @@ export const highPhysics: Grade = {
       "domain": "운동과 에너지",
       "summary": "빛이 입자처럼, 물질이 파동처럼 행동하는 이중성을 이해하고, 에너지띠 개념으로 반도체의 원리를 다룬다.",
       "figureId": "phys-quantum-semiconductor",
-      "strand": "빛과 물질",
+      "strand": "물리 · 빛과 물질",
       "lessons": [
         {
           "id": "p-quantum-1",

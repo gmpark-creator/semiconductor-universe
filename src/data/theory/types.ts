@@ -72,9 +72,10 @@ export const DOMAIN_META: Record<ScienceDomain, { color: string; emoji: string; 
   "과학과 사회": { color: "#fb7185", emoji: "🌐", label: "통합 · 과학과 사회" },
 };
 
-/** 단원 배지·네비에 표시할 영역 라벨. strand(세부 영역)가 있으면 "물리 · {strand}", 없으면 도메인 라벨. */
+/** 단원 배지·네비에 표시할 영역 라벨. strand(표시 라벨 override, 예: "물리 · 전기와 자기", "통합과학")가
+ *  있으면 그것을, 없으면 도메인 라벨을 쓴다. 통합과학처럼 여러 분야가 섞인 단원이 단일 분야로 오인되는 것을 막는다. */
 export function unitLabel(u: { domain: ScienceDomain; strand?: string }): string {
-  return u.strand ? `물리 · ${u.strand}` : DOMAIN_META[u.domain].label;
+  return u.strand ?? DOMAIN_META[u.domain].label;
 }
 
 /** 도해 SVG 경로. */
