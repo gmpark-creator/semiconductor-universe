@@ -2,8 +2,14 @@
 // 기초이론(대분류) — 학교 과학 등 "읽는 공부자료" 영역의 타입.
 // 산업(AtlasArea, 3D)과 달리 텍스트+도해(SVG)로 구성된 학습 콘텐츠 트리.
 
-/** 과학 영역. 단원 색상 분류에 사용. (중등 2022 개정 통합 단원용 "과학과 사회" 포함) */
-export type ScienceDomain = "운동과 에너지" | "물질" | "생명" | "지구와 우주" | "과학과 사회";
+/** 과학 영역. 단원 색상 분류에 사용. (중등 2022 개정 통합 단원과 SF 판별 단원 포함) */
+export type ScienceDomain =
+  | "운동과 에너지"
+  | "물질"
+  | "생명"
+  | "지구와 우주"
+  | "과학과 사회"
+  | "SF 과학";
 
 export interface KeyTerm {
   term: string;
@@ -64,13 +70,14 @@ export interface TheorySubject {
   levels: SchoolLevel[];
 }
 
-/** 과학 4대 영역 표시 메타(색·아이콘). */
+/** 과학 영역 표시 메타(색·아이콘). */
 export const DOMAIN_META: Record<ScienceDomain, { color: string; emoji: string; label: string }> = {
   "운동과 에너지": { color: "#f59e0b", emoji: "⚡", label: "물리 · 운동과 에너지" },
   "물질": { color: "#22d3ee", emoji: "⚗️", label: "화학 · 물질" },
   "생명": { color: "#34d399", emoji: "🌱", label: "생물 · 생명" },
   "지구와 우주": { color: "#818cf8", emoji: "🪐", label: "지구과학 · 지구와 우주" },
   "과학과 사회": { color: "#fb7185", emoji: "🌐", label: "통합 · 과학과 사회" },
+  "SF 과학": { color: "#a78bfa", emoji: "🧭", label: "SF 판별 · 과학과 상상" },
 };
 
 /** 단원 배지·네비에 표시할 영역 라벨. strand(표시 라벨 override, 예: "물리 · 전기와 자기", "통합과학")가
