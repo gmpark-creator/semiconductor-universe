@@ -9,6 +9,7 @@ import { grade6 } from "./grade6";
 import { middle1 } from "./middle1";
 import { middle2 } from "./middle2";
 import { middle3 } from "./middle3";
+import { high1 } from "./high1";
 
 export const scienceSubject: TheorySubject = {
   id: "science",
@@ -34,8 +35,8 @@ export const scienceSubject: TheorySubject = {
       id: "high",
       name: "고등학교",
       shortName: "고등",
-      status: "coming",
-      grades: [],
+      status: "ready",
+      grades: [high1],
     },
   ],
 };

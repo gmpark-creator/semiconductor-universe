@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">시스템과 상호작용</text>
+  <g text-anchor="middle">
+    <circle cx="118" cy="132" r="56" fill="#13203a" stroke="#818cf8" stroke-width="2"/>
+    <text x="118" y="110" fill="#c7d2fe" font-size="13" font-weight="700">지구시스템</text>
+    <text x="118" y="132" fill="#94a3b8" font-size="10">기권·수권·지권</text>
+    <text x="118" y="150" fill="#94a3b8" font-size="10">생물권 상호작용</text>
+    <circle cx="240" cy="204" r="50" fill="#13203a" stroke="#f59e0b" stroke-width="2"/>
+    <text x="240" y="187" fill="#fde68a" font-size="13" font-weight="700">역학 시스템</text>
+    <text x="240" y="208" fill="#94a3b8" font-size="10">중력·운동량</text>
+    <text x="240" y="226" fill="#94a3b8" font-size="10">충격과 안전</text>
+    <circle cx="362" cy="132" r="56" fill="#13203a" stroke="#34d399" stroke-width="2"/>
+    <text x="362" y="110" fill="#bbf7d0" font-size="13" font-weight="700">생명 시스템</text>
+    <text x="362" y="132" fill="#94a3b8" font-size="10">세포·물질대사</text>
+    <text x="362" y="150" fill="#94a3b8" font-size="10">유전자와 단백질</text>
+  </g>
+  <g stroke="#475569" stroke-width="2" fill="none" stroke-dasharray="5 5">
+    <path d="M168 152 q44 36 38 52"/>
+    <path d="M312 152 q-44 36 -38 52"/>
+    <path d="M174 126 h132"/>
+  </g>
+  <text x="240" y="286" fill="#94a3b8" font-size="11" text-anchor="middle">시스템은 구성 요소와 상호작용, 물질·에너지·정보 흐름으로 이해한다</text>
+</svg>

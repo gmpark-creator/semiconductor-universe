@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">과학과 미래 사회</text>
+  <g text-anchor="middle">
+    <rect x="42" y="84" width="108" height="86" rx="14" fill="#13203a" stroke="#34d399"/>
+    <text x="96" y="115" fill="#bbf7d0" font-size="13" font-weight="700">감염병</text>
+    <text x="96" y="136" fill="#94a3b8" font-size="10">진단·추적</text>
+    <text x="96" y="153" fill="#94a3b8" font-size="10">백신·치료제</text>
+    <rect x="186" y="84" width="108" height="86" rx="14" fill="#13203a" stroke="#38bdf8"/>
+    <text x="240" y="115" fill="#a5f3fc" font-size="13" font-weight="700">AI·빅데이터</text>
+    <text x="240" y="136" fill="#94a3b8" font-size="10">자료 분석</text>
+    <text x="240" y="153" fill="#94a3b8" font-size="10">과학 탐구</text>
+    <rect x="330" y="84" width="108" height="86" rx="14" fill="#13203a" stroke="#f59e0b"/>
+    <text x="384" y="115" fill="#fde68a" font-size="13" font-weight="700">로봇·IoT</text>
+    <text x="384" y="136" fill="#94a3b8" font-size="10">센서·제어</text>
+    <text x="384" y="153" fill="#94a3b8" font-size="10">연결된 장치</text>
+  </g>
+  <path d="M96 180 q92 52 288 0" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="5 5"/>
+  <rect x="118" y="218" width="244" height="50" rx="14" fill="#3f1022" stroke="#fb7185"/>
+  <text x="240" y="247" fill="#fecdd3" font-size="14" font-weight="700" text-anchor="middle">과학기술 윤리와 책임 있는 의사결정</text>
+  <text x="240" y="294" fill="#94a3b8" font-size="11" text-anchor="middle">미래 사회의 과학은 기술, 데이터, 가치 판단을 함께 다룬다</text>
+</svg>
