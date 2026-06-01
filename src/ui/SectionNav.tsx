@@ -1,7 +1,7 @@
 import { useIsMobile } from "../hooks/useIsMobile";
 import { BRAND } from "../brand";
 
-/** 놀리지 코스모스 대분류(섹션) 스위처 — 산업 / 기초이론. 화면 최상단 중앙. */
+/** Knowledgeverse(놀리지버스) 대분류(섹션) 스위처 — 산업 / 기초이론. 화면 최상단 중앙. */
 export type Section = "industry" | "theory";
 
 const SECTIONS: { id: Section; label: string; sub: string; emoji: string }[] = [
@@ -18,7 +18,7 @@ export function SectionNav({ section, onChange }: { section: Section; onChange: 
           <>
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1, padding: "0 10px 0 6px" }}>
               <span style={{ fontSize: 8.5, letterSpacing: "0.18em", textTransform: "uppercase", color: "#64748b" }}>{BRAND.kicker}</span>
-              <span style={{ fontSize: 13, fontWeight: 800, color: "#f1f5f9", letterSpacing: "0.02em" }}>{BRAND.ko}</span>
+              <span style={{ fontSize: 13, fontWeight: 800, color: "#f1f5f9", letterSpacing: "0.02em" }}>{BRAND.main}</span>
             </div>
             <div style={{ width: 1, height: 30, background: "rgba(255,255,255,0.1)" }} />
           </>

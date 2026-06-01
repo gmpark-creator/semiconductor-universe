@@ -1,5 +1,5 @@
 // data/areas/index.ts
-// Knowledge Cosmos(놀리지 코스모스) 영역 레지스트리. 새 지식 영역을 추가하면 여기 배열에만 등록하면 된다
+// Knowledgeverse(놀리지버스) 영역 레지스트리. 새 지식 영역을 추가하면 여기 배열에만 등록하면 된다
 // (반도체 → 전력 → … 수십·수백 개까지 확장 가능).
 import type { AtlasArea } from "../types";
 import { semiconductorArea } from "./semiconductor";

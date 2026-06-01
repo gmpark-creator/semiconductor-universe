@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { AtlasArea } from "../data/types";
 import { useIsMobile } from "../hooks/useIsMobile";
 
-/** Knowledge Cosmos 영역 선택기 — 반도체 / 전력 / … 수십·수백 개까지 확장 가능한 드롭다운. */
+/** Knowledgeverse 영역 선택기 — 반도체 / 전력 / … 수십·수백 개까지 확장 가능한 드롭다운. */
 export function AreaSelector({ areas, current, onChange }: { areas: AtlasArea[]; current: AtlasArea; onChange: (id: string) => void }) {
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
