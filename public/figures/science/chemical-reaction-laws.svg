@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">화학 반응의 규칙성</text>
+  <!-- 반응식 + 질량보존 -->
+  <text x="240" y="74" fill="#cbd5e1" font-size="13" text-anchor="middle">2H₂ + O₂ → 2H₂O</text>
+  <g text-anchor="middle">
+    <!-- 반응물 -->
+    <g fill="#7dd3fc"><circle cx="70" cy="116" r="9"/><circle cx="88" cy="116" r="9"/><circle cx="70" cy="140" r="9"/><circle cx="88" cy="140" r="9"/></g>
+    <circle cx="130" cy="116" r="12" fill="#f87171"/><circle cx="130" cy="140" r="12" fill="#f87171"/>
+    <text x="100" y="172" fill="#cbd5e1" font-size="11">반응물</text>
+    <text x="200" y="132" fill="#fbbf24" font-size="22">→</text>
+    <!-- 생성물 -->
+    <g><circle cx="280" cy="120" r="12" fill="#f87171"/><circle cx="268" cy="106" r="8" fill="#7dd3fc"/><circle cx="292" cy="106" r="8" fill="#7dd3fc"/>
+       <circle cx="340" cy="138" r="12" fill="#f87171"/><circle cx="328" cy="124" r="8" fill="#7dd3fc"/><circle cx="352" cy="124" r="8" fill="#7dd3fc"/></g>
+    <text x="310" y="172" fill="#cbd5e1" font-size="11">생성물</text>
+  </g>
+  <text x="240" y="200" fill="#6ee7b7" font-size="12" text-anchor="middle">원자 수 양쪽 같음 → 질량 보존 (H 4개, O 2개)</text>
+  <!-- 저울 -->
+  <g transform="translate(240,250)" stroke="#94a3b8" stroke-width="2" fill="none">
+    <line x1="-70" y1="0" x2="70" y2="0"/><line x1="0" y1="0" x2="0" y2="22"/>
+    <path d="M-70 0 l-14 24 h28 z" fill="#13203a"/><path d="M70 0 l-14 24 h28 z" fill="#13203a"/>
+  </g>
+  <text x="240" y="306" fill="#94a3b8" font-size="11" text-anchor="middle">일정 성분비(물 H:O 질량 1:8) · 기체 반응 부피비(2:1:2)</text>
+</svg>

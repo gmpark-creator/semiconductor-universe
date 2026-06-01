@@ -2,8 +2,8 @@
 // 기초이론(대분류) — 학교 과학 등 "읽는 공부자료" 영역의 타입.
 // 산업(AtlasArea, 3D)과 달리 텍스트+도해(SVG)로 구성된 학습 콘텐츠 트리.
 
-/** 과학 4대 영역. 단원 색상 분류에 사용. */
-export type ScienceDomain = "운동과 에너지" | "물질" | "생명" | "지구와 우주";
+/** 과학 영역. 단원 색상 분류에 사용. (중등 2022 개정 통합 단원용 "과학과 사회" 포함) */
+export type ScienceDomain = "운동과 에너지" | "물질" | "생명" | "지구와 우주" | "과학과 사회";
 
 export interface KeyTerm {
   term: string;
@@ -59,6 +59,7 @@ export const DOMAIN_META: Record<ScienceDomain, { color: string; emoji: string; 
   "물질": { color: "#22d3ee", emoji: "⚗️", label: "화학 · 물질" },
   "생명": { color: "#34d399", emoji: "🌱", label: "생물 · 생명" },
   "지구와 우주": { color: "#818cf8", emoji: "🪐", label: "지구과학 · 지구와 우주" },
+  "과학과 사회": { color: "#fb7185", emoji: "🌐", label: "통합 · 과학과 사회" },
 };
 
 /** 도해 SVG 경로. */

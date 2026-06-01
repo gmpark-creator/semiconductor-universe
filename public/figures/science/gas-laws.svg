@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">기체 법칙 — 압력·온도와 부피</text>
+  <!-- 보일: 압력↑ 부피↓ -->
+  <text x="130" y="74" fill="#7dd3fc" font-size="13" font-weight="700" text-anchor="middle">보일 법칙</text>
+  <g>
+    <rect x="60" y="92" width="80" height="80" rx="6" fill="#13203a" stroke="#475569"/>
+    <g fill="#67e8f9"><circle cx="80" cy="120" r="5"/><circle cx="110" cy="112" r="5"/><circle cx="96" cy="146" r="5"/><circle cx="122" cy="150" r="5"/><circle cx="74" cy="156" r="5"/></g>
+    <rect x="170" y="112" width="60" height="60" rx="6" fill="#13203a" stroke="#475569"/>
+    <g fill="#67e8f9"><circle cx="184" cy="130" r="5"/><circle cx="206" cy="126" r="5"/><circle cx="196" cy="150" r="5"/><circle cx="216" cy="156" r="5"/><circle cx="184" cy="158" r="5"/></g>
+    <line x1="170" y1="100" x2="230" y2="100" stroke="#f87171" stroke-width="4" marker-end="url(#g2)"/>
+    <line x1="230" y1="100" x2="170" y2="100" stroke="#f87171" stroke-width="4" marker-end="url(#g2)"/>
+  </g>
+  <text x="145" y="194" fill="#94a3b8" font-size="10.5" text-anchor="middle">압력 ↑ → 부피 ↓ (온도 일정)</text>
+  <!-- 샤를: 온도↑ 부피↑ -->
+  <text x="360" y="74" fill="#fca5a5" font-size="13" font-weight="700" text-anchor="middle">샤를 법칙</text>
+  <g>
+    <rect x="300" y="124" width="56" height="48" rx="6" fill="#13203a" stroke="#475569"/>
+    <text x="328" y="120" font-size="14" text-anchor="middle">❄️</text>
+    <rect x="386" y="96" width="72" height="76" rx="6" fill="#13203a" stroke="#475569"/>
+    <text x="422" y="92" font-size="14" text-anchor="middle">🔥</text>
+    <g fill="#fda4af"><circle cx="318" cy="150" r="5"/><circle cx="340" cy="158" r="5"/><circle cx="404" cy="120" r="5"/><circle cx="438" cy="116" r="5"/><circle cx="420" cy="150" r="5"/><circle cx="400" cy="158" r="5"/></g>
+  </g>
+  <text x="378" y="194" fill="#94a3b8" font-size="10.5" text-anchor="middle">온도 ↑ → 부피 ↑ (압력 일정)</text>
+  <text x="240" y="240" fill="#cbd5e1" font-size="12" text-anchor="middle">기체 압력 = 입자가 벽에 부딪쳐 미는 힘</text>
+  <text x="240" y="266" fill="#94a3b8" font-size="11" text-anchor="middle">입자는 스스로 사방으로 퍼진다 = 확산</text>
+  <defs><marker id="g2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="#f87171"/></marker></defs>
+</svg>
