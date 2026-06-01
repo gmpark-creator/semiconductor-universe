@@ -168,7 +168,7 @@ export const grade5: Grade = {
       "title": "물체의 운동",
       "domain": "운동과 에너지",
       "summary": "물체의 빠르기를 비교하고 속력을 구하는 방법과 교통안전을 배웁니다.",
-      "figureId": "energy-forms",
+      "figureId": "motion-speed",
       "lessons": [
         {
           "id": "g5-motion-of-objects-1",
@@ -207,7 +207,7 @@ export const grade5: Grade = {
       "title": "산과 염기",
       "domain": "물질",
       "summary": "산성 용액과 염기성 용액의 성질을 지시약으로 구분하고 생활 속 이용을 알아봅니다.",
-      "figureId": "dissolving",
+      "figureId": "acid-base-indicator",
       "lessons": [
         {
           "id": "g5-acid-and-base-1",

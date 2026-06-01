@@ -22,7 +22,7 @@
       <circle cx="278" cy="204" r="10"/>
     </g>
     <text x="240" y="272" fill="#e2e8f0" font-size="17" font-weight="700" text-anchor="middle">액체</text>
-    <text x="240" y="294" fill="#94a3b8" font-size="11" text-anchor="middle">모양은 변, 부피 일정</text>
+    <text x="240" y="294" fill="#94a3b8" font-size="11" text-anchor="middle">모양은 변함, 부피 일정</text>
   </g>
   <!-- 기체 -->
   <g>

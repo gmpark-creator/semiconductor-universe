@@ -1,11 +1,13 @@
 import { useState } from "react";
 import type { AtlasArea } from "../data/types";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 /** Knowledge Atlas 영역 선택기 — 반도체 / 전력 / … 수십·수백 개까지 확장 가능한 드롭다운. */
 export function AreaSelector({ areas, current, onChange }: { areas: AtlasArea[]; current: AtlasArea; onChange: (id: string) => void }) {
   const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
   return (
-    <div style={{ position: "absolute", top: 16, left: 16, zIndex: 30 }}>
+    <div style={{ position: "absolute", top: isMobile ? 58 : 16, left: isMobile ? 10 : 16, zIndex: 30 }}>
       <button
         className="glass rounded-xl"
         onClick={() => setOpen((o) => !o)}
