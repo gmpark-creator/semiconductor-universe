@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">빛의 굴절·분산과 볼록 렌즈</text>
+  <!-- 프리즘 분산 -->
+  <text x="40" y="92" fill="#cbd5e1" font-size="12">프리즘 — 빛의 분산</text>
+  <line x1="40" y1="120" x2="120" y2="120" stroke="#f8fafc" stroke-width="3"/>
+  <path d="M120 96 L150 140 L120 140 Z" fill="#93c5fd" opacity="0.7" stroke="#bfdbfe"/>
+  <g stroke-width="2.5">
+    <line x1="150" y1="130" x2="220" y2="108" stroke="#ef4444"/>
+    <line x1="150" y1="132" x2="220" y2="120" stroke="#f59e0b"/>
+    <line x1="150" y1="134" x2="220" y2="132" stroke="#fde047"/>
+    <line x1="150" y1="136" x2="220" y2="144" stroke="#22c55e"/>
+    <line x1="150" y1="138" x2="220" y2="156" stroke="#3b82f6"/>
+    <line x1="150" y1="140" x2="220" y2="168" stroke="#8b5cf6"/>
+  </g>
+  <text x="232" y="142" fill="#cbd5e1" font-size="11">무지개 색</text>
+  <!-- 볼록 렌즈 -->
+  <text x="300" y="92" fill="#cbd5e1" font-size="12" text-anchor="middle">볼록 렌즈 — 빛을 모음</text>
+  <g stroke="#fde047" stroke-width="2.5">
+    <line x1="250" y1="210" x2="300" y2="210"/><line x1="250" y1="230" x2="300" y2="230"/><line x1="250" y1="250" x2="300" y2="250"/>
+  </g>
+  <ellipse cx="312" cy="230" rx="14" ry="44" fill="#67e8f9" opacity="0.5" stroke="#a5f3fc" stroke-width="2"/>
+  <g stroke="#fde047" stroke-width="2.5">
+    <line x1="324" y1="210" x2="392" y2="230"/><line x1="324" y1="230" x2="392" y2="230"/><line x1="324" y1="250" x2="392" y2="230"/>
+  </g>
+  <circle cx="392" cy="230" r="5" fill="#fef08a"/>
+  <text x="392" y="266" fill="#fde68a" font-size="11" text-anchor="middle">초점</text>
+  <text x="240" y="304" fill="#94a3b8" font-size="11" text-anchor="middle">돋보기·현미경·망원경·사진기에 볼록 렌즈가 쓰인다</text>
+</svg>

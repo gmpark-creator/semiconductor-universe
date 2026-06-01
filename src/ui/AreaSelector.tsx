@@ -15,7 +15,7 @@ export function AreaSelector({ areas, current, onChange }: { areas: AtlasArea[];
       >
         <span style={{ width: 9, height: 9, borderRadius: 99, background: current.accent, boxShadow: `0 0 10px ${current.accent}`, flexShrink: 0 }} />
         <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.18, textAlign: "left" }}>
-          <span style={{ fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: "#94a3b8" }}>Knowledge Atlas</span>
+          <span style={{ fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: "#94a3b8" }}>산업 영역</span>
           <span style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{current.name}</span>
         </span>
         <span style={{ color: "#94a3b8", fontSize: 11, marginLeft: 4 }}>{open ? "▲" : "▼"}</span>

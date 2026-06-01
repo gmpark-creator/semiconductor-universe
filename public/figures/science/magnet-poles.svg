@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">자석의 두 극과 힘</text>
+  <!-- 막대자석 + 자기장 -->
+  <g>
+    <rect x="150" y="86" width="90" height="44" fill="#ef4444"/><rect x="240" y="86" width="90" height="44" fill="#3b82f6"/>
+    <text x="195" y="116" fill="#fff" font-size="22" font-weight="800" text-anchor="middle">N</text>
+    <text x="285" y="116" fill="#fff" font-size="22" font-weight="800" text-anchor="middle">S</text>
+    <g fill="none" stroke="#94a3b8" stroke-width="1.5" opacity="0.7">
+      <path d="M240 86 C300 30 350 60 330 108"/>
+      <path d="M240 130 C300 186 350 156 330 110"/>
+      <path d="M150 86 C90 30 40 60 60 108"/>
+      <path d="M150 130 C90 186 40 156 60 110"/>
+    </g>
+  </g>
+  <!-- 같은 극: 밀어냄 -->
+  <g transform="translate(40,200)">
+    <rect x="0" y="0" width="64" height="34" fill="#3b82f6"/><text x="32" y="24" fill="#fff" font-size="17" font-weight="800" text-anchor="middle">S</text>
+    <rect x="120" y="0" width="64" height="34" fill="#3b82f6"/><text x="152" y="24" fill="#fff" font-size="17" font-weight="800" text-anchor="middle">S</text>
+    <g stroke="#f87171" stroke-width="3" stroke-linecap="round"><line x1="74" y1="17" x2="92" y2="17"/><line x1="110" y1="17" x2="92" y2="17"/></g>
+    <text x="92" y="58" fill="#fca5a5" font-size="12" font-weight="700" text-anchor="middle">같은 극 = 밀어냄</text>
+  </g>
+  <!-- 다른 극: 끌어당김 -->
+  <g transform="translate(264,200)">
+    <rect x="0" y="0" width="64" height="34" fill="#ef4444"/><text x="32" y="24" fill="#fff" font-size="17" font-weight="800" text-anchor="middle">N</text>
+    <rect x="120" y="0" width="64" height="34" fill="#3b82f6"/><text x="152" y="24" fill="#fff" font-size="17" font-weight="800" text-anchor="middle">S</text>
+    <g stroke="#34d399" stroke-width="3" stroke-linecap="round"><line x1="78" y1="17" x2="96" y2="17"/><line x1="106" y1="17" x2="88" y2="17"/></g>
+    <text x="92" y="58" fill="#6ee7b7" font-size="12" font-weight="700" text-anchor="middle">다른 극 = 끌어당김</text>
+  </g>
+</svg>

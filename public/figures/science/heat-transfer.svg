@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">열의 이동 — 전도와 대류</text>
+  <!-- 냄비 -->
+  <path d="M150 150 h180 v70 a26 26 0 0 1 -26 26 h-128 a26 26 0 0 1 -26 -26 z" fill="#334155" stroke="#64748b" stroke-width="2"/>
+  <path d="M158 158 h164 v58 a18 18 0 0 1 -18 18 h-128 a18 18 0 0 1 -18 -18 z" fill="#1e3a5f"/>
+  <!-- 대류 화살표 -->
+  <g stroke="#f87171" stroke-width="2.5" fill="none">
+    <path d="M210 226 q-6 -40 24 -54" marker-end="url(#h1)"/>
+    <path d="M270 172 q6 40 -24 54" marker-end="url(#h1)"/>
+  </g>
+  <text x="240" y="200" fill="#fca5a5" font-size="11" text-anchor="middle">대류</text>
+  <!-- 손잡이(전도) -->
+  <rect x="330" y="166" width="84" height="14" rx="7" fill="#92400e"/>
+  <g fill="#fb923c"><circle cx="346" cy="173" r="4"/><circle cx="366" cy="173" r="4" opacity="0.8"/><circle cx="386" cy="173" r="4" opacity="0.6"/></g>
+  <text x="372" y="156" fill="#fdba74" font-size="11" text-anchor="middle">전도(고체)</text>
+  <!-- 불 -->
+  <g transform="translate(240,256)">
+    <path d="M0 30 q-22 -6 -16 -28 q8 12 12 6 q-6 -22 10 -34 q-2 18 8 22 q14 8 4 30 q-4 12 -22 12z" fill="#f59e0b"/>
+    <path d="M0 30 q-12 -4 -8 -18 q6 8 8 2 q-2 -12 6 -18 q0 12 4 14 q8 6 2 18z" fill="#fde047"/>
+  </g>
+  <text x="240" y="312" fill="#94a3b8" font-size="11" text-anchor="middle">열은 따뜻한 곳 → 차가운 곳으로 이동한다</text>
+  <defs><marker id="h1" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#f87171"/></marker></defs>
+</svg>
