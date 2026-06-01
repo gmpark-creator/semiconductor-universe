@@ -14,12 +14,18 @@ export function Legend({ area, mode }: { area: AtlasArea; mode: Mode }) {
   return (
     <div className="glass rounded-xl p-4" style={{ position: "absolute", left: 16, bottom: 16, zIndex: 20, maxWidth: 280 }}>
       <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">
-        {mode === "taxonomy" ? area.taxonomyLegendTitle : "공급망 관계"}
+        {mode === "taxonomy"
+          ? area.taxonomyLegendTitle
+          : mode === "process"
+            ? area.process?.legendTitle ?? "공정 흐름"
+            : "공급망 관계"}
       </div>
       <div className="space-y-1.5">
         {mode === "taxonomy"
           ? area.familyOrder.map((fam) => <Row key={fam} color={area.familyColors[fam]} label={area.familyLabelKo[fam]} />)
-          : area.relationshipLegend.map((r) => <Row key={r.label} color={r.color} label={r.label} />)}
+          : mode === "process"
+            ? (area.process?.steps ?? []).map((s) => <Row key={s.id} color={s.color} label={`${s.index}. ${s.name}`} />)
+            : area.relationshipLegend.map((r) => <Row key={r.label} color={r.color} label={r.label} />)}
       </div>
       {mode === "supply" && (
         <>

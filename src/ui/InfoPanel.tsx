@@ -21,7 +21,8 @@ export function InfoPanel({ area, mode, selectedId, onClose }: Props) {
 
   const category = mode === "taxonomy" ? area.categories.find((c) => c.id === selectedId) ?? null : null;
   const company = mode === "supply" ? area.companies.find((c) => c.id === selectedId) ?? null : null;
-  const open = !!(category || company);
+  const step = mode === "process" ? area.process?.steps.find((s) => s.id === selectedId) ?? null : null;
+  const open = !!(category || company || step);
 
   const serves = company ? area.edges.filter((e) => e.from === company.id) : [];
   const suppliedBy = company ? area.edges.filter((e) => e.to === company.id) : [];
@@ -168,6 +169,48 @@ export function InfoPanel({ area, mode, selectedId, onClose }: Props) {
                   </ul>
                 </Section>
               )}
+            </div>
+          )}
+
+          {step && (
+            <div>
+              <div className="inline-flex items-center gap-2 mb-3">
+                <span
+                  style={{
+                    width: 22, height: 22, borderRadius: 99, display: "inline-flex", alignItems: "center",
+                    justifyContent: "center", fontWeight: 800, fontSize: 12, color: "#05060a",
+                    background: step.color, boxShadow: `0 0 10px ${step.color}`,
+                  }}
+                >
+                  {step.index}
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: step.color }}>
+                  공정 {step.index} / {area.process?.steps.length}
+                </span>
+              </div>
+              <h2 className="text-2xl font-bold mb-4 pr-6" style={{ color: step.color }}>{step.name}</h2>
+              <Section title="왜 중요한가"><p className="text-slate-300 text-sm leading-relaxed">{step.why}</p></Section>
+              <Section title="특징">
+                <ul className="space-y-1.5">
+                  {step.features.map((f) => (
+                    <li key={f} className="text-slate-300 text-sm flex gap-2"><span style={{ color: step.color }}>▸</span>{f}</li>
+                  ))}
+                </ul>
+              </Section>
+              <Section title="국내 기업">
+                <div className="flex flex-wrap gap-2">
+                  {step.domestic.map((c) => (
+                    <span key={c} className="text-xs px-2.5 py-1 rounded-full" style={{ background: `${step.color}22`, border: `1px solid ${step.color}66`, color: "#e2e8f0" }}>{c}</span>
+                  ))}
+                </div>
+              </Section>
+              <Section title="해외 기업">
+                <div className="flex flex-wrap gap-2">
+                  {step.foreign.map((c) => (
+                    <span key={c} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(148,163,184,0.12)", border: "1px solid rgba(148,163,184,0.4)", color: "#cbd5e1" }}>{c}</span>
+                  ))}
+                </div>
+              </Section>
             </div>
           )}
 

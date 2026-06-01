@@ -4,6 +4,7 @@ import {
   CATEGORIES, FAMILY_COLORS, FAMILY_LABEL_KO, FAMILY_DESC_KO, DATA_AS_OF, DATA_DISCLAIMER,
 } from "../semiconductors";
 import { COMPANIES, EDGES, EDGE_COLORS, GROUP_LABEL_KO, COMPANY_SHARES } from "../companies";
+import { SEMICONDUCTOR_PROCESS } from "../semiconductorProcess";
 import type { AtlasArea, Category, Company, SupplyEdge, CompanyBadge, HqCoord } from "../types";
 import {
   siNvidia, siApple, siAmd, siQualcomm, siBroadcom, siIntel, siSamsung, siArm,
@@ -120,6 +121,8 @@ export const semiconductorArea: AtlasArea = {
   hq: COMPANY_HQ,
   nodeSizeNote: "노드 = 기업 (크기 ∝ √시가총액)",
   supplyListTitle: "기업",
+
+  process: SEMICONDUCTOR_PROCESS,
 
   examplesTitle: "예시 제품 (2026)",
   trendTitle: "2026 동향",

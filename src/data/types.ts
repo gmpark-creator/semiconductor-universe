@@ -58,6 +58,32 @@ export interface SupplyEdge {
   label: string;
 }
 
+/** 공정(process) 모드 — 순차 파이프라인 단계의 3D 비주얼 종류(반도체 8대 공정). */
+export type ProcessStageKind =
+  | "wafer" | "oxide" | "photo" | "etch" | "deposition" | "wiring" | "test" | "package";
+
+/** 공정 단계 하나 — 이미지(반도체 8대 공정)의 '왜 중요한가 / 특징 / 국내·해외 기업'을 데이터화. */
+export interface ProcessStep {
+  id: string;
+  index: number; // 1..N 순번(흐름)
+  name: string; // "웨이퍼 제조"
+  short: string; // 노드/목록용 짧은 라벨
+  color: string; // 단계 액센트색(스펙트럼)
+  stage: ProcessStageKind; // 3D 비주얼 키
+  why: string; // 왜 중요한가
+  features: string[]; // 특징(불릿)
+  domestic: string[]; // 국내 기업
+  foreign: string[]; // 해외 기업
+}
+
+/** 공정 흐름 — 영역이 선택적으로 가질 수 있는 세 번째 모드(반도체만 보유). */
+export interface ProcessFlowData {
+  hint: string; // 상단 안내문
+  listTitle: string; // 좌측 목록 제목 ("8대 공정")
+  legendTitle: string; // 범례 제목
+  steps: ProcessStep[];
+}
+
 /** 엠블럼 배지 — 로고 path(있으면) 또는 워드마크 텍스트 + 브랜드색. */
 export interface CompanyBadge { brand: string; wordmark?: string; logoPath?: string }
 export interface HqCoord { lat: number; lon: number }
@@ -104,6 +130,9 @@ export interface AtlasArea {
   mapFocus?: MapFocus; // 지정 시 공급망 지도를 해당 국가로 한정·확대(전력=KOR). 없으면 전 지구본.
   nodeSizeNote: string; // 범례(예: "크기 ∝ √시가총액")
   supplyListTitle: string; // 좌측 목록 제목(예: "기업")
+
+  // ── 공정(process) 모드 — 선택(반도체 8대 공정). 없으면 ViewToggle에 미노출 ──
+  process?: ProcessFlowData;
 
   // ── 패널 라벨 ──
   examplesTitle: string; // "예시 제품 (2026)" / "대표 설비·사례"

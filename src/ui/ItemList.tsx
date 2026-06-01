@@ -17,15 +17,21 @@ export function ItemList({ area, mode, selectedId, onSelect }: Props) {
       ? area.categories.map((c) => ({
           id: c.id, name: c.name, color: area.familyColors[c.family] ?? "#94a3b8", sub: area.familyLabelKo[c.family] ?? "",
         }))
-      : area.companies.map((c) => {
-          const s = c.shares?.[0];
-          return {
-            id: c.id, name: c.name, color: area.groupColors[c.group] ?? "#94a3b8",
-            sub: s ? `${s.field} ${s.pct}` : area.groupLabelKo[c.group] ?? "",
-          };
-        });
+      : mode === "process"
+        ? (area.process?.steps ?? []).map((s) => ({
+            id: s.id, name: `${s.index}. ${s.name}`, color: s.color, sub: s.short,
+          }))
+        : area.companies.map((c) => {
+            const s = c.shares?.[0];
+            return {
+              id: c.id, name: c.name, color: area.groupColors[c.group] ?? "#94a3b8",
+              sub: s ? `${s.field} ${s.pct}` : area.groupLabelKo[c.group] ?? "",
+            };
+          });
 
-  const title = mode === "taxonomy" ? `${area.taxonomyListTitle} · ${rows.length}` : `${area.supplyListTitle} · ${rows.length}`;
+  const listTitle =
+    mode === "taxonomy" ? area.taxonomyListTitle : mode === "process" ? area.process?.listTitle ?? "공정" : area.supplyListTitle;
+  const title = `${listTitle} · ${rows.length}`;
 
   return (
     <div

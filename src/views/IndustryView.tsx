@@ -60,10 +60,15 @@ export function IndustryView() {
       {/* 모드 안내 (선택기 아래) */}
       <div style={{ position: "absolute", top: 122, left: 18, zIndex: 20, pointerEvents: "none" }}>
         <p className="text-[11px] text-slate-400" style={{ margin: 0 }}>
-          {mode === "taxonomy" ? area.taxonomyHint : area.supplyHint}
+          {mode === "taxonomy" ? area.taxonomyHint : mode === "process" ? area.process?.hint ?? "" : area.supplyHint}
         </p>
         <p className="text-[10px] text-slate-500" style={{ margin: "2px 0 0", letterSpacing: "0.04em" }}>
-          {area.dataAsOf} · {mode === "taxonomy" ? `${area.categories.length}개 분류` : `${area.companies.length}개 기업·기관`}
+          {area.dataAsOf} ·{" "}
+          {mode === "taxonomy"
+            ? `${area.categories.length}개 분류`
+            : mode === "process"
+              ? `${area.process?.steps.length ?? 0}개 공정`
+              : `${area.companies.length}개 기업·기관`}
         </p>
       </div>
 
@@ -78,20 +83,31 @@ export function IndustryView() {
       </div>
 
       {/* 접근성: 스크린리더·키보드용 대체 콘텐츠. */}
-      <nav className="sr-only" aria-label={`${area.name} ${mode === "taxonomy" ? "분류" : "기업"} 목록`}>
-        <h2>{area.name} — {mode === "taxonomy" ? area.taxonomyListTitle : area.supplyListTitle} (키보드 탐색)</h2>
+      <nav className="sr-only" aria-label={`${area.name} ${mode === "taxonomy" ? "분류" : mode === "process" ? "공정" : "기업"} 목록`}>
+        <h2>
+          {area.name} —{" "}
+          {mode === "taxonomy" ? area.taxonomyListTitle : mode === "process" ? area.process?.listTitle ?? "공정" : area.supplyListTitle}{" "}
+          (키보드 탐색)
+        </h2>
         <ul>
-          {mode === "taxonomy"
-            ? area.categories.map((c) => (
-                <li key={c.id}>
-                  <button onClick={() => setSelected(c.id)}>{c.name} — {area.familyLabelKo[c.family]}. {c.definition}</button>
-                </li>
-              ))
-            : area.companies.map((c) => (
-                <li key={c.id}>
-                  <button onClick={() => setSelected(c.id)}>{c.name} — {area.groupLabelKo[c.group]}, {c.type}. {c.note}</button>
-                </li>
-              ))}
+          {mode === "taxonomy" &&
+            area.categories.map((c) => (
+              <li key={c.id}>
+                <button onClick={() => setSelected(c.id)}>{c.name} — {area.familyLabelKo[c.family]}. {c.definition}</button>
+              </li>
+            ))}
+          {mode === "process" &&
+            (area.process?.steps ?? []).map((s) => (
+              <li key={s.id}>
+                <button onClick={() => setSelected(s.id)}>{s.index}. {s.name} — {s.why}</button>
+              </li>
+            ))}
+          {mode === "supply" &&
+            area.companies.map((c) => (
+              <li key={c.id}>
+                <button onClick={() => setSelected(c.id)}>{c.name} — {area.groupLabelKo[c.group]}, {c.type}. {c.note}</button>
+              </li>
+            ))}
         </ul>
       </nav>
 

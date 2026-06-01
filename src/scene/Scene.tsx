@@ -10,8 +10,9 @@ import { computeCompanyGeoPositions, companyHqVec3, latLonToVec3, PIN_RADIUS } f
 import { VectorGlobe } from "./VectorGlobe";
 import { KoreaCartoonMap } from "./KoreaCartoonMap";
 import { TaxonomyBackdrop } from "./TaxonomyBackdrop";
+import { ProcessFlow } from "./ProcessFlow";
 
-export type Mode = "taxonomy" | "supply";
+export type Mode = "taxonomy" | "supply" | "process";
 
 /** 분류 — 패밀리별 행으로 가지런히 정렬한 정면 그리드(카툰 배경 앞). */
 function computeCategoryGrid(area: AtlasArea): Record<string, [number, number, number]> {
@@ -33,6 +34,24 @@ function computeCategoryGrid(area: AtlasArea): Record<string, [number, number, n
   return pos;
 }
 
+/** 공정 — 8단계를 뱀형(serpentine) 흐름으로 배치(상단 L→R, 하단 R→L). */
+function computeProcessLayout(area: AtlasArea): Record<string, [number, number, number]> {
+  const pos: Record<string, [number, number, number]> = {};
+  const steps = area.process?.steps ?? [];
+  const colGap = 5.2;
+  const rowGap = 4.6;
+  const perRow = 4;
+  steps.forEach((s, i) => {
+    const row = Math.floor(i / perRow); // 0 = 상단, 1 = 하단 …
+    const col = i % perRow;
+    const visualCol = row % 2 === 0 ? col : perRow - 1 - col; // 뱀형: 짝수행 L→R, 홀수행 R→L
+    const x = (visualCol - (perRow - 1) / 2) * colGap;
+    const y = (0.5 - row) * rowGap; // row0 → +rowGap/2, row1 → -rowGap/2
+    pos[s.id] = [x, y, 0];
+  });
+  return pos;
+}
+
 interface Props {
   area: AtlasArea;
   mode: Mode;
@@ -46,6 +65,7 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
   const { camera } = useThree();
 
   const catPos = useMemo(() => computeCategoryGrid(area), [area]);
+  const procPos = useMemo(() => computeProcessLayout(area), [area]);
   const geoPos = useMemo(
     () => computeCompanyGeoPositions(area.companies, area.hq, area.mapFocus ? 0.3 : 1),
     [area],
@@ -77,6 +97,10 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
       if (focusFraming) return { target: focusFraming.target.clone(), cam: focusFraming.cam.clone() };
       return { target: new THREE.Vector3(0, 0, 0), cam: new THREE.Vector3(0, 4, 30) };
     }
+    if (mode === "process") {
+      // 8단계 2행 뱀형 흐름이 한눈에 들어오도록 약간 멀리서 정면.
+      return { target: new THREE.Vector3(0, 0, 0), cam: new THREE.Vector3(0, 0, 36) };
+    }
     return { target: new THREE.Vector3(0, 0, 0), cam: new THREE.Vector3(0, 0, 30) };
   }, [mode, focusFraming]);
 
@@ -98,14 +122,14 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
         settlingRef.current = true;
       }
     } else {
-      const p = catPos[selectedId];
+      const p = mode === "process" ? procPos[selectedId] : catPos[selectedId];
       if (p) {
         const tp = new THREE.Vector3(...p);
         focusRef.current = { target: tp, cam: new THREE.Vector3(tp.x * 0.6, tp.y + 0.8, 11) };
         settlingRef.current = true;
       }
     }
-  }, [selectedId, mode, catPos, geoPos, defaultView, area, selectZoom]);
+  }, [selectedId, mode, catPos, procPos, geoPos, defaultView, area, selectZoom]);
 
   useEffect(() => {
     focusRef.current = { target: defaultView.target.clone(), cam: defaultView.cam.clone() };
@@ -153,7 +177,7 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
           : <VectorGlobe />
         : <TaxonomyBackdrop backdrop={area.backdrop} />}
 
-      {mode === "taxonomy" ? (
+      {mode === "taxonomy" &&
         area.categories.map((c) => (
           <CategoryNode
             key={c.id}
@@ -164,9 +188,12 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
             reducedMotion={reducedMotion}
             onSelect={onSelect}
           />
-        ))
-      ) : (
-        <CompanyGraph area={area} selected={selectedId} onSelect={onSelect} />
+        ))}
+
+      {mode === "supply" && <CompanyGraph area={area} selected={selectedId} onSelect={onSelect} />}
+
+      {mode === "process" && area.process && (
+        <ProcessFlow steps={area.process.steps} positions={procPos} selected={selectedId} onSelect={onSelect} />
       )}
 
       <OrbitControls
