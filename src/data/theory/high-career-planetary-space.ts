@@ -5,6 +5,7 @@ export const highCareerPlanetarySpace: Grade = {
   id: "high-career-planetary-space",
   grade: 3,
   label: "행성우주과학",
+  track: "진로 선택",
   units: [
     {
       id: "adv-planetary-systems",

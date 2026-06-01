@@ -6,6 +6,7 @@ export const highChemistry: Grade = {
   "id": "high2-chemistry",
   "grade": 2,
   "label": "화학",
+  "track": "일반 선택",
   "units": [
     {
       "id": "c-formula",

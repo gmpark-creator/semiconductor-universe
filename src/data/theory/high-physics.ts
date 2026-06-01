@@ -6,6 +6,7 @@ export const highPhysics: Grade = {
   "id": "high2-physics",
   "grade": 2,
   "label": "물리학",
+  "track": "일반 선택",
   "units": [
     {
       "id": "p-motion",

@@ -5,6 +5,7 @@ export const highFusionHistoryCulture: Grade = {
   id: "high-fusion-history-culture",
   grade: 3,
   label: "과학의 역사와 문화",
+  track: "융합 선택",
   units: [
     {
       id: "fusion-science-civilization",

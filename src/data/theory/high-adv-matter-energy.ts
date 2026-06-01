@@ -5,6 +5,7 @@ export const highAdvMatterEnergy: Grade = {
   "id": "high3-matter-energy",
   "grade": 3,
   "label": "물질과 에너지",
+  "track": "진로 선택",
   "units": [
     { "id": "me-orbital", "title": "원자 구조와 오비탈", "domain": "물질", "strand": "진로 선택 · 화학", "summary": "현대 원자 모형에서 전자를 확률 분포로 이해하고 오비탈과 전자 배치의 규칙을 다룬다.", "figureId": "advchem-orbital",
       "lessons": [

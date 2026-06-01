@@ -5,6 +5,7 @@ export const high2EarthScience: Grade = {
   "id": "high2-earth-science",
   "grade": 2,
   "label": "지구과학",
+  "track": "일반 선택",
   "units": [
     {
       "id": "h2-earth-atmosphere-ocean",

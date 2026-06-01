@@ -5,6 +5,7 @@ export const highAdvEmQuantum: Grade = {
   "id": "high3-em-quantum",
   "grade": 3,
   "label": "전자기와 양자",
+  "track": "진로 선택",
   "units": [
     { "id": "eq-efield", "title": "전기장과 전위", "domain": "운동과 에너지", "strand": "진로 선택 · 물리", "summary": "전하 사이의 쿨롱 힘에서 출발해 전기장·전기력선과 전위·전위차의 개념을 정량적으로 연결한다.", "figureId": "advphys-efield-potential",
       "lessons": [

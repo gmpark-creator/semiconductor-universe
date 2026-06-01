@@ -5,6 +5,7 @@ export const highAdvReactions: Grade = {
   "id": "high3-reactions",
   "grade": 3,
   "label": "화학 반응의 세계",
+  "track": "진로 선택",
   "units": [
     { "id": "rw-rate", "title": "반응 속도", "domain": "물질", "strand": "진로 선택 · 화학", "summary": "충돌 이론으로 반응 속도를 이해하고 농도·온도·표면적·촉매가 속도에 미치는 영향을 다룬다.", "figureId": "advchem-rate",
       "lessons": [

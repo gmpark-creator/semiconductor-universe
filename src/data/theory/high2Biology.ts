@@ -6,6 +6,7 @@ export const high2Biology: Grade = {
   "id": "high2-biology",
   "grade": 2,
   "label": "생명과학",
+  "track": "일반 선택",
   "units": [
     {
       "id": "b-life-systems",

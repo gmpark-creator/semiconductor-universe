@@ -5,6 +5,7 @@ export const highFusionClimateEcology: Grade = {
   id: "high-fusion-climate-ecology",
   grade: 3,
   label: "기후변화와 환경생태",
+  track: "융합 선택",
   units: [
     {
       id: "fusion-climate-system",

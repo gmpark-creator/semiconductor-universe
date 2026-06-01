@@ -5,6 +5,7 @@ export const highFusionInquiry: Grade = {
   id: "high-fusion-inquiry",
   grade: 3,
   label: "융합과학 탐구",
+  track: "융합 선택",
   units: [
     {
       id: "fusion-inquiry-design",

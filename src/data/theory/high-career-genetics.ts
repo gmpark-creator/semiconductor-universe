@@ -5,6 +5,7 @@ export const highCareerGenetics: Grade = {
   id: "high-career-genetics",
   grade: 3,
   label: "생물의 유전",
+  track: "진로 선택",
   units: [
     {
       id: "adv-genetic-information",

@@ -5,6 +5,7 @@ export const highAdvMechanics: Grade = {
   "id": "high3-mechanics",
   "grade": 3,
   "label": "역학과 에너지",
+  "track": "진로 선택",
   "units": [
     { "id": "am-motion", "title": "시공간과 물체의 운동", "domain": "운동과 에너지", "strand": "진로 선택 · 물리", "summary": "위치·속도·가속도를 벡터로 정밀하게 정의하고, 등가속도 운동과 포물체·원운동을 정량적으로 분석한다.", "figureId": "advphys-spacetime-motion",
       "lessons": [
