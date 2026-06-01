@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { scienceSubject } from "../data/theory";
 import { DOMAIN_META, figureUrl, type ScienceDomain } from "../data/theory/types";
 
@@ -16,10 +16,7 @@ export function TheoryView() {
   const level = subject.levels.find((l) => l.id === levelId) ?? subject.levels[0];
   const ready = level.status === "ready" && level.grades.length > 0;
   const grade = ready ? level.grades[Math.min(gradeIdx, level.grades.length - 1)] : null;
-  const unit = useMemo(
-    () => grade?.units.find((u) => u.id === unitId) ?? grade?.units[0] ?? null,
-    [grade, unitId],
-  );
+  const unit = grade?.units.find((u) => u.id === unitId) ?? grade?.units[0] ?? null;
 
   const pickLevel = (id: string) => {
     const lv = subject.levels.find((l) => l.id === id);
