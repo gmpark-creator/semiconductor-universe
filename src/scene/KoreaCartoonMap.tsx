@@ -14,8 +14,8 @@ import { GLOBE_RADIUS, latLonToVec3 } from "./companyLayout";
  * 아래→위로 통통 튀어 오르며(스프링·스태거) 지도가 조립되듯 등장한다.
  *
  * 구글어스식 LOD(카메라 거리별 상세화):
- *   멀리 = 시도(컬러)  →  줌인 = 시군구(행정구) 경계 페이드인  →  더 줌인 = 읍면동(행정동) 경계.
- * 기업을 클릭하면(Scene) 카메라가 본사 도시까지 깊게 날아들어가 어느 구/동에 있는지 보인다.
+ *   멀리 = 시도(컬러)  →  줌인 = 시군구(시·군·구) 경계 페이드인까지. (읍면동 LOD는 미사용)
+ * 기업을 클릭하면(Scene) 카메라가 본사 도시까지 깊게 날아들어가 어느 시·군·구에 있는지 보인다.
  * 좌표는 latLonToVec3(반경 GLOBE_RADIUS)로 — 기업 본사 핀과 같은 좌표계라 정합.
  */
 
@@ -115,7 +115,7 @@ function buildOutline(geom: { type: string; coordinates: unknown }, center: THRE
   return geo;
 }
 
-/** 여러 피처의 경계선을 하나의 절대좌표 라인 지오메트리로 병합(단일 draw call) — 시군구·읍면동 LOD용. */
+/** 여러 피처의 경계선을 하나의 절대좌표 라인 지오메트리로 병합(단일 draw call) — 시군구 LOD용. */
 function buildMergedBorders(features: GeoFeature[], radius: number): THREE.BufferGeometry {
   const pos: number[] = [];
   const seg = (a: Pt, b: Pt) => {
