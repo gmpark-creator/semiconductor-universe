@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#120a1a"/>
+      <stop offset="0.5" stop-color="#161033"/>
+      <stop offset="1" stop-color="#0e0c2a"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.30" cy="0.30" r="0.5">
+      <stop offset="0" stop-color="#d946ef" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#d946ef" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.80" cy="0.62" r="0.5">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="0.55" cy="0.16" r="0.42">
+      <stop offset="0" stop-color="#f472b6" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#f472b6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#sky)"/>
+  <rect width="1600" height="800" fill="url(#glowA)"/>
+  <rect width="1600" height="800" fill="url(#glowB)"/>
+  <rect width="1600" height="800" fill="url(#glowC)"/>
+
+  <!-- 픽셀 그리드(미세) -->
+  <g stroke="#b08fd6" stroke-opacity="0.05" stroke-width="1">
+    <path d="M0 0V800M200 0V800M400 0V800M600 0V800M800 0V800M1000 0V800M1200 0V800M1400 0V800M1600 0V800"/>
+    <path d="M0 0H1600M0 160H1600M0 320H1600M0 480H1600M0 640H1600M0 800H1600"/>
+  </g>
+
+  <!-- RGB 서브픽셀 클러스터(디스플레이 상징) — 좌하/우상에 흩뿌림 -->
+  <g opacity="0.5">
+    <g transform="translate(210 470)">
+      <rect x="0"  y="0" width="10" height="120" rx="3" fill="#ff4d6d" opacity="0.5"/>
+      <rect x="14" y="0" width="10" height="120" rx="3" fill="#46e07a" opacity="0.5"/>
+      <rect x="28" y="0" width="10" height="120" rx="3" fill="#4d8dff" opacity="0.5"/>
+    </g>
+    <g transform="translate(800 440) scale(1.25)">
+      <rect x="0"  y="0" width="10" height="120" rx="3" fill="#ff4d6d" opacity="0.45"/>
+      <rect x="14" y="0" width="10" height="120" rx="3" fill="#46e07a" opacity="0.45"/>
+      <rect x="28" y="0" width="10" height="120" rx="3" fill="#4d8dff" opacity="0.45"/>
+    </g>
+    <g transform="translate(1330 500) scale(0.9)">
+      <rect x="0"  y="0" width="10" height="120" rx="3" fill="#ff4d6d" opacity="0.5"/>
+      <rect x="14" y="0" width="10" height="120" rx="3" fill="#46e07a" opacity="0.5"/>
+      <rect x="28" y="0" width="10" height="120" rx="3" fill="#4d8dff" opacity="0.5"/>
+    </g>
+  </g>
+
+  <!-- 발광 스캔 라인(은은한 가로 빛띠) -->
+  <g fill="none" stroke="#e879f9" stroke-opacity="0.08" stroke-width="2">
+    <path d="M -50 250 Q 400 320 800 270 T 1650 300"/>
+    <path d="M -50 560 Q 400 630 800 580 T 1650 600"/>
+  </g>
+  <g fill="none" stroke="#67e8f9" stroke-opacity="0.06" stroke-width="2">
+    <path d="M -50 180 Q 500 130 1000 200 T 1650 170"/>
+  </g>
+
+  <!-- 보케 빛점 -->
+  <g fill="#f0d9f7">
+    <circle cx="180" cy="180" r="2.2" opacity="0.4"/>
+    <circle cx="640" cy="120" r="1.8" opacity="0.32"/>
+    <circle cx="1120" cy="220" r="2.6" opacity="0.36"/>
+    <circle cx="1420" cy="140" r="1.6" opacity="0.28"/>
+    <circle cx="420" cy="650" r="2.2" opacity="0.3"/>
+    <circle cx="980" cy="700" r="1.8" opacity="0.26"/>
+    <circle cx="1300" cy="620" r="2.4" opacity="0.32"/>
+  </g>
+</svg>
