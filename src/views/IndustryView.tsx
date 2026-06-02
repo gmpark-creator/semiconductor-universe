@@ -6,6 +6,7 @@ import { InfoPanel } from "../ui/InfoPanel";
 import { Legend } from "../ui/Legend";
 import { ViewToggle } from "../ui/ViewToggle";
 import { ItemList } from "../ui/ItemList";
+import { SupplyRelations } from "../ui/SupplyRelations";
 import { AreaSelector } from "../ui/AreaSelector";
 import { ProcessGuide } from "../ui/ProcessGuide";
 import { AREAS, DEFAULT_AREA_ID, getArea } from "../data/areas";
@@ -80,8 +81,16 @@ export function IndustryView() {
         <ProcessGuide process={area.process} areaName={area.name} />
       )}
 
-      <ItemList area={area} mode={mode} selectedId={selected} onSelect={setSelected} />
-      <Legend area={area} mode={mode} />
+      {/* 공급망 모드 + 기업 선택 시: 좌측 열을 상세 '관계 인과' 패널로 전환(목록·범례 대체).
+          그 외에는 기존 목록(ItemList) + 범례(Legend) 노출. */}
+      {mode === "supply" && selected ? (
+        <SupplyRelations area={area} selectedId={selected} onSelect={setSelected} />
+      ) : (
+        <>
+          <ItemList area={area} mode={mode} selectedId={selected} onSelect={setSelected} />
+          <Legend area={area} mode={mode} />
+        </>
+      )}
       <InfoPanel area={area} mode={mode} selectedId={selected} onClose={() => setSelected(null)} />
 
       {/* Disclaimer (bottom-right) */}

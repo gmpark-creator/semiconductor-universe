@@ -1,7 +1,7 @@
 // scene/companyLayout.ts
 // 공급망 노드 배치 — 영역에 무관한 순수 기하 함수. 회사 목록·본사좌표·그룹중심을
 // 인자로 받아 좌표를 계산한다(데이터는 각 AtlasArea가 제공).
-import type { Company, HqCoord } from "../data/types";
+import type { Company, HqCoord, SupplyEdge } from "../data/types";
 
 /** 지구본 반경 — 벡터 globe·핀·카메라 공용 단일 상수. */
 export const GLOBE_RADIUS = 5;
@@ -92,4 +92,28 @@ export function computeCompanyGeoPositions(
 export function companyHqVec3(id: string, hqMap: Record<string, HqCoord>): [number, number, number] | null {
   const hq = hqMap[id];
   return hq ? latLonToVec3(hq.lat, hq.lon, PIN_RADIUS) : null;
+}
+
+/** 공급망 화살표·관계 패널이 공유하는 '업체별 고유색' 팔레트 — 인접 화살표가 서로 구분되도록 채도 높은 색 다양화. */
+export const PARTNER_PALETTE = [
+  "#60a5fa", "#f472b6", "#34d399", "#fbbf24", "#a78bfa", "#fb7185",
+  "#22d3ee", "#a3e635", "#fb923c", "#e879f9", "#2dd4bf", "#f87171",
+  "#38bdf8", "#c084fc", "#4ade80", "#facc15",
+];
+
+/**
+ * 선택한 기업을 기준으로, 그와 연결된 '상대 기업(partner)'마다 고유색을 결정적으로 배정한다.
+ * CompanyGraph(화살표 색)와 SupplyRelations(좌하단 패널 색칩)가 동일 함수를 써서 색이 일치한다.
+ * 키 = partnerId(상대 기업), 값 = hex. (같은 상대와 복수 관계여도 한 색으로 통일)
+ */
+export function assignPartnerColors(selected: string | null, edges: SupplyEdge[]): Record<string, string> {
+  const map: Record<string, string> = {};
+  if (!selected) return map;
+  const partners: string[] = [];
+  for (const e of edges) {
+    if (e.from === selected && e.to !== selected && !partners.includes(e.to)) partners.push(e.to);
+    else if (e.to === selected && e.from !== selected && !partners.includes(e.from)) partners.push(e.from);
+  }
+  partners.forEach((id, i) => { map[id] = PARTNER_PALETTE[i % PARTNER_PALETTE.length]; });
+  return map;
 }

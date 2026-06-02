@@ -114,12 +114,41 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
       const exact = companyHqVec3(selectedId, area.hq);
       const p = exact ?? geoPos[selectedId];
       if (p) {
-        const tp = new THREE.Vector3(...p);
-        const normal = tp.clone().normalize();
-        // 약간의 기울기(완전 수직 탑다운 방지) — 줌 거리에 비례.
-        const cam = tp.clone().addScaledVector(normal, selectZoom).add(new THREE.Vector3(0, selectZoom * 0.16, 0));
-        focusRef.current = { target: tp, cam };
-        settlingRef.current = true;
+        const sel = new THREE.Vector3(...p);
+        if (area.mapFocus) {
+          // 한정 지도(대한민국): 선택 기업 + 연결된 상대 기업들이 한 화면에 들어오도록 프레이밍.
+          // → 박사 지시 "다른 업체들과의 화살표가 어디로 오가는지 보이게". (도시 딥줌은 휠로 수동 가능)
+          const partnerIds = new Set<string>();
+          for (const ed of area.edges) {
+            if (ed.from === selectedId) partnerIds.add(ed.to);
+            else if (ed.to === selectedId) partnerIds.add(ed.from);
+          }
+          const pts: THREE.Vector3[] = [sel];
+          partnerIds.forEach((id) => {
+            const pp = companyHqVec3(id, area.hq) ?? geoPos[id];
+            if (pp) pts.push(new THREE.Vector3(...pp));
+          });
+          const centroid = new THREE.Vector3();
+          pts.forEach((v) => centroid.add(v));
+          centroid.multiplyScalar(1 / pts.length);
+          const normal = centroid.clone().normalize();
+          const center = normal.clone().multiplyScalar(PIN_RADIUS); // 구면 투영
+          let maxR = 0.18;
+          pts.forEach((v) => { maxR = Math.max(maxR, v.distanceTo(center)); });
+          const fov = (camera instanceof THREE.PerspectiveCamera ? camera.fov : 50) * (Math.PI / 180);
+          const wholeCountry = focusFraming ? focusFraming.camHeight : 0.72;
+          // 연결 클러스터 지름이 화면의 ≈62%를 채우도록. 가까운 클러스터는 더 줌인, 전국 분산은 전국뷰까지.
+          const camHeight = THREE.MathUtils.clamp(maxR / 0.62 / Math.tan(fov / 2), 0.5, wholeCountry * 1.12);
+          const cam = center.clone().addScaledVector(normal, camHeight).add(new THREE.Vector3(0, camHeight * 0.14, 0));
+          focusRef.current = { target: center, cam };
+          settlingRef.current = true;
+        } else {
+          // 전 지구본(반도체): 기존 본사 지역 줌.
+          const normal = sel.clone().normalize();
+          const cam = sel.clone().addScaledVector(normal, selectZoom).add(new THREE.Vector3(0, selectZoom * 0.16, 0));
+          focusRef.current = { target: sel, cam };
+          settlingRef.current = true;
+        }
       }
     } else {
       const p = mode === "process" ? procPos[selectedId] : catPos[selectedId];
@@ -129,7 +158,7 @@ export function Scene({ area, mode, selectedId, onSelect, reducedMotion = false 
         settlingRef.current = true;
       }
     }
-  }, [selectedId, mode, catPos, procPos, geoPos, defaultView, area, selectZoom]);
+  }, [selectedId, mode, catPos, procPos, geoPos, defaultView, area, selectZoom, camera, focusFraming]);
 
   useEffect(() => {
     focusRef.current = { target: defaultView.target.clone(), cam: defaultView.cam.clone() };
