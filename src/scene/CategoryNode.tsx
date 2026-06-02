@@ -479,6 +479,306 @@ function ProceduralIcon({ icon, color, glow }: { icon: IconKey; color: string; g
       );
     }
 
+    // ───────────────────────── 2차전지 ─────────────────────────
+    case "cellStack": { // 셀(화학) — 전극 적층 + 단자
+      const strips = [];
+      for (let i = 0; i < 5; i++)
+        strips.push(
+          <mesh key={i} position={[0, (i - 2) * 0.17, 0.31]}>
+            <boxGeometry args={[0.6, 0.1, 0.02]} />
+            <meshStandardMaterial color={i % 2 ? "#c7cdd6" : color} emissive={color} emissiveIntensity={i % 2 ? 0 : accentEmissive * 1.3} metalness={0.5} roughness={0.4} />
+          </mesh>,
+        );
+      return (
+        <group>
+          <mesh><boxGeometry args={[0.72, 0.95, 0.6]} /><meshStandardMaterial color="#2c3543" metalness={0.35} roughness={0.5} /></mesh>
+          {strips}
+          <mesh position={[0, 0.55, 0]}><cylinderGeometry args={[0.08, 0.08, 0.1, 16]} /><meshStandardMaterial color="#c7cdd6" metalness={0.6} roughness={0.35} /></mesh>
+        </group>
+      );
+    }
+
+    case "cellCyl": // 원통형 셀(46파이 등)
+      return (
+        <group>
+          <mesh><cylinderGeometry args={[0.34, 0.34, 0.92, 36]} /><meshStandardMaterial color="#aeb6c0" metalness={0.6} roughness={0.32} /></mesh>
+          <mesh position={[0, 0.52, 0]}><cylinderGeometry args={[0.12, 0.12, 0.12, 24]} /><meshStandardMaterial color="#c7cdd6" metalness={0.65} roughness={0.3} /></mesh>
+          <mesh position={[0, 0.18, 0]}><cylinderGeometry args={[0.345, 0.345, 0.1, 36]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.4} metalness={0.4} roughness={0.4} /></mesh>
+        </group>
+      );
+
+    case "cellPrismatic": { // 각형 셀 — 금속 캔 + 2단자
+      return (
+        <group>
+          <mesh><boxGeometry args={[0.58, 0.92, 0.32]} /><meshStandardMaterial color="#b9c1cc" metalness={0.62} roughness={0.32} /></mesh>
+          {[-0.16, 0.16].map((x, i) => (
+            <mesh key={i} position={[x, 0.52, 0]}><cylinderGeometry args={[0.06, 0.06, 0.1, 18]} /><meshStandardMaterial color="#caa84e" metalness={0.6} roughness={0.38} /></mesh>
+          ))}
+          <mesh position={[0, 0.2, 0.17]}><boxGeometry args={[0.42, 0.08, 0.02]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.3} /></mesh>
+        </group>
+      );
+    }
+
+    case "cellPouch": { // 파우치 셀 — 라미네이트 슬랩 + 탭 2
+      return (
+        <group>
+          <mesh><boxGeometry args={[0.78, 0.96, 0.14]} /><meshStandardMaterial color="#d3d9e0" metalness={0.5} roughness={0.35} /></mesh>
+          {[-0.2, 0.2].map((x, i) => (
+            <mesh key={i} position={[x, 0.56, 0]}><boxGeometry args={[0.18, 0.16, 0.03]} /><meshStandardMaterial color={i ? "#caa84e" : "#c7cdd6"} metalness={0.6} roughness={0.4} /></mesh>
+          ))}
+          <mesh position={[0, 0, 0.08]}><boxGeometry args={[0.6, 0.7, 0.01]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} transparent opacity={0.5} /></mesh>
+        </group>
+      );
+    }
+
+    case "powder": { // 양극재/음극재 분말 — 접시 + 입자 더미
+      const grains = [];
+      for (let i = 0; i < 14; i++) {
+        const a = (i / 14) * Math.PI * 2;
+        const r = 0.1 + (i % 3) * 0.09;
+        grains.push(
+          <mesh key={i} position={[Math.cos(a) * r, 0.08 + (i % 4) * 0.03, Math.sin(a) * r]}>
+            <sphereGeometry args={[0.07, 12, 12]} />
+            <meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} metalness={0.5} roughness={0.45} />
+          </mesh>,
+        );
+      }
+      return (
+        <group>
+          <mesh position={[0, -0.05, 0]}><cylinderGeometry args={[0.52, 0.46, 0.12, 36]} /><meshStandardMaterial color="#2f3a48" metalness={0.3} roughness={0.6} /></mesh>
+          <mesh position={[0, 0.06, 0]}><cylinderGeometry args={[0.42, 0.42, 0.04, 36]} /><meshStandardMaterial color="#1a2330" metalness={0.3} roughness={0.6} /></mesh>
+          {grains}
+        </group>
+      );
+    }
+
+    case "beaker": // 전해질 — 비커 + 액체 + 방울
+      return (
+        <group>
+          <mesh position={[0, 0, 0]}><cylinderGeometry args={[0.36, 0.36, 0.78, 32, 1, true]} /><meshStandardMaterial color="#bcd6ff" metalness={0.1} roughness={0.08} transparent opacity={0.35} side={THREE.DoubleSide} /></mesh>
+          <mesh position={[0, -0.12, 0]}><cylinderGeometry args={[0.34, 0.34, 0.5, 32]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.2} metalness={0.2} roughness={0.25} transparent opacity={0.85} /></mesh>
+          <mesh position={[0, 0.5, 0]}><sphereGeometry args={[0.1, 18, 18]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.4} metalness={0.2} roughness={0.2} transparent opacity={0.9} /></mesh>
+        </group>
+      );
+
+    case "film": { // 분리막·편광판·봉지·커버 — 얇은 막(반투명) + 프레임
+      return (
+        <group rotation={[0, 0, 0.12]}>
+          <mesh><boxGeometry args={[0.96, 0.92, 0.025]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 0.8} metalness={0.2} roughness={0.25} transparent opacity={0.4} side={THREE.DoubleSide} /></mesh>
+          <mesh><boxGeometry args={[1.0, 0.96, 0.012]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} wireframe /></mesh>
+          {[-0.3, 0, 0.3].map((y, i) => (
+            <mesh key={i} position={[0, y, 0.02]}><boxGeometry args={[0.8, 0.012, 0.005]} /><meshStandardMaterial color="#e6edf3" transparent opacity={0.35} /></mesh>
+          ))}
+        </group>
+      );
+    }
+
+    case "coil": { // 강판·동박 코일 — 옆으로 누운 롤
+      return (
+        <group rotation={[0, 0, Math.PI / 2]}>
+          <mesh><cylinderGeometry args={[0.5, 0.5, 0.68, 40]} /><meshStandardMaterial color="#aeb6c0" metalness={0.65} roughness={0.3} /></mesh>
+          <mesh position={[0, 0.345, 0]}><cylinderGeometry args={[0.5, 0.5, 0.02, 40]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} metalness={0.6} roughness={0.3} /></mesh>
+          <mesh><cylinderGeometry args={[0.16, 0.16, 0.72, 32]} /><meshStandardMaterial color="#05070b" metalness={0.4} roughness={0.6} /></mesh>
+          <mesh position={[0, 0.35, 0.34]}><torusGeometry args={[0.32, 0.015, 8, 40]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.2} /></mesh>
+        </group>
+      );
+    }
+
+    case "roller": { // 롤투롤 제조장비 — 롤 2 + 웹(시트)
+      return (
+        <group>
+          {[0.22, -0.22].map((y, i) => (
+            <mesh key={i} position={[0, y, 0]} rotation={[0, 0, Math.PI / 2]}><cylinderGeometry args={[0.18, 0.18, 0.9, 28]} /><meshStandardMaterial color="#8a93a0" metalness={0.6} roughness={0.35} /></mesh>
+          ))}
+          <mesh position={[0.5, 0, 0]}><boxGeometry args={[0.5, 0.02, 0.7]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} metalness={0.4} roughness={0.4} transparent opacity={0.85} /></mesh>
+          {[-0.5, 0.5].map((x, i) => (
+            <mesh key={i} position={[x * 0.96, 0, 0]}><boxGeometry args={[0.06, 0.62, 0.78]} /><meshStandardMaterial color="#2f3a48" metalness={0.3} roughness={0.55} /></mesh>
+          ))}
+        </group>
+      );
+    }
+
+    case "solidBlock": { // 전고체 — 고체 결정 블록
+      return (
+        <group>
+          <mesh><octahedronGeometry args={[0.5, 0]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.4 * glow} metalness={0.4} roughness={0.25} flatShading /></mesh>
+          <mesh><octahedronGeometry args={[0.52, 0]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} wireframe /></mesh>
+          <mesh position={[0, -0.5, 0]}><boxGeometry args={[0.7, 0.08, 0.7]} /><meshStandardMaterial color="#2f3a48" metalness={0.3} roughness={0.55} /></mesh>
+        </group>
+      );
+    }
+
+    case "recycle": { // 재활용 — 3 화살표 순환
+      const arms = [0, 1, 2].map((i) => (
+        <group key={i} rotation={[0, 0, (i * 2 * Math.PI) / 3]}>
+          <mesh position={[0, 0.42, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[0.42, 0.05, 10, 24, Math.PI * 0.6]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.3} metalness={0.4} roughness={0.4} /></mesh>
+          <mesh position={[0.4, 0.14, 0]} rotation={[0, 0, -1.1]}><coneGeometry args={[0.11, 0.2, 4]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.3} metalness={0.4} roughness={0.4} /></mesh>
+        </group>
+      ));
+      return <group rotation={[Math.PI / 2.3, 0, 0]}>{arms}</group>;
+    }
+
+    // ───────────────────────── 디스플레이 ─────────────────────────
+    case "panel": // OLED/LCD 패널 — 발광 평면 + 베젤 + 스탠드
+      return (
+        <group>
+          <mesh><boxGeometry args={[1.04, 0.66, 0.05]} /><meshStandardMaterial color="#0c1320" metalness={0.5} roughness={0.4} /></mesh>
+          <mesh position={[0, 0, 0.031]}><boxGeometry args={[0.92, 0.54, 0.01]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.55 * glow} metalness={0.2} roughness={0.3} /></mesh>
+          <mesh position={[0, -0.45, 0]}><boxGeometry args={[0.06, 0.26, 0.06]} /><meshStandardMaterial color="#8a93a0" metalness={0.5} roughness={0.4} /></mesh>
+          <mesh position={[0, -0.58, 0]}><boxGeometry args={[0.4, 0.04, 0.22]} /><meshStandardMaterial color="#6b7480" metalness={0.5} roughness={0.4} /></mesh>
+        </group>
+      );
+
+    case "foldable": // 플렉시블·폴더블 — 힌지로 접힌 두 패널
+      return (
+        <group>
+          {[-1, 1].map((s, i) => (
+            <group key={i} rotation={[0, s * 0.42, 0]} position={[s * 0.02, 0, 0]}>
+              <mesh position={[s * 0.32, 0, 0]}><boxGeometry args={[0.62, 0.86, 0.045]} /><meshStandardMaterial color="#0c1320" metalness={0.5} roughness={0.4} /></mesh>
+              <mesh position={[s * 0.32, 0, 0.026]}><boxGeometry args={[0.52, 0.76, 0.008]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5 * glow} metalness={0.2} roughness={0.3} /></mesh>
+            </group>
+          ))}
+          <mesh position={[0, 0, 0]}><cylinderGeometry args={[0.05, 0.05, 0.9, 16]} /><meshStandardMaterial color="#c7cdd6" metalness={0.6} roughness={0.35} /></mesh>
+        </group>
+      );
+
+    case "molecule": { // 발광 유기재료 — 볼-스틱 분자
+      const sat = [[0.5, 0.4, 0], [-0.5, 0.35, 0.2], [0.1, -0.5, 0.35], [-0.2, -0.1, -0.55]] as [number, number, number][];
+      return (
+        <group>
+          <mesh><sphereGeometry args={[0.22, 24, 24]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5 * glow} metalness={0.3} roughness={0.3} /></mesh>
+          {sat.map((p, i) => (
+            <group key={i}>
+              <mesh position={[p[0] / 2, p[1] / 2, p[2] / 2]} rotation={[0, 0, Math.atan2(p[1], p[0])]}><cylinderGeometry args={[0.025, 0.025, Math.hypot(p[0], p[1], p[2]), 10]} /><meshStandardMaterial color="#c7cdd6" metalness={0.5} roughness={0.4} /></mesh>
+              <mesh position={p}><sphereGeometry args={[0.12, 18, 18]} /><meshStandardMaterial color="#e6edf3" emissive={color} emissiveIntensity={accentEmissive} metalness={0.3} roughness={0.3} /></mesh>
+            </group>
+          ))}
+        </group>
+      );
+    }
+
+    case "microled": { // Micro-LED — 미세 발광 화소 격자
+      const dots = [];
+      for (let x = 0; x < 6; x++)
+        for (let z = 0; z < 6; z++)
+          dots.push(
+            <mesh key={`${x}-${z}`} position={[(x - 2.5) * 0.15, 0.04, (z - 2.5) * 0.15]}>
+              <boxGeometry args={[0.09, 0.04, 0.09]} />
+              <meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.5} metalness={0.3} roughness={0.3} />
+            </mesh>,
+          );
+      return (
+        <group rotation={[Math.PI / 2.5, 0, 0]}>
+          <mesh><boxGeometry args={[1.0, 0.06, 1.0]} /><meshStandardMaterial color="#0c1320" metalness={0.4} roughness={0.5} /></mesh>
+          {dots}
+        </group>
+      );
+    }
+
+    case "rollable": // 투명·롤러블 — 윗부분 평면 + 하단 말림
+      return (
+        <group>
+          <mesh position={[0, 0.18, 0]}><boxGeometry args={[0.9, 0.66, 0.03]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.4 * glow} metalness={0.2} roughness={0.3} transparent opacity={0.55} /></mesh>
+          <mesh position={[0, -0.35, 0]} rotation={[0, 0, Math.PI / 2]}><cylinderGeometry args={[0.18, 0.18, 0.94, 28]} /><meshStandardMaterial color="#3a4456" metalness={0.5} roughness={0.4} /></mesh>
+          <mesh position={[0, -0.35, 0]} rotation={[0, 0, Math.PI / 2]}><cylinderGeometry args={[0.185, 0.185, 0.96, 28, 1, true]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} transparent opacity={0.5} side={THREE.DoubleSide} /></mesh>
+        </group>
+      );
+
+    // ───────────────────────── 철강·제련 ─────────────────────────
+    case "furnace": { // 고로 — 테이퍼 타워 + 용융 글로우
+      return (
+        <group>
+          <mesh position={[0, -0.5, 0]}><boxGeometry args={[0.86, 0.12, 0.86]} /><meshStandardMaterial color="#3a4250" metalness={0.3} roughness={0.6} /></mesh>
+          <mesh position={[0, 0.02, 0]}><cylinderGeometry args={[0.3, 0.44, 0.86, 28]} /><meshStandardMaterial color="#6b7480" metalness={0.45} roughness={0.45} /></mesh>
+          <mesh position={[0, -0.36, 0]}><cylinderGeometry args={[0.46, 0.42, 0.18, 28]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.6 * glow} metalness={0.3} roughness={0.4} /></mesh>
+          <mesh position={[0.4, -0.34, 0]} rotation={[0, 0, -0.5]}><cylinderGeometry args={[0.05, 0.05, 0.3, 12]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.4} /></mesh>
+          <mesh position={[0, 0.48, 0]}><cylinderGeometry args={[0.12, 0.12, 0.22, 16]} /><meshStandardMaterial color="#3a4250" metalness={0.3} roughness={0.6} /></mesh>
+        </group>
+      );
+    }
+
+    case "arcFurnace": { // 전기로 — 노 + 전극 3 + 아크
+      return (
+        <group>
+          <mesh position={[0, -0.2, 0]}><cylinderGeometry args={[0.46, 0.4, 0.4, 32]} /><meshStandardMaterial color="#6b7480" metalness={0.45} roughness={0.45} /></mesh>
+          <mesh position={[0, -0.04, 0]}><cylinderGeometry args={[0.4, 0.4, 0.08, 32]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.6 * glow} /></mesh>
+          {[0, 1, 2].map((i) => {
+            const a = (i / 3) * Math.PI * 2;
+            return (
+              <mesh key={i} position={[Math.cos(a) * 0.16, 0.34, Math.sin(a) * 0.16]}><cylinderGeometry args={[0.05, 0.05, 0.7, 14]} /><meshStandardMaterial color="#2a2320" metalness={0.4} roughness={0.5} /></mesh>
+            );
+          })}
+        </group>
+      );
+    }
+
+    case "sheet": // 냉연·STS·전기강판 — 얇은 판재
+      return (
+        <group rotation={[Math.PI / 2.6, 0, 0.1]}>
+          <mesh><boxGeometry args={[1.0, 0.7, 0.03]} /><meshStandardMaterial color="#c2cad4" metalness={0.7} roughness={0.22} /></mesh>
+          <mesh position={[0, 0, 0.02]}><boxGeometry args={[1.02, 0.72, 0.008]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} wireframe /></mesh>
+        </group>
+      );
+
+    case "plate": // 후판 — 두꺼운 슬랩
+      return (
+        <group rotation={[0.2, 0, 0]}>
+          <mesh><boxGeometry args={[1.0, 0.22, 0.72]} /><meshStandardMaterial color="#8a93a0" metalness={0.6} roughness={0.35} /></mesh>
+          <mesh position={[0, 0.12, 0]}><boxGeometry args={[0.86, 0.02, 0.58]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} metalness={0.5} roughness={0.4} /></mesh>
+        </group>
+      );
+
+    case "rebar": { // 철근·봉형강 — 리브 있는 봉 다발
+      const bars = [-0.22, 0, 0.22].map((x, i) => (
+        <group key={i} position={[x, 0, (i - 1) * 0.12]}>
+          <mesh><cylinderGeometry args={[0.07, 0.07, 1.0, 14]} /><meshStandardMaterial color="#9aa3ae" metalness={0.55} roughness={0.45} /></mesh>
+          {[-0.3, -0.1, 0.1, 0.3].map((y, k) => (
+            <mesh key={k} position={[0, y, 0]} rotation={[Math.PI / 2, 0, 0.5]}><torusGeometry args={[0.075, 0.012, 6, 14]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive} metalness={0.5} roughness={0.45} /></mesh>
+          ))}
+        </group>
+      ));
+      return <group>{bars}</group>;
+    }
+
+    case "wireRod": { // 선재 — 코일(감긴 와이어)
+      const rings = [];
+      for (let i = 0; i < 7; i++)
+        rings.push(
+          <mesh key={i} position={[0, (i - 3) * 0.11, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[0.4, 0.045, 12, 36]} />
+            <meshStandardMaterial color={i % 2 ? "#aeb6c0" : color} emissive={color} emissiveIntensity={i % 2 ? 0 : accentEmissive} metalness={0.6} roughness={0.35} />
+          </mesh>,
+        );
+      return <group rotation={[0.3, 0, 0]}>{rings}</group>;
+    }
+
+    case "bar": { // 특수강 — 둥근 봉 다발(눕힘)
+      return (
+        <group rotation={[0, 0, Math.PI / 2]}>
+          {[[0, 0.13], [-0.13, -0.07], [0.13, -0.07]].map((p, i) => (
+            <mesh key={i} position={[p[0], 0, p[1]]}><cylinderGeometry args={[0.13, 0.13, 0.95, 24]} /><meshStandardMaterial color="#b9c1cc" metalness={0.65} roughness={0.3} /></mesh>
+          ))}
+          {[[0, 0.13], [-0.13, -0.07], [0.13, -0.07]].map((p, i) => (
+            <mesh key={`e${i}`} position={[p[0], 0.48, p[1]]}><cylinderGeometry args={[0.13, 0.13, 0.02, 24]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 1.3} /></mesh>
+          ))}
+        </group>
+      );
+    }
+
+    case "ingot": { // 비철 잉곳 — 사다리꼴 금속괴 적층
+      const stack = [[0, -0.18, 0, 1.0], [-0.12, 0.02, 0, 0.6], [0.18, 0.02, 0, 0.6], [0.03, 0.22, 0, 0.6]] as [number, number, number, number][];
+      return (
+        <group>
+          {stack.map((s, i) => (
+            <mesh key={i} position={[s[0], s[1], s[2]]} scale={[s[3], 1, s[3]]}>
+              <cylinderGeometry args={[0.16, 0.26, 0.2, 4]} />
+              <meshStandardMaterial color={color} emissive={color} emissiveIntensity={accentEmissive * 0.9} metalness={0.72} roughness={0.3} />
+            </mesh>
+          ))}
+        </group>
+      );
+    }
+
     default:
       return <ChipPackage color={color} accentEmissive={accentEmissive} spreader={false} />;
   }

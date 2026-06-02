@@ -40,7 +40,7 @@ const EDGE_COLORS: Record<string, string> = {
 
 export const CATEGORIES: Category[] = [
   {
-    id: "display-rgb-oled", name: "RGB OLED (직증착·중소형)", family: "Panel", color: "#7c3aed", icon: "grid",
+    id: "display-rgb-oled", name: "RGB OLED (직증착·중소형)", family: "Panel", color: "#7c3aed", icon: "panel",
     definition: "적·녹·청(RGB) 유기 발광 화소를 파인메탈마스크(FMM)로 기판에 직접 증착해, 백라이트 없이 화소가 스스로 빛을 내는 자발광 방식이다.",
     role: "스마트폰·태블릿·노트북 등 중소형 프리미엄 패널의 주류 기술. 별도 컬러필터·백라이트가 없어 명암비가 높고 픽셀 단위로 완전히 꺼져 완전한 검정을 표현한다.",
     keySpecs: [
@@ -53,7 +53,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 RGB OLED의 핵심 흐름은 발광층을 위로 2개 쌓는 '탠덤(2-stack)' 구조의 IT 확산이다. 삼성디스플레이·LG디스플레이가 아이패드 프로에 이어 맥북 등 노트북·태블릿용 탠덤 OLED 양산에 들어가며 휘도·수명·전력효율을 크게 끌어올렸다. 다만 중국 BOE 등의 중소형 OLED 추격이 거세 한국 업체는 탠덤·저전력 기술 격차로 대응 중이다.",
   },
   {
-    id: "display-woled", name: "WOLED (대형 화이트 OLED)", family: "Panel", color: "#6d28d9", icon: "grid",
+    id: "display-woled", name: "WOLED (대형 화이트 OLED)", family: "Panel", color: "#6d28d9", icon: "panel",
     definition: "화면 전면에 백색(White) OLED를 발광시키고 그 위 컬러필터로 적·녹·청을 걸러 색을 만드는 대형 OLED 방식으로, 백색 화소를 더한 WRGB 4-서브픽셀 구조를 흔히 쓴다.",
     role: "LG디스플레이가 주도하는 대형 OLED TV·모니터의 주력 기술. 백색 광원을 공통으로 깔아 대면적 양산이 유리하고, 자발광이라 LCD 대비 명암비·시야각·응답속도가 뛰어나다.",
     keySpecs: [
@@ -66,7 +66,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 LG디스플레이는 WOLED 휘도를 4,000니트급으로 끌어올렸다. 동시에 모니터 영역에서는 기존 WRGB의 백색 서브픽셀을 빼고 진짜 RGB 스트라이프 서브픽셀을 다단 탠덤으로 구현한 신패널(예: 27인치 4K 240Hz)을 2026년 양산에 돌입, 텍스트 선명도에서 QD-OLED와 정면 경쟁한다.",
   },
   {
-    id: "display-qd-oled", name: "QD-OLED (청색 OLED + 퀀텀닷)", family: "Panel", color: "#5b21b6", icon: "grid",
+    id: "display-qd-oled", name: "QD-OLED (청색 OLED + 퀀텀닷)", family: "Panel", color: "#5b21b6", icon: "panel",
     definition: "청색(Blue) OLED만 광원으로 쓰고, 그 빛 일부를 퀀텀닷(양자점) 색변환층이 흡수해 적·녹으로 재발광시키는 삼성디스플레이의 대형 OLED 방식이다.",
     role: "삼성디스플레이가 주도하는 프리미엄 OLED TV·고급 모니터 기술. WOLED와 달리 백색 광원이 아니라 청색 광원+QD 색변환이라는 점이 구조적 차이의 핵심이다.",
     keySpecs: [
@@ -79,7 +79,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 삼성디스플레이는 4세대 QD-OLED를 5층 적층 'Penta Tandem'으로 공식화하고, 신규 EL 소재로 효율을 30% 이상 개선해 전력 증가 없이 휘도·수명을 높였다(밝기 1,300니트급). 피코 잉크젯 QD 공정으로 화소 밀도를 높여 31.5형 4K·360Hz(세계 최초, 하반기 본격 양산)·27형 고밀도(Pico Inkjet) 등 고사양 모니터 패널을 확대 중이다.",
   },
   {
-    id: "display-lcd", name: "LCD (레거시 TFT-LCD)", family: "Panel", color: "#9ca3af", icon: "grid",
+    id: "display-lcd", name: "LCD (레거시 TFT-LCD)", family: "Panel", color: "#9ca3af", icon: "panel",
     definition: "스스로 빛을 내지 못하고 뒤의 백라이트(LED) 빛을 액정(Liquid Crystal)으로 통과·차단해 밝기를 조절하고 컬러필터로 색을 만드는 비자발광 방식이다.",
     role: "수십 년간 TV·모니터·노트북의 주류였던 레거시 기술. 저가·중대형 시장에서 여전히 쓰이지만 명암·시야각·두께·응답속도에서 OLED에 밀린다.",
     keySpecs: [
@@ -92,7 +92,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 한국 디스플레이의 LCD는 사실상 '졸업'했다. 삼성디스플레이는 이미 LCD 생산을 중단했고, LG디스플레이도 2025년 마지막 LCD TV 공장(중국 광저우)을 TCL CSOT에 매각하며 LCD TV에서 완전 철수했다. LCD 패널 주도권은 BOE·TCL CSOT 등 중국 업체로 넘어갔고, 한국은 OLED 집중 전략으로 전환했다.",
   },
   {
-    id: "display-rigid-oled", name: "리지드 OLED (유리기판)", family: "FormFactor", color: "#a78bfa", icon: "cube",
+    id: "display-rigid-oled", name: "리지드 OLED (유리기판)", family: "FormFactor", color: "#a78bfa", icon: "panel",
     definition: "단단한 유리(glass) 기판 위에 OLED 소자를 형성한 평면·고정형 폼팩터로, 구부러지지 않는 대신 구조가 단순하고 비용·내구가 안정적이다.",
     role: "보급형 스마트폰·웨어러블·차량용 등 휘어질 필요가 없는 응용의 기본 OLED 폼. 플렉시블 대비 박막봉지·폴딩 부품이 덜 들어 원가가 낮다.",
     keySpecs: [
@@ -105,7 +105,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 리지드 OLED는 프리미엄 영역을 플렉시블에 내주고 중저가·특정 용도(웨어러블·차량용)로 입지가 좁혀지는 추세다. 다만 원가 경쟁력 때문에 보급형 스마트폰 OLED에서는 수요가 유지되며, 중국 업체와의 가격 경쟁 무대가 되고 있다.",
   },
   {
-    id: "display-flexible-foldable-oled", name: "플렉시블·폴더블 OLED", family: "FormFactor", color: "#8b5cf6", icon: "fabric",
+    id: "display-flexible-foldable-oled", name: "플렉시블·폴더블 OLED", family: "FormFactor", color: "#8b5cf6", icon: "foldable",
     definition: "유리 대신 휘어지는 플라스틱(폴리이미드) 기판 위에 OLED를 형성해 곡면·접힘·말림이 가능한 폼팩터로, 폴더블은 화면을 반복적으로 접었다 펴는 응용을 말한다.",
     role: "엣지 곡면 스마트폰, 폴더블폰, 향후 롤러블·슬라이더블 기기의 핵심. 한국(삼성디스플레이·LG디스플레이)이 기술 주도권을 가진 고부가 영역이다.",
     keySpecs: [
@@ -118,7 +118,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 폴더블은 더 얇고 가벼운 방향으로 진화하며, 트라이폴드(2회 접힘)·태블릿/노트북급 대화면 폴더블로 응용이 확장 중이다. 커버윈도우는 경도·촉감이 좋은 UTG 채택이 빠르게 늘고 있으며, 주름·내구·두께를 줄이는 소재·힌지 경쟁이 한국 주도로 치열하다.",
   },
   {
-    id: "display-emitter-material", name: "OLED 발광·유기재료 (Emitter/HTL/ETL)", family: "Material", color: "#c084fc", icon: "atom",
+    id: "display-emitter-material", name: "OLED 발광·유기재료 (Emitter/HTL/ETL)", family: "Material", color: "#c084fc", icon: "molecule",
     definition: "OLED 화소 내부에서 빛을 내는 발광재료(emitter)와, 전하를 발광층으로 운반하는 정공수송층(HTL)·전자수송층(ETL) 등 다층 유기 박막 소재 묶음이다.",
     role: "OLED의 색·효율·수명을 좌우하는 핵심 소재. 인광/형광/TADF, 청색 효율·수명 등 소재 성능이 패널 경쟁력을 직접 결정한다.",
     keySpecs: [
@@ -131,7 +131,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 발광재료의 최대 과제는 여전히 청색의 효율·수명이며, 삼성·LG가 다단 탠덤(여러 발광층 적층)과 중수소 치환·신규 EL 소재로 이를 보완하고 있다. 청색 인광(blue PHOLED)은 2025년 양산 검증 단계에 진입했고(LGD·UDC 협업, 삼성도 모바일 적용 추진), 본격 상용 확산이 차세대 효율 개선의 분수령으로 부각된다. 소재 국산화·공급망 다변화도 진행 중이다.",
   },
   {
-    id: "display-polarizer-optical-film", name: "편광판·광학필름", family: "Material", color: "#b794f4", icon: "wave",
+    id: "display-polarizer-optical-film", name: "편광판·광학필름", family: "Material", color: "#b794f4", icon: "film",
     definition: "빛의 진동 방향을 정렬·제어하는 편광판(polarizer)과, 휘도·시야각·반사를 조절하는 각종 광학필름(보상·확산·프리즘 등)의 묶음이다.",
     role: "LCD에서는 액정 동작에 편광판이 필수이고, OLED에서는 외광 반사를 줄여 명암·시인성을 높이는 원형편광판이 쓰인다. 화질·야외 시인성을 좌우한다.",
     keySpecs: [
@@ -144,7 +144,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 OLED 박형·폴더블화에 맞춰 편광판을 빼거나 얇게 만드는 'POL-less(편광판 제거)' 구조 연구가 활발하다. 폴더블에서는 두께·굽힘 부담을 줄이는 광학설계가 중요해지고, 반사 저감·저전력을 동시에 잡는 광학필름 수요가 커지고 있다.",
   },
   {
-    id: "display-tfe", name: "박막봉지 (TFE)", family: "Material", color: "#9f7aea", icon: "fabric",
+    id: "display-tfe", name: "박막봉지 (TFE)", family: "Material", color: "#9f7aea", icon: "film",
     definition: "수분·산소에 매우 취약한 OLED 유기소자를 무기막·유기막을 번갈아 쌓아 얇게 밀봉(encapsulation)하는 기술으로, Thin Film Encapsulation의 약자다.",
     role: "플렉시블·폴더블 OLED를 가능케 한 핵심 공정 소재. 유리 봉지 대신 얇고 휘어지는 다층 봉지로 수분 침투를 막아 소자 수명을 지킨다.",
     keySpecs: [
@@ -157,7 +157,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 TFE는 더 얇고 더 잘 휘어지면서도 수분 차단을 유지하는 방향으로 고도화되고 있다. 폴더블·트라이폴드 등 반복 굽힘이 심한 응용이 늘며 봉지막의 유연성·내구성·박막화 요구가 커지고, 잉크젯 유기막 공정의 정밀도가 수율 관건으로 부각된다.",
   },
   {
-    id: "display-foldable-cover-window", name: "폴더블 커버윈도우 (UTG/CPI)", family: "Material", color: "#d6bcfa", icon: "lens",
+    id: "display-foldable-cover-window", name: "폴더블 커버윈도우 (UTG/CPI)", family: "Material", color: "#d6bcfa", icon: "film",
     definition: "폴더블·플렉시블 화면 맨 위에서 화면을 보호하면서도 접힐 수 있어야 하는 최외곽 보호층으로, 대표 소재는 초박막유리(UTG)와 무색 폴리이미드(CPI) 두 가지다.",
     role: "폴더블폰의 '접히는 표면'을 책임지는 부품. 경도(긁힘)·투명도·촉감과 폴딩 내구를 동시에 만족해야 해 소재 선택이 사용감과 직결된다.",
     keySpecs: [
@@ -170,7 +170,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 커버윈도우는 촉감·경도 이점이 큰 UTG 쪽으로 무게중심이 빠르게 이동 중이며, 대화면·트라이폴드용 더 큰 UTG 가공이 과제로 떠올랐다. 동시에 UTG의 깨짐과 CPI의 약한 경도를 모두 극복하려는 신소재(유리 같은 경도+플라스틱 같은 인성) 연구가 활발하다.",
   },
   {
-    id: "display-micro-led", name: "Micro-LED", family: "Frontier", color: "#22d3ee", icon: "lightning",
+    id: "display-micro-led", name: "Micro-LED", family: "Frontier", color: "#22d3ee", icon: "microled",
     definition: "수~수십 µm 크기의 초소형 무기 LED 칩 자체를 화소로 쓰는 자발광 디스플레이로, OLED와 달리 유기물이 아니라 무기 반도체 LED라 휘도·수명·번인 내성이 매우 우수하다.",
     role: "초고휘도·초장수명을 노리는 차세대 자발광 기술. 초대형 TV·사이니지부터 마이크로 디스플레이(AR/스마트워치)까지 응용폭이 넓지만 아직 초고가·양산 초기 단계다.",
     keySpecs: [
@@ -183,7 +183,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 Micro-LED는 R&D에서 초기 상용화로 넘어가는 변곡점에 있다. 첫 의미 있는 양산 팹 가동과 함께 일부 상용 제품(웨어러블 등)이 나왔지만, 대량전사 수율·미세화 적색 효율·표준 부재로 인한 높은 비용 탓에 여전히 초고가다. 향후 원가 하락 전망 속에 스마트워치·초대형 TV·근안(near-eye) 중심으로 확산이 예상된다.",
   },
   {
-    id: "display-transparent-rollable", name: "투명·롤러블 디스플레이", family: "Frontier", color: "#2dd4bf", icon: "sine",
+    id: "display-transparent-rollable", name: "투명·롤러블 디스플레이", family: "Frontier", color: "#2dd4bf", icon: "rollable",
     definition: "화면 뒤가 비치는 투명(transparent) 디스플레이와, 두루마리처럼 말았다 펴는 롤러블(rollable) 디스플레이를 아우르는 차세대 폼팩터로, 주로 OLED의 자발광·박형·유연 특성을 활용한다.",
     role: "공간·인테리어와 융합하는 새로운 디스플레이 경험을 여는 영역. 쇼윈도·차량·전시 공간의 투명 패널, 평소엔 말아 숨기는 롤러블 TV 등 폼팩터 혁신을 보여준다.",
     keySpecs: [

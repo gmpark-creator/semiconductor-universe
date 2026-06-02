@@ -40,7 +40,7 @@ const EDGE_COLORS: Record<string, string> = {
 
 export const CATEGORIES: Category[] = [
   {
-    id: "battery-cell-ncm", name: "삼원계(NCM/NCA) 배터리", family: "Cell", color: "#e5484d", icon: "battery",
+    id: "battery-cell-ncm", name: "삼원계(NCM/NCA) 배터리", family: "Cell", color: "#e5484d", icon: "cellStack",
     definition: "양극에 니켈·코발트·망간(NCM) 또는 니켈·코발트·알루미늄(NCA)을 함께 쓰는 고에너지밀도 리튬이온 배터리다.",
     role: "긴 주행거리가 필요한 프리미엄·중대형 전기차의 주력 배터리로 한국 3사의 전통 강점 영역이다.",
     keySpecs: [
@@ -53,7 +53,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 전기차 캐즘과 저가 LFP 공세로 삼원계의 비중 확대가 둔화됐으나, 고급·장거리 차급에서는 여전히 핵심이다. 한국 3사는 니켈 함량을 90%대까지 끌어올린 하이니켈과 코발트를 줄인 조성으로 원가·안전을 동시에 잡으려 하며, 미국 IRA·관세 환경에서 비(非)중국 삼원계 공급망이라는 차별점을 강조하고 있다.",
   },
   {
-    id: "battery-cell-lfp", name: "LFP(리튬인산철) 배터리", family: "Cell", color: "#30a46c", icon: "battery",
+    id: "battery-cell-lfp", name: "LFP(리튬인산철) 배터리", family: "Cell", color: "#30a46c", icon: "cellStack",
     definition: "양극에 리튬·철·인산(LiFePO₄)을 쓰는, 코발트·니켈이 없는 저가·고안전 리튬이온 배터리다.",
     role: "가격과 안전·수명이 중요한 보급형 전기차와 ESS(에너지저장장치)의 표준 배터리로 자리 잡았다.",
     keySpecs: [
@@ -66,7 +66,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 K-배터리 3사가 중국이 선점한 LFP에 본격 진입했다. LG에너지솔루션이 오창에서 ESS용 LFP 국내 양산을 추진하고 소부장 국산화를 단계적으로 진행하며, 정부의 대규모 ESS 입찰(향후 10년 수십조원 전망)이 성장의 결정적 무대가 됐다. 에너지밀도를 끌어올린 LMFP(망간 첨가) 등 차세대 LFP 개발도 가속 중이다.",
   },
   {
-    id: "battery-cell-cylindrical", name: "원통형 셀(46파이 등)", family: "Cell", color: "#0091ff", icon: "battery",
+    id: "battery-cell-cylindrical", name: "원통형 셀(46파이 등)", family: "Cell", color: "#0091ff", icon: "cellCyl",
     definition: "원기둥 캔에 전극을 말아 넣은 표준화 셀로, 21700에서 지름 46mm급 '46파이'로 세대가 전환되고 있다.",
     role: "대량생산성과 단단한 캔 구조의 안전성을 살린 폼팩터로, 46시리즈가 차세대 전기차·모빌리티 시장을 겨냥한다.",
     keySpecs: [
@@ -79,7 +79,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년이 46파이 양산 경쟁의 원년이다. 삼성SDI가 국내 최초로 46파이(4695) 양산에 돌입해 미국에 초도 공급했고, LG에너지솔루션은 4680을 양산하며 애리조나에서 대규모 공급계약을 맺었다. LG는 고효율, 삼성SDI는 고출력, SK온은 파일럿으로 차별화하며 마이크로모빌리티·전기차로 적용을 넓히고 있다.",
   },
   {
-    id: "battery-cell-prismatic", name: "각형 셀", family: "Cell", color: "#f76b15", icon: "cube",
+    id: "battery-cell-prismatic", name: "각형 셀", family: "Cell", color: "#f76b15", icon: "cellPrismatic",
     definition: "직육면체 금속 캔에 전극을 넣은 셀로, 외부 충격에 강하고 수명이 길어 전기차에 널리 쓰인다.",
     role: "견고함과 공간 효율을 앞세워 전기차용으로 가장 많이 채택되는 폼팩터이며, 셀투팩(CTP) 추세와 잘 맞는다.",
     keySpecs: [
@@ -92,7 +92,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 각형은 전기차 폼팩터 경쟁의 중심에 있다. 그동안 국내에서 각형 전담이던 삼성SDI에 더해, 파우치 강자 LG에너지솔루션이 GM과 각형 개발에 나서 업계 유일 '3대 폼팩터(파우치·원통·각형)' 포트폴리오를 구축했고, SK온도 각형 진입을 추진한다. 셀투팩(CTP)으로 모듈을 줄여 에너지밀도·원가를 개선하는 흐름과 결합되고 있다.",
   },
   {
-    id: "battery-cell-pouch", name: "파우치 셀", family: "Cell", color: "#8e4ec6", icon: "battery",
+    id: "battery-cell-pouch", name: "파우치 셀", family: "Cell", color: "#8e4ec6", icon: "cellPouch",
     definition: "알루미늄 라미네이트 필름 파우치로 전극을 감싼 얇고 가벼운 셀이다.",
     role: "얇은 외장으로 에너지밀도와 설계 자유도가 높아 고성능·고용량 전기차에 쓰이는 한국 강점 폼팩터다.",
     keySpecs: [
@@ -105,7 +105,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 LG에너지솔루션·SK온이 파우치를 주력으로 유지하되 폼팩터를 다변화(원통·각형 추가)하는 추세다. 파우치는 에너지밀도·설계 자유도 장점이 분명하나 안전·내구 보강 요구가 커, 셀투팩(CTP)과 강화된 열관리·확산방지 설계로 약점을 보완하며 프리미엄 차급에서 경쟁력을 지키고 있다.",
   },
   {
-    id: "battery-mat-cathode", name: "양극재(cathode)", family: "Material", color: "#e5484d", icon: "grid",
+    id: "battery-mat-cathode", name: "양극재(cathode)", family: "Material", color: "#e5484d", icon: "powder",
     definition: "리튬 이온을 저장·방출하는 양극 활물질로, 배터리 용량·전압·원가를 좌우하는 4대 소재 중 핵심이다.",
     role: "셀 원가의 큰 비중을 차지하며 에너지밀도와 안전을 결정하는 가장 중요한 소재로, 한국이 글로벌 경쟁력을 가진 영역이다.",
     keySpecs: [
@@ -118,7 +118,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 전기차 캐즘으로 2024년 적자를 겪은 양극재 업계가, 전기차 수요 회복과 북미 ESS 확대로 실적 턴어라운드를 모색하고 있다. 하이니켈로 고급차 수요를 잡는 동시에, 그동안 중국에 내줬던 LFP/LMFP 양극재 개발에 본격 진입하는 이원화 전략이 뚜렷하다. 비중국 공급망 가치가 부각되며 북미 진출이 가속된다.",
   },
   {
-    id: "battery-mat-anode", name: "음극재(anode)", family: "Material", color: "#3e63dd", icon: "cube",
+    id: "battery-mat-anode", name: "음극재(anode)", family: "Material", color: "#3e63dd", icon: "powder",
     definition: "충전 시 리튬 이온을 받아 저장하는 음극 활물질로, 주로 흑연(천연·인조)이 쓰이며 실리콘 첨가가 확대되고 있다.",
     role: "충전 속도·수명과 에너지밀도에 직접 영향을 주는 소재로, 한국은 국산화가 가장 절실한 분야 중 하나다.",
     keySpecs: [
@@ -131,7 +131,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 음극재는 중국 의존 탈피가 최대 화두다. 미국이 비중국 음극재를 사실상 요구(AMPC 등)하면서 국내 유일 음극재 기업 포스코퓨처엠의 전략적 가치가 부각된다. 인조흑연·실리콘 음극재 등 고부가 제품 확대와 북미 현지화가 진행되며, 전기차 캐즘 속에서도 공급망 안보 측면의 정책 수혜가 기대되는 영역이다.",
   },
   {
-    id: "battery-mat-electrolyte", name: "전해질(electrolyte)", family: "Material", color: "#0091ff", icon: "sine",
+    id: "battery-mat-electrolyte", name: "전해질(electrolyte)", family: "Material", color: "#0091ff", icon: "beaker",
     definition: "양극과 음극 사이에서 리튬 이온이 이동하는 통로 역할을 하는 액체(또는 고체) 매질이다.",
     role: "이온 전도와 작동온도·수명·안전을 좌우하는 소재로, 전해액과 핵심 첨가제·리튬염이 경쟁의 관건이다.",
     keySpecs: [
@@ -144,7 +144,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 전해질 업계도 캐즘 영향으로 2024년 부진을 겪었으나 ESS·북미 수요로 회복을 노린다. 엔켐 등이 북미 현지 생산을 확대하며 비중국 공급망 지위를 강화하고, 천보 등은 고부가 첨가제·신규 리튬염으로 차별화한다. LFP·하이니켈·전고체 등 다양한 셀 화학에 맞춘 맞춤형 전해질 개발이 활발하다.",
   },
   {
-    id: "battery-mat-separator", name: "분리막(separator)", family: "Material", color: "#30a46c", icon: "fabric",
+    id: "battery-mat-separator", name: "분리막(separator)", family: "Material", color: "#30a46c", icon: "film",
     definition: "양극과 음극이 직접 닿아 단락(쇼트)되지 않도록 막으면서 리튬 이온만 통과시키는 미세다공성 박막이다.",
     role: "셀의 안전(단락·열폭주 차단)을 책임지는 소재로, 코팅 기술로 내열성과 강도를 높인 고급 분리막이 경쟁력이다.",
     keySpecs: [
@@ -157,7 +157,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 분리막 업계도 캐즘 직격탄을 맞았으나, 국내 1위 SKIET가 흑자 전환에 성공하는 등 회복 신호가 나타났다. 중국 저가 분리막 공세 속에서 세라믹 코팅 등 고부가·고안전 제품과 북미·유럽 현지화로 차별화하고 있으며, ESS·고급 전기차 수요가 회복의 발판이 되고 있다.",
   },
   {
-    id: "battery-mat-foil-precursor", name: "동박/전구체", family: "Material", color: "#a35829", icon: "wave",
+    id: "battery-mat-foil-precursor", name: "동박/전구체", family: "Material", color: "#a35829", icon: "coil",
     definition: "동박은 음극 집전체로 쓰는 얇은 구리 박이고, 전구체는 양극재의 원료가 되는 금속 수산화물(NCM은 Ni·Co·Mn, NCA는 Ni·Co; LFP는 인산철 경로)이다.",
     role: "셀 성능과 양극재 품질을 떠받치는 후방 핵심 소재로, 특히 전구체는 공급망 자립이 절실한 영역이다.",
     keySpecs: [
@@ -170,7 +170,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 동박 업계는 캐즘 적자 속에서도 유럽·북미 증설을 이어가고, 미국의 중국산 동박 고관세 부과가 비중국 공급망에 기회로 작용한다. AI 가속기용 회로박·하이엔드 전지박·전고체 소재 등 고부가로 전환하며 흑자 전환을 노린다. 전구체는 중국 의존(≈80%대) 탈피가 K-배터리 자립의 핵심 과제로 남아 있다.",
   },
   {
-    id: "battery-equip-manufacturing", name: "전극·조립·활성화 제조장비", family: "Equipment", color: "#6e56cf", icon: "wafer",
+    id: "battery-equip-manufacturing", name: "전극·조립·활성화 제조장비", family: "Equipment", color: "#6e56cf", icon: "roller",
     definition: "전극 코팅부터 셀 조립, 충방전 활성화(화성)까지 배터리 양산 라인을 구성하는 제조장비 전반이다.",
     role: "셀 품질·수율·생산성을 결정하는 소부장 핵심으로, 한국 장비사가 턴키 라인 공급으로 글로벌에 진출한다.",
     keySpecs: [
@@ -183,7 +183,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 전기차 캐즘으로 신규 증설이 둔화돼 장비 발주가 줄며 업계가 어려움을 겪었다. 장비사들은 신제품·구조조정으로 흑자 전환을 추진 중이며, 46파이·각형·셀투팩(CTP)·LFP 라인 전환과 북미 현지 증설이 새 수주 동력이 되고 있다. 전고체용 압착(롤 프레스 등) 공정 장비 등 차세대 라인 수요도 부상하고 있다.",
   },
   {
-    id: "battery-frontier-solidstate", name: "전고체(solid-state) 배터리", family: "Frontier", color: "#d6409f", icon: "atom",
+    id: "battery-frontier-solidstate", name: "전고체(solid-state) 배터리", family: "Frontier", color: "#d6409f", icon: "solidBlock",
     definition: "액체 전해질을 고체 전해질로 대체해 안전성과 에너지밀도를 크게 높이려는 차세대 배터리다.",
     role: "화재 위험을 근본적으로 낮추고 주행거리를 늘릴 '꿈의 배터리'로, 아직 양산 전 단계이나 한국 3사가 상용화를 경쟁 중이다.",
     keySpecs: [
@@ -196,7 +196,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025~2026년 전고체는 아직 양산 전 R&D·파일럿 단계다. 삼성SDI는 황화물계 완전 고체 기반으로 2027년 양산을 목표로 핵심 '압착(롤 프레스) 공정' 전환에 착수하고 복수 완성차와 협의 중이며, ≈900Wh/L급 NCA 양극·실버카본 음극 기술을 내세운다. K-배터리 3사가 2027년 전후 상용화를 두고 경쟁하며, 황화물 소재 공급망도 함께 움직이고 있다.",
   },
   {
-    id: "battery-frontier-recycling", name: "배터리 재활용(recycling)", family: "Frontier", color: "#30a46c", icon: "h2tank",
+    id: "battery-frontier-recycling", name: "배터리 재활용(recycling)", family: "Frontier", color: "#30a46c", icon: "recycle",
     definition: "폐배터리를 파쇄·제련해 니켈·코발트·리튬 등 핵심 금속을 회수하는 도시광산 산업이다.",
     role: "원자재 공급망 안보와 순환경제를 떠받치는 영역으로, 한국이 습식 제련 기술로 글로벌 경쟁력을 키우고 있다.",
     keySpecs: [

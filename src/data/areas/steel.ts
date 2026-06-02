@@ -39,7 +39,7 @@ const EDGE_COLORS: Record<string, string> = {
 
 export const CATEGORIES: Category[] = [
   {
-    id: "steel-bf-bof", name: "고로-전로 일관제철 (BF-BOF)", family: "Steelmaking", color: "#b5462e", icon: "smokestack",
+    id: "steel-bf-bof", name: "고로-전로 일관제철 (BF-BOF)", family: "Steelmaking", color: "#b5462e", icon: "furnace",
     definition: "철광석을 코크스(석탄)로 환원해 쇳물(용선)을 뽑은 뒤 전로에서 산소로 탄소를 태워 강(steel)으로 만드는 대규모 일관제철 방식이다.",
     role: "원료(철광석·원료탄)에서 쇳물→강→슬래브/빌릿까지 한 공정으로 잇는 '상류(업스트림)'. 대량·고품질 강재의 공급원이자 철강 탄소배출의 대부분이 발생하는 지점이다.",
     keySpecs: [
@@ -52,7 +52,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025년 포스코의 국내 조강 생산능력은 약 3,981만 톤으로 11년 만에 4,000만 톤 아래로 내려왔다(수요 둔화·구조조정). 포스코 별도 철강 매출은 약 35조 원으로 전년비 감소했으나 원가혁신으로 영업이익은 오히려 ≈20% 늘었다. 고로-전로는 여전히 주력이나, EU CBAM과 탄소중립 압박으로 장기적으로 수소환원·전기로로의 전환 로드맵이 가속되고 있다.",
   },
   {
-    id: "steel-eaf", name: "전기로(EAF) 제강", family: "Steelmaking", color: "#e08a2b", icon: "lightning",
+    id: "steel-eaf", name: "전기로(EAF) 제강", family: "Steelmaking", color: "#e08a2b", icon: "arcFurnace",
     definition: "고철(스크랩)이나 환원철(DRI/HBI)을 흑연 전극의 아크 열(≈1600℃)로 녹여 강을 만드는 방식으로, 고로 없이 전기 에너지로 용해해 탄소배출이 상대적으로 적다.",
     role: "철 스크랩을 재자원화하는 순환경제형 제강. 철근·형강 등 봉형강류의 주된 생산수단이며, 재생전력과 결합하면 탄소중립 제철의 핵심 경로가 된다.",
     keySpecs: [
@@ -65,7 +65,7 @@ export const CATEGORIES: Category[] = [
     trend: "현대제철은 미국 루이지애나에 약 58억 달러를 투자해 연 270만 톤급 전기로 일관제철소를 건설(지분 현대제철 50%·현대차/기아 미국법인 각 15%·포스코 20%) 추진 중이며, 탄소중립 기술체계 'Hy-Cube(Hy-Arc 전기로+수소+CCUS)'로 고로 대비 약 70% 감축을 목표로 한다. 전기로는 CBAM 시대의 저탄소 대안이자 자동차강판 공급망 현지화 수단으로 부상 중이다.",
   },
   {
-    id: "steel-hr-coil", name: "열연강판(HR)", family: "SteelProduct", color: "#7e8a99", icon: "wave",
+    id: "steel-hr-coil", name: "열연강판(HR)", family: "SteelProduct", color: "#7e8a99", icon: "coil",
     definition: "슬래브를 ≈1200℃로 재가열해 압연한 두꺼운 띠강판으로, 표면에 흑피(산화막)가 있고 그 자체로 쓰이거나 냉연·강관 등 후공정의 소재가 된다.",
     role: "판재류 가치사슬의 출발점. 강관·구조용·자동차 하부재 등에 직접 쓰이고, 산세·냉간압연을 거쳐 냉연강판 등 고부가 제품의 원판(母材)이 된다.",
     keySpecs: [
@@ -78,7 +78,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025년 내수 둔화와 중국발 저가공세가 지속되는 가운데, 고강도·고성형 자동차용 열연과 후공정 연계 고급강 비중 확대가 화두다. 통상마찰(반덤핑·관세)과 탄소규제가 가격·물량을 동시에 압박해 범용 열연보다 고부가 강종으로 믹스를 옮기는 추세다.",
   },
   {
-    id: "steel-cr-coil", name: "냉연강판(CR)", family: "SteelProduct", color: "#9aa7b4", icon: "grid",
+    id: "steel-cr-coil", name: "냉연강판(CR)", family: "SteelProduct", color: "#9aa7b4", icon: "sheet",
     definition: "열연강판을 산세 후 상온에서 다시 압연해 두께를 줄이고 표면을 매끈하게 만든 판재로, 치수정밀·표면품질이 높아 자동차 외판·가전에 쓰인다.",
     role: "고품위 판재의 대표주자. 도금(아연도금·합금도금)·도장 등 표면처리와 결합해 자동차·가전·건자재용 고부가 강판으로 확장된다.",
     keySpecs: [
@@ -91,7 +91,7 @@ export const CATEGORIES: Category[] = [
     trend: "전기차·고급가전 수요에 맞춰 초고장력강(AHSS)·기가스틸급 냉연과 도금강판 고도화가 핵심이다. 자동차 경량화·충돌안전 요구로 고강도-고성형 양립 강종 경쟁이 치열하며, 현지(미국 등) 자동차 공급망에 대응한 해외 생산·기술 패키지 제공이 확대되고 있다.",
   },
   {
-    id: "steel-plate", name: "후판 (조선·건설)", family: "SteelProduct", color: "#5e6b78", icon: "cube",
+    id: "steel-plate", name: "후판 (조선·건설)", family: "SteelProduct", color: "#5e6b78", icon: "plate",
     definition: "두께 6mm 이상의 두꺼운 강판으로, 선박·해양구조물·교량·압력용기 등 큰 하중을 견디는 구조물에 쓰인다.",
     role: "조선·플랜트·건설 등 중후장대 산업의 골격 소재. 용접성·저온인성·고강도가 핵심이며, 친환경 선박·해양에너지 수요와 직결된다.",
     keySpecs: [
@@ -104,7 +104,7 @@ export const CATEGORIES: Category[] = [
     trend: "국내 조선 슈퍼사이클과 중국산 후판 잠정 반덤핑관세로 국산 후판 수요가 회복세다. 동국제강 당진은 5mm 박물 후판·클래드 후판 등 고부가 강종 구색을 넓히고 있으며, LNG·암모니아 운반선과 해상풍력용 극후·고인성 후판이 성장축으로 부상하고 있다.",
   },
   {
-    id: "steel-rebar-section", name: "철근·봉형강", family: "SteelProduct", color: "#a07840", icon: "grid",
+    id: "steel-rebar-section", name: "철근·봉형강", family: "SteelProduct", color: "#a07840", icon: "rebar",
     definition: "건설 구조용 봉상·형상 강재로, 콘크리트 보강용 이형철근과 H형강·앵글 등 형강을 포함하며 주로 전기로에서 생산된다.",
     role: "건축·토목 인프라의 기초 골조 소재. 건설경기에 민감하며, 고철 기반 전기로 제강의 대표 출구 제품이다.",
     keySpecs: [
@@ -117,7 +117,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025년 건설경기 부진으로 철근 수요는 약세지만, 내진철근·코일철근·극저온철근 등 고기능 제품과 신소재 설계기준 정비로 차별화가 진행 중이다. 전기로 봉형강은 저탄소 강재 인증·재활용 비중을 앞세워 친환경 건설 수요에 대응하고 있다.",
   },
   {
-    id: "steel-wire-rod", name: "선재(Wire Rod)", family: "SteelProduct", color: "#c2a15a", icon: "sine",
+    id: "steel-wire-rod", name: "선재(Wire Rod)", family: "SteelProduct", color: "#c2a15a", icon: "wireRod",
     definition: "단면이 둥근 코일 형태의 가는 봉강 반제품으로, 신선(드로잉)·열처리를 거쳐 못·나사·스프링·타이어코드·볼트 등 2차 제품으로 가공된다.",
     role: "체결류·스프링·와이어 등 고강도 부품 소재의 출발 원료. 화학성분·청정도(개재물 관리)가 최종 부품 신뢰성을 좌우한다.",
     keySpecs: [
@@ -130,7 +130,7 @@ export const CATEGORIES: Category[] = [
     trend: "자동차 경량화용 고강도 볼트(CHQ)와 타이어코드·고탄소 스프링강 등 고부가 선재 비중 확대가 지속된다. 범용 선재는 중국·동남아산 경쟁이 심해, 합금·청정도 기술로 차별화한 고탄소·특수 선재가 수익의 축으로 이동하고 있다.",
   },
   {
-    id: "steel-special", name: "특수강 (자동차·기계)", family: "SteelProduct", color: "#4e5a8c", icon: "cube",
+    id: "steel-special", name: "특수강 (자동차·기계)", family: "SteelProduct", color: "#4e5a8c", icon: "bar",
     definition: "탄소강에 크롬·니켈·몰리브덴 등을 첨가하고 정밀 정련·열처리해 강도·내마모·내피로를 높인 합금강으로, 베어링·기어·크랭크샤프트 등 핵심 기계부품에 쓰인다.",
     role: "자동차 구동계·산업기계·공구의 신뢰성을 떠받치는 고부가 소재. 합금설계와 청정도(개재물 저감)가 부품 수명에 직결된다.",
     keySpecs: [
@@ -143,7 +143,7 @@ export const CATEGORIES: Category[] = [
     trend: "세아베스틸·세아창원특수강은 2025년 중국산 특수강 봉강에 대해 반덤핑(AD) 제소로 시장 방어에 나섰다. 전기차 전환으로 일부 내연기관 부품 수요가 줄지만, 감속기·모터축·고하중 부품용 고청정 특수강과 에너지·방산용 합금강 수요가 새 성장축으로 부상하고 있다.",
   },
   {
-    id: "steel-stainless", name: "스테인리스(STS)", family: "SteelProduct", color: "#8fa0ae", icon: "grid",
+    id: "steel-stainless", name: "스테인리스(STS)", family: "SteelProduct", color: "#8fa0ae", icon: "sheet",
     definition: "크롬(≈10.5% 이상)을 함유해 표면에 부동태 산화막을 형성, 녹슬지 않는 합금강으로, 결정조직에 따라 오스테나이트계(300계, Ni 함유)·페라이트 및 마르텐사이트계(400계, Ni 거의 무함유)·듀플렉스계 등으로 나뉜다.",
     role: "내식·위생·내열이 요구되는 주방·건축·화학플랜트·전지소재용 핵심 강종. 니켈·크롬 등 원료가격에 민감한 고부가 판재다.",
     keySpecs: [
@@ -156,7 +156,7 @@ export const CATEGORIES: Category[] = [
     trend: "2025년 세계 STS 조강은 공급과잉·저가공세가 이어졌다(중국 비중 ≈60%대). 포스코는 니켈 등 원료가·고환율을 반영해 STS 출하가를 수차례 인상하며 원가를 방어했고, 인도네시아 등 저가 니켈선철(NPI) 기반 물량과의 경쟁이 수익성의 핵심 변수다.",
   },
   {
-    id: "steel-electrical", name: "전기강판 (모터·변압기)", family: "SteelProduct", color: "#3f8e7a", icon: "sine",
+    id: "steel-electrical", name: "전기강판 (모터·변압기)", family: "SteelProduct", color: "#3f8e7a", icon: "sheet",
     definition: "규소(Si)를 첨가해 철손(에너지 손실)을 줄인 연자성 강판으로, 모터·발전기용 무방향성(NO)과 변압기용 방향성(GO)으로 나뉜다.",
     role: "전기에너지의 변환 효율을 결정하는 핵심 소재. 전기차 구동모터(NO)와 송배전 변압기(GO) 수요의 직접 수혜 강종이다.",
     keySpecs: [
@@ -169,7 +169,7 @@ export const CATEGORIES: Category[] = [
     trend: "포스코는 광양 30만 톤+포항 10만 톤으로 무방향성(Hyper NO) 연 ≈40만 톤 체제를 갖춰 글로벌 1위를 노린다. 전기차 둔화 우려에도 모터 효율 규제 강화와 AI 데이터센터·송배전 투자 확대로 NO·GO 수요 전망은 견조하며, 0.1mm급 극박재 등 고급화 경쟁이 진행 중이다.",
   },
   {
-    id: "nf-zinc", name: "아연 제련 (도금용)", family: "NonFerrous", color: "#6fb0c4", icon: "atom",
+    id: "nf-zinc", name: "아연 제련 (도금용)", family: "NonFerrous", color: "#6fb0c4", icon: "ingot",
     definition: "아연 정광(ZnS)을 배소·침출·전해해 고순도 아연괴를 얻는 비철 제련으로, 아연은 주로 철강 도금(아연도강판)과 합금·다이캐스팅에 쓰인다.",
     role: "철강 부식방지(도금)의 핵심 비철금속이자, 제련 부산물로 연·은·금·인듐 등 다수 금속을 회수하는 복합제련의 중심이다.",
     keySpecs: [
@@ -182,7 +182,7 @@ export const CATEGORIES: Category[] = [
     trend: "고려아연 온산제련소는 아연 ≈64만 톤·연 ≈43만 톤·은 ≈2,500톤 생산능력의 세계 최대급 복합제련소로, 약 22종 비철금속을 다루며 스마트팩토리·전략광물 허브로 고도화 중이다. 제련수수료(TC) 약세 속에서도 부산물 회수와 미국 제련 프로젝트로 경쟁력을 강화하고 있다.",
   },
   {
-    id: "nf-copper", name: "동(구리) 제련", family: "NonFerrous", color: "#c77b4a", icon: "gridhub",
+    id: "nf-copper", name: "동(구리) 제련", family: "NonFerrous", color: "#c77b4a", icon: "ingot",
     definition: "황화동 정광을 제련·전해정련해 순도 99.99%급 전기동(cathode)을 얻는 비철 제련으로, 구리는 전선·전력·전자의 핵심 도전(導電) 금속이다.",
     role: "전력·전선·전기차·재생에너지 인프라의 '혈관'인 구리의 국내 유일 공급원. 정련 부산물로 금·은·백금족·황산도 회수한다.",
     keySpecs: [
@@ -195,7 +195,7 @@ export const CATEGORIES: Category[] = [
     trend: "LS MnM 온산제련소는 단일 제련소 기준 세계 2위급(전기동 연 ≈68만 톤)으로 국내 전기동의 약 95%를 공급한다. 전기차·재생에너지·AI 데이터센터 확대로 구리 수요(전기화)가 구조적으로 늘면서, 황산니켈 등 2차전지 소재로 사업을 확장하고 상장을 추진 중이다.",
   },
   {
-    id: "nf-precious", name: "연·귀금속 회수 (은·금)", family: "NonFerrous", color: "#c9a14b", icon: "cube",
+    id: "nf-precious", name: "연·귀금속 회수 (은·금)", family: "NonFerrous", color: "#c9a14b", icon: "ingot",
     definition: "아연·동 제련 공정의 부산물(전해 슬라임·드로스 등)에서 연(납)·은·금·백금족 등을 분리·정제해 회수하는 공정으로, 단독 광산 없이 제련 흐름에 부수해 생산된다.",
     role: "비철 복합제련의 수익을 떠받치는 고부가 부산물 회수. 귀금속·전략광물(인듐·비스무트·안티모니 등)의 국내 공급원이 된다.",
     keySpecs: [

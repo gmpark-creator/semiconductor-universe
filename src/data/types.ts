@@ -8,7 +8,13 @@ export type IconKey =
   // 반도체
   | "cube" | "grid" | "sine" | "lightning" | "lens" | "wave" | "fabric" | "wafer"
   // 전력
-  | "atom" | "smokestack" | "solar" | "turbine" | "dam" | "h2tank" | "battery" | "pylon" | "gridhub";
+  | "atom" | "smokestack" | "solar" | "turbine" | "dam" | "h2tank" | "battery" | "pylon" | "gridhub"
+  // 2차전지
+  | "cellStack" | "cellCyl" | "cellPrismatic" | "cellPouch" | "powder" | "beaker" | "film" | "coil" | "roller" | "solidBlock" | "recycle"
+  // 디스플레이
+  | "panel" | "foldable" | "molecule" | "microled" | "rollable"
+  // 철강·제련
+  | "furnace" | "arcFurnace" | "sheet" | "plate" | "rebar" | "wireRod" | "bar" | "ingot";
 
 /** 분류(taxonomy) 노드 — 칩 종류 / 발전원·계통 종류 등. */
 export interface Category {
