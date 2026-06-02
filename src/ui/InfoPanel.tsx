@@ -127,7 +127,7 @@ export function InfoPanel({ area, mode, selectedId, onClose }: Props) {
                 </Section>
               )}
               {financials.length > 0 && (
-                <Section title="세부 지표 (2024~2025 근사)">
+                <Section title={`세부 지표 (${area.dataAsOf.replace(/\s*기준\s*$/, "")} 근사)`}>
                   <ul className="space-y-2.5">
                     {financials.map((f) => (
                       <li key={f.label}>
