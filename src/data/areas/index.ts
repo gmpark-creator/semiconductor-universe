@@ -4,8 +4,9 @@
 import type { AtlasArea } from "../types";
 import { semiconductorArea } from "./semiconductor";
 import { powerArea } from "./power";
+import { batteryArea } from "./battery";
 
-export const AREAS: AtlasArea[] = [semiconductorArea, powerArea];
+export const AREAS: AtlasArea[] = [semiconductorArea, powerArea, batteryArea];
 
 export const DEFAULT_AREA_ID = semiconductorArea.id;
 
