@@ -22,11 +22,8 @@ import { GLOBE_RADIUS, latLonToVec3 } from "./companyLayout";
 const R = GLOBE_RADIUS;
 const FONT = import.meta.env.BASE_URL + "fonts/inter-600.woff";
 
-/** 시도별 카툰 파스텔 팔레트(인덱스 순환). */
-const PALETTE = [
-  "#79c7d6", "#f4a3b0", "#9ad79c", "#f6c46a", "#b6a4e6", "#f29b7c", "#7fd0bd", "#ef9ec9",
-  "#94bdee", "#cdd96a", "#f0b063", "#83cabf", "#dd9aa0", "#a7d2a0", "#c2a3e0", "#f3bf9a", "#9bd2e2",
-];
+/** 모든 시도(땅)를 통일하는 단일 카툰 색 — 박사 지시. 위에 얹히는 기업 핀·공급망 화살표(업체별 고유색)가 또렷이 보이도록 차분한 단색. */
+const LAND_COLOR = "#3c7a62";
 
 type Pt = number[]; // [lon, lat]
 interface GeoFeature {
@@ -188,7 +185,7 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
 
   const provinces = useMemo<ProvinceData[]>(() => {
     if (!prov) return [];
-    return prov.features.map((f, i) => {
+    return prov.features.map((f) => {
       const [lon, lat] = centroidLonLat(f.geometry);
       const cv = new THREE.Vector3(...latLonToVec3(lat, lon, R));
       const nrm = cv.clone().normalize();
@@ -197,7 +194,7 @@ export function KoreaCartoonMap({ focus }: { focus: MapFocus }) {
         outline: buildOutline(f.geometry, cv),
         center: [cv.x, cv.y, cv.z],
         normal: [nrm.x, nrm.y, nrm.z],
-        color: PALETTE[i % PALETTE.length],
+        color: LAND_COLOR,
       };
     });
   }, [prov]);

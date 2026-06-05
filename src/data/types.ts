@@ -61,7 +61,9 @@ export interface SupplyEdge {
   from: string;
   to: string;
   relationship: string; // 영역이 정의하는 관계 키
-  label: string;
+  label: string; // 짧은 관계 라벨(예: "LNG 연료 공급")
+  cause?: string; // 한 문장 인과 — 이 관계(from→to)가 왜 존재하는가. 좌하단 관계 패널 상시 노출.
+  detail?: string; // 상세 인과 설명(2~3문장) — 관계 패널의 "+" 확장 시 노출. 없으면 패널이 회사 정보로 자동 구성.
 }
 
 /** 핵에너지(nuclear) 모드 — 전력 유니버스 전용. 핵분열/핵융합 비교 대시보드(데이터는 api/power/nuclear). */
