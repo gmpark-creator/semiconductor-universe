@@ -9,7 +9,6 @@ import {
   Scale,
   SlidersHorizontal,
   Sparkles,
-  X,
   Zap,
 } from "lucide-react";
 import {
@@ -22,11 +21,6 @@ import {
   type NuclearSummaryResponse,
 } from "../api/power/nuclear";
 
-interface NuclearParadigmPanelProps {
-  open: boolean;
-  onClose: () => void;
-}
-
 const ENERGY_COLORS: Record<CalculatedFuelWeight["id"], string> = {
   coal: "#a16207",
   uranium: "#38bdf8",
@@ -35,7 +29,8 @@ const ENERGY_COLORS: Record<CalculatedFuelWeight["id"], string> = {
 
 const MAX_TARGET_GW = 20;
 
-export function NuclearParadigmPanel({ open, onClose }: NuclearParadigmPanelProps) {
+/** 전력 유니버스 「핵에너지」 모드 뷰 — 분류·공급망과 나란히 ViewToggle로 전환되는 전력 전용 모드. */
+export function NuclearParadigmPanel() {
   const [targetGw, setTargetGw] = useState(1);
   const summary = useMemo(() => {
     const result = getNuclearSummary();
@@ -48,49 +43,28 @@ export function NuclearParadigmPanel({ open, onClose }: NuclearParadigmPanelProp
     return fallback.ok ? fallback.data : null;
   }, [targetGw]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-
-  if (!open || !summary || !calculation) return null;
+  if (!summary || !calculation) return null;
 
   return (
     <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      role="dialog"
-      aria-modal="true"
+      role="region"
       aria-label="핵에너지 패러다임 비교 대시보드"
-      className="absolute inset-0 z-50 overflow-y-auto bg-space-900/90 px-3 py-4 backdrop-blur-xl sm:px-5 lg:px-7"
+      className="absolute inset-0 z-[15] overflow-y-auto bg-space-900/92 px-3 pb-6 pt-[78px] backdrop-blur-xl sm:px-5 lg:px-7"
     >
       <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col gap-4">
-        <header className="glass-strong grid gap-3 rounded-xl px-4 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
-          <div>
-            <div className="mb-2 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-400">
-              <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-2 py-1 text-amber-200">Power Universe Extension</span>
-              <span className="rounded-full border border-sky-300/20 bg-sky-300/10 px-2 py-1 text-sky-200">Mock API Contract</span>
-              <span className="rounded-full border border-violet-300/20 bg-violet-300/10 px-2 py-1 text-violet-200">Log Scale Visualization</span>
-            </div>
-            <h2 className="text-xl font-black tracking-tight text-white sm:text-2xl">핵에너지 패러다임: 핵분열 vs 핵융합</h2>
-            <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-300">
-              기존 전력 유니버스의 발전원 분류 위에 붙는 확장 패널입니다. 실제 서버가 없는 Vite 앱 구조를 유지하면서,
-              `/api/power/nuclear/*` 계약은 타입 안전한 컨트롤러 함수로 분리했습니다.
-            </p>
+        <header className="glass-strong rounded-xl px-4 py-4">
+          <div className="mb-2 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-400">
+            <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-2 py-1 text-amber-200">전력 유니버스 · 핵에너지 모드</span>
+            <span className="rounded-full border border-sky-300/20 bg-sky-300/10 px-2 py-1 text-sky-200">Mock API Contract</span>
+            <span className="rounded-full border border-violet-300/20 bg-violet-300/10 px-2 py-1 text-violet-200">Log Scale Visualization</span>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="핵에너지 패러다임 패널 닫기"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition hover:bg-white/10 hover:text-white"
-          >
-            <X size={20} aria-hidden="true" />
-          </button>
+          <h2 className="text-xl font-black tracking-tight text-white sm:text-2xl">핵에너지 패러다임: 핵분열 vs 핵융합</h2>
+          <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-300">
+            전력 유니버스의 한 모드입니다 — 우측 상단 전환 버튼에서 분류·공급망과 나란히 「핵에너지」를 선택해 들어옵니다.
+            실제 서버가 없는 Vite 앱 구조를 유지하면서 `/api/power/nuclear/*` 계약은 타입 안전한 컨트롤러 함수로 분리했습니다.
+          </p>
         </header>
 
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">

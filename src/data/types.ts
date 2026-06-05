@@ -64,6 +64,12 @@ export interface SupplyEdge {
   label: string;
 }
 
+/** 핵에너지(nuclear) 모드 — 전력 유니버스 전용. 핵분열/핵융합 비교 대시보드(데이터는 api/power/nuclear). */
+export interface NuclearModeInfo {
+  hint: string; // 상단 안내문
+  listTitle: string; // ViewToggle·접근성 라벨 (예: "핵에너지")
+}
+
 /** 공정(process) 모드 — 순차 파이프라인 단계의 3D 비주얼 종류(반도체 8대 공정). */
 export type ProcessStageKind =
   | "wafer" | "oxide" | "photo" | "etch" | "deposition" | "wiring" | "test" | "package";
@@ -141,6 +147,9 @@ export interface AtlasArea {
 
   // ── 공정(process) 모드 — 선택(반도체 8대 공정). 없으면 ViewToggle에 미노출 ──
   process?: ProcessFlowData;
+
+  // ── 핵에너지(nuclear) 모드 — 선택(전력 전용). 없으면 ViewToggle에 미노출 ──
+  nuclear?: NuclearModeInfo;
 
   // ── 패널 라벨 ──
   examplesTitle: string; // "예시 제품 (2026)" / "대표 설비·사례"

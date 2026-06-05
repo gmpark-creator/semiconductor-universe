@@ -12,7 +12,7 @@ import { KoreaCartoonMap } from "./KoreaCartoonMap";
 import { TaxonomyBackdrop } from "./TaxonomyBackdrop";
 import { ProcessFlow } from "./ProcessFlow";
 
-export type Mode = "taxonomy" | "supply" | "process";
+export type Mode = "taxonomy" | "supply" | "process" | "nuclear";
 
 /** 분류 — 패밀리별 행으로 가지런히 정렬한 정면 그리드(카툰 배경 앞). */
 function computeCategoryGrid(area: AtlasArea): Record<string, [number, number, number]> {

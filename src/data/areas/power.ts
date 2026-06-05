@@ -770,6 +770,12 @@ export const powerArea: AtlasArea = {
   trendTitle: "현황 (2025~2026)",
   sharesTitle: "국내 점유·지위 (근사)",
 
+  // 핵에너지 모드 — 전력 전용. 핵분열/핵융합 비교 대시보드(api/power/nuclear).
+  nuclear: {
+    hint: "핵분열(상업 운전) vs 핵융합(공학 실증) 발전 패러다임 비교",
+    listTitle: "핵에너지",
+  },
+
   dataAsOf: "2024~2025년 기준",
   dataDisclaimer: "수치는 2024~2025년 기준 근사치 — 개념 이해용이며 투자 정보가 아닙니다.",
 };

@@ -7,6 +7,7 @@ export function ViewToggle({ area, mode, onChange }: { area: AtlasArea; mode: Mo
     { id: "taxonomy", label: area.taxonomyListTitle },
     { id: "supply", label: "공급망" },
     ...(area.process ? [{ id: "process" as Mode, label: "공정 과정" }] : []),
+    ...(area.nuclear ? [{ id: "nuclear" as Mode, label: area.nuclear.listTitle }] : []),
   ];
   return (
     <div className="glass rounded-full p-1 flex gap-1" style={{ position: "absolute", top: 16, right: 16, zIndex: 25 }}>
