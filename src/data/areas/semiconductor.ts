@@ -5,6 +5,7 @@ import {
 } from "../semiconductors";
 import { COMPANIES, EDGES, EDGE_COLORS, GROUP_LABEL_KO, COMPANY_SHARES } from "../companies";
 import { SEMICONDUCTOR_PROCESS } from "../semiconductorProcess";
+import { SEMI_BUSINESS_MODEL } from "../semiconductorBusinessModel";
 import type { AtlasArea, Category, Company, SupplyEdge, CompanyBadge, HqCoord } from "../types";
 import {
   siNvidia, siApple, siAmd, siQualcomm, siBroadcom, siIntel, siSamsung, siArm,
@@ -123,6 +124,7 @@ export const semiconductorArea: AtlasArea = {
   supplyListTitle: "기업",
 
   process: SEMICONDUCTOR_PROCESS,
+  businessModel: SEMI_BUSINESS_MODEL,
 
   examplesTitle: "예시 제품 (2026)",
   trendTitle: "2026 동향",

@@ -72,6 +72,30 @@ export interface NuclearModeInfo {
   listTitle: string; // ViewToggle·접근성 라벨 (예: "핵에너지")
 }
 
+/** 사업 모델(businessModel) 모드 — 반도체 전용. 팹리스/파운드리/IDM 업체별 설계·제조 역할. */
+export interface BusinessModelCompany {
+  id: string;
+  name: string;
+  oneLiner: string;      // 짧은 분류 (예: "AI·GPU 팹리스")
+  design: string;        // 설계 단계에서 하는 일 (안 하면 명시)
+  manufacturing: string; // 제조 단계에서 하는 일 (자사 팹 없으면 위탁처 명시)
+  note: string;          // 보충 사실 1가지
+}
+export interface BusinessModelGroup {
+  id: string;            // "fabless" | "foundry" | "idm"
+  label: string;
+  modelSummary: string;  // 이 모델이 설계·제조를 어떻게 나누는가
+  designMark: string;    // 설계 담당 표기 (예: "설계 O (자사)")
+  manufMark: string;     // 제조 담당 표기 (예: "제조 X (파운드리 위탁)")
+  companies: BusinessModelCompany[];
+}
+export interface BusinessModelInfo {
+  hint: string;          // 상단 안내문
+  listTitle: string;     // ViewToggle·접근성 라벨 (예: "사업 모델")
+  intro: string;         // 팹리스/파운드리/IDM 개요
+  groups: BusinessModelGroup[];
+}
+
 /** 공정(process) 모드 — 순차 파이프라인 단계의 3D 비주얼 종류(반도체 8대 공정). */
 export type ProcessStageKind =
   | "wafer" | "oxide" | "photo" | "etch" | "deposition" | "wiring" | "test" | "package";
@@ -152,6 +176,9 @@ export interface AtlasArea {
 
   // ── 핵에너지(nuclear) 모드 — 선택(전력 전용). 없으면 ViewToggle에 미노출 ──
   nuclear?: NuclearModeInfo;
+
+  // ── 사업 모델(businessModel) 모드 — 선택(반도체 전용). 없으면 ViewToggle에 미노출 ──
+  businessModel?: BusinessModelInfo;
 
   // ── 패널 라벨 ──
   examplesTitle: string; // "예시 제품 (2026)" / "대표 설비·사례"

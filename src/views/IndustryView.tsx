@@ -10,6 +10,7 @@ import { SupplyRelations } from "../ui/SupplyRelations";
 import { AreaSelector } from "../ui/AreaSelector";
 import { ProcessGuide } from "../ui/ProcessGuide";
 import { NuclearParadigmPanel } from "../ui/NuclearParadigmPanel";
+import { BusinessModelPanel } from "../ui/BusinessModelPanel";
 import { AREAS, DEFAULT_AREA_ID, getArea } from "../data/areas";
 
 /** prefers-reduced-motion 구독 훅. */
@@ -32,6 +33,8 @@ export function IndustryView() {
   const reducedMotion = useReducedMotion();
 
   const area = getArea(areaId);
+  // 2D 오버레이 모드(3D 씬 위 풀-영역 패널) — 핵에너지·사업 모델. 이때 3D용 목록/패널은 숨김.
+  const overlayMode = mode === "nuclear" || mode === "businessModel";
 
   const changeMode = (m: Mode) => {
     setMode(m);
@@ -60,8 +63,8 @@ export function IndustryView() {
       {/* 영역 선택기 (좌상단, 대분류 네비 아래) */}
       <AreaSelector areas={AREAS} current={area} onChange={changeArea} />
 
-      {/* 모드 안내 (선택기 아래) — 핵에너지 모드는 자체 헤더가 있어 숨김 */}
-      {mode !== "nuclear" && (
+      {/* 모드 안내 (선택기 아래) — 2D 오버레이 모드(핵에너지·사업 모델)는 자체 헤더가 있어 숨김 */}
+      {!overlayMode && (
         <div style={{ position: "absolute", top: 122, left: 18, zIndex: 20, pointerEvents: "none" }}>
           <p className="text-[11px] text-slate-400" style={{ margin: 0 }}>
             {mode === "taxonomy" ? area.taxonomyHint : mode === "process" ? area.process?.hint ?? "" : area.supplyHint}
@@ -84,8 +87,8 @@ export function IndustryView() {
         <ProcessGuide process={area.process} areaName={area.name} />
       )}
 
-      {/* 3D 모드(분류·공급망·공정) 패널 — 핵에너지 모드에서는 전부 숨김 */}
-      {mode !== "nuclear" && (
+      {/* 3D 모드(분류·공급망·공정) 패널 — 2D 오버레이 모드(핵에너지·사업 모델)에서는 전부 숨김 */}
+      {!overlayMode && (
         <>
           {/* 공급망 모드 + 기업 선택 시: 좌측 열을 상세 '관계 인과' 패널로 전환(목록·범례 대체).
               그 외에는 기존 목록(ItemList) + 범례(Legend) 노출. */}
@@ -104,16 +107,19 @@ export function IndustryView() {
       {/* 핵에너지 모드 — ViewToggle에서 전환(전력 전용). 분류·공급망과 동급 모드로 전력 카테고리 안에 구분. */}
       {mode === "nuclear" && area.nuclear && <NuclearParadigmPanel />}
 
+      {/* 사업 모델 모드 — ViewToggle에서 전환(반도체 전용). 팹리스/파운드리/IDM 업체별 설계·제조. */}
+      {mode === "businessModel" && area.businessModel && <BusinessModelPanel info={area.businessModel} />}
+
       {/* Disclaimer (bottom-right) */}
       <div style={{ position: "absolute", bottom: 16, right: 16, zIndex: 20 }} className="pointer-events-none">
         <p className="text-[11px] text-slate-500">{area.dataDisclaimer}</p>
       </div>
 
       {/* 접근성: 스크린리더·키보드용 대체 콘텐츠. */}
-      <nav className="sr-only" aria-label={`${area.name} ${mode === "taxonomy" ? "분류" : mode === "process" ? "공정" : mode === "nuclear" ? "핵에너지" : "기업"} 목록`}>
+      <nav className="sr-only" aria-label={`${area.name} ${mode === "taxonomy" ? "분류" : mode === "process" ? "공정" : mode === "nuclear" ? "핵에너지" : mode === "businessModel" ? "사업 모델" : "기업"} 목록`}>
         <h2>
           {area.name} —{" "}
-          {mode === "taxonomy" ? area.taxonomyListTitle : mode === "process" ? area.process?.listTitle ?? "공정" : mode === "nuclear" ? area.nuclear?.listTitle ?? "핵에너지" : area.supplyListTitle}{" "}
+          {mode === "taxonomy" ? area.taxonomyListTitle : mode === "process" ? area.process?.listTitle ?? "공정" : mode === "nuclear" ? area.nuclear?.listTitle ?? "핵에너지" : mode === "businessModel" ? area.businessModel?.listTitle ?? "사업 모델" : area.supplyListTitle}{" "}
           (키보드 탐색)
         </h2>
         <ul>
