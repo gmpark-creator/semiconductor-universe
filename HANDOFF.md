@@ -1,12 +1,26 @@
 # HANDOFF — Knowledgeverse(놀리지버스) · 이어받기용
 
-> 노트북(랩탑)에서 2026-06-02 작업 종료. 집 데스크탑에서 그대로 이어받기 위한 문서.
-> **마지막 상태: `tsc + vite build` + ESLint 0 통과, 모든 데이터 검수·교정 완료. main = newton = `db769c0`(origin 푸시됨), 대시보드 `8d9bfe7`.**
+> 노트북(랩탑)에서 2026-06-05 작업 종료. 집 데스크탑에서 그대로 이어받기 위한 문서.
+> **마지막 상태(2026-06-05): origin/newton = `40de6ec`(푸시됨) — main의 공급망 가시성 개편 + 전력 「핵에너지」 모드 + 반도체 「사업 모델」 모드까지 포함. lint/build PASS. origin/main = `f1da9c4`(아직 newton 미통합). 대시보드 master = `b9f6682`(라이브 프리뷰 반영). ⚠️ 핵에너지·사업모델 모드는 Codex 사후검수 + newton→main FF 통합 대기.**
 
 ## 0) 한 줄 요약
 프로젝트 #8 **Knowledgeverse** = 「정보·지식 모음」 상위 아카이브. 대분류 2층:
 - **① 산업(3D 인터랙티브)**: 반도체 · 전력 · 2차전지 · 디스플레이 · 철강·제련 — **5개 영역**(영역 선택기로 전환, 각 영역 = 분류 + 공급망 모드, 반도체만 +8대공정 모드)
 - **② 기초이론(읽기형 학습)**: 과학 133단원·도해 131종(초/중/고/심화/SF)
+
+## ⭐ 2026-06-05 (노트북, newton) — 데스크탑 이어받기 핵심
+오늘 작업은 전부 **newton 브랜치**(`40de6ec`)에 있고 **main 미통합**이다. 이어받기:
+```bash
+git fetch && git checkout newton && git pull   # newton = 40de6ec (최신·최상위)
+npm install                                    # lucide-react 추가됨
+npm run dev    # 전력→「핵에너지」, 반도체→「사업 모델」 모드 확인
+npm run build && npm run lint                  # 둘 다 PASS여야
+```
+- **전력 「핵에너지」 모드** — Codex가 만든 핵분열/핵융합 패널(원래 좌하단 팝업 버튼)을 박사 지시로 **전력 전용 ViewToggle 모드**(분류·공급망·핵에너지)로 편입. `NuclearParadigmPanel`(모달→모드 뷰), `AtlasArea.nuclear`. origin/main(`f1da9c4` 공급망 가시성 개편)을 newton에 머지해 퇴행 방지.
+- **반도체 「사업 모델」 모드** — 팹리스/파운드리/IDM **19개사 업체별 설계·제조**. `AtlasArea.businessModel` + `src/ui/BusinessModelPanel.tsx` + `src/data/semiconductorBusinessModel.ts`(워크플로 6에이전트 생성·적대적 검증). ViewToggle: 분류·공급망·공정·사업 모델.
+- **새 모드 추가 패턴**(핵에너지·사업모델 공통, 재사용): ① `src/data/types.ts`에 `XInfo` 인터페이스 + `AtlasArea.x?` ② `src/scene/Scene.tsx`의 `Mode` 유니언에 `"x"` 추가(배경만 렌더) ③ `src/ui/ViewToggle.tsx`에서 `area.x` 게이트 ④ 영역 데이터(`power.ts`/`semiconductor.ts`)에 `x` 채움 ⑤ `src/ui/XPanel.tsx`(role=region, `z-15 pt-78` 오버레이) ⑥ `IndustryView.tsx`에서 `overlayMode`(2D 패널 모드는 3D 목록/범례/인포패널 숨김) + 패널 렌더 + sr-only 라벨 분기.
+- **브랜치 상태**: origin/main=`f1da9c4`(공급망까지) / origin/newton=`40de6ec`(+핵에너지+사업모델, f1da9c4를 ancestor로 포함→**newton→main FF 가능**) / origin/codex=`df133fb`(핵 팝업 원본, newton이 대체).
+- **대기**: Codex 사후검수 2건 — 핵에너지 모드(`95a13c7`) / 사업 모델(`40de6ec`). PASS 후 박사 디렉팅으로 newton→main FF 통합 → 대시보드 재배포. 검수노트 `internal/notes/2026-06-05-newton-nuclear-mode-restructure.md`·`2026-06-05-newton-semi-business-model-mode.md`.
 
 ## 1) 이어받는 법 (데스크탑)
 ```bash
