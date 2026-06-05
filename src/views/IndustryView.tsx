@@ -8,7 +8,9 @@ import { ViewToggle } from "../ui/ViewToggle";
 import { ItemList } from "../ui/ItemList";
 import { AreaSelector } from "../ui/AreaSelector";
 import { ProcessGuide } from "../ui/ProcessGuide";
+import { NuclearParadigmPanel } from "../ui/NuclearParadigmPanel";
 import { AREAS, DEFAULT_AREA_ID, getArea } from "../data/areas";
+import { Atom } from "lucide-react";
 
 /** prefers-reduced-motion 구독 훅. */
 function useReducedMotion(): boolean {
@@ -27,6 +29,7 @@ export function IndustryView() {
   const [areaId, setAreaId] = useState<string>(DEFAULT_AREA_ID);
   const [mode, setMode] = useState<Mode>("taxonomy");
   const [selected, setSelected] = useState<string | null>(null);
+  const [nuclearOpen, setNuclearOpen] = useState(false);
   const reducedMotion = useReducedMotion();
 
   const area = getArea(areaId);
@@ -39,6 +42,7 @@ export function IndustryView() {
     setAreaId(id);
     setMode("taxonomy");
     setSelected(null);
+    setNuclearOpen(false);
   };
 
   return (
@@ -83,6 +87,50 @@ export function IndustryView() {
       <ItemList area={area} mode={mode} selectedId={selected} onSelect={setSelected} />
       <Legend area={area} mode={mode} />
       <InfoPanel area={area} mode={mode} selectedId={selected} onClose={() => setSelected(null)} />
+
+      {area.id === "power" && (
+        <button
+          type="button"
+          onClick={() => setNuclearOpen(true)}
+          aria-label="핵에너지 패러다임 비교 패널 열기"
+          className="glass-strong rounded-xl transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300"
+          style={{
+            position: "absolute",
+            left: 16,
+            bottom: 58,
+            zIndex: 26,
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            padding: "10px 13px",
+            border: "1px solid rgba(245,158,11,0.28)",
+            color: "#f8fafc",
+            cursor: "pointer",
+            boxShadow: "0 0 24px rgba(245,158,11,0.12)",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 28,
+              height: 28,
+              borderRadius: 8,
+              background: "linear-gradient(135deg, rgba(245,158,11,0.24), rgba(192,132,252,0.18))",
+              color: "#fbbf24",
+            }}
+          >
+            <Atom size={17} aria-hidden="true" />
+          </span>
+          <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.15, textAlign: "left" }}>
+            <span style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#fbbf24" }}>Nuclear Paradigm</span>
+            <span style={{ fontSize: 13, fontWeight: 800 }}>핵분열 vs 핵융합</span>
+          </span>
+        </button>
+      )}
+
+      <NuclearParadigmPanel open={nuclearOpen} onClose={() => setNuclearOpen(false)} />
 
       {/* Disclaimer (bottom-right) */}
       <div style={{ position: "absolute", bottom: 16, right: 16, zIndex: 20 }} className="pointer-events-none">
