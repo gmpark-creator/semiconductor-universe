@@ -9,7 +9,8 @@ export type ScienceDomain =
   | "생명"
   | "지구와 우주"
   | "과학과 사회"
-  | "SF 과학";
+  | "SF 과학"
+  | "전기·전자 공학"; // 공학 카테고리(과학 아님). 타입명은 파급상 유지 — 새 멤버만 추가.
 
 export interface KeyTerm {
   term: string;
@@ -65,6 +66,7 @@ export interface SchoolLevel {
 export interface TheorySubject {
   id: string; // "science"
   name: string; // "과학"
+  emoji?: string; // 과목 스위처·헤더 아이콘(미지정 시 "🔬"). 과학="🔬", 전기·전자 공학="🔌".
   accent: string;
   tagline: string;
   levels: SchoolLevel[];
@@ -78,12 +80,22 @@ export const DOMAIN_META: Record<ScienceDomain, { color: string; emoji: string; 
   "지구와 우주": { color: "#818cf8", emoji: "🪐", label: "지구과학 · 지구와 우주" },
   "과학과 사회": { color: "#fb7185", emoji: "🌐", label: "통합 · 과학과 사회" },
   "SF 과학": { color: "#a78bfa", emoji: "🧭", label: "SF 판별 · 과학과 상상" },
+  "전기·전자 공학": { color: "#14b8a6", emoji: "🔌", label: "공학 · 전기·전자" },
 };
+
+/** DOMAIN_META 조회 실패 시 graceful degrade용 fallback(회색 뱃지). */
+const FALLBACK_DOMAIN_META = { color: "#64748b", emoji: "📘", label: "기타" } as const;
+
+/** domain 메타 안전 조회. 알 수 없는 domain이면 크래시 대신 회색 fallback을 돌려준다.
+ *  (기존 DOMAIN_META[domain] 직접 참조는 방어가 없어 오타 domain에서 런타임 크래시가 났다.) */
+export function domainMeta(d: ScienceDomain | string): { color: string; emoji: string; label: string } {
+  return (DOMAIN_META as Record<string, { color: string; emoji: string; label: string }>)[d] ?? FALLBACK_DOMAIN_META;
+}
 
 /** 단원 배지·네비에 표시할 영역 라벨. strand(표시 라벨 override, 예: "물리 · 전기와 자기", "통합과학")가
  *  있으면 그것을, 없으면 도메인 라벨을 쓴다. 통합과학처럼 여러 분야가 섞인 단원이 단일 분야로 오인되는 것을 막는다. */
 export function unitLabel(u: { domain: ScienceDomain; strand?: string }): string {
-  return u.strand ?? DOMAIN_META[u.domain].label;
+  return u.strand ?? domainMeta(u.domain).label;
 }
 
 /** 도해 SVG 경로. */

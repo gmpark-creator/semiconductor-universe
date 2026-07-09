@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { scienceSubject } from "../data/theory";
-import { DOMAIN_META, figureUrl, gradeLabel, unitLabel, type Grade, type ScienceDomain } from "../data/theory/types";
+import { THEORY_SUBJECTS, DEFAULT_SUBJECT_ID } from "../data/theory";
+import { domainMeta, figureUrl, gradeLabel, unitLabel, type Grade, type ScienceDomain } from "../data/theory/types";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { BRAND } from "../brand";
 
@@ -30,11 +30,13 @@ function groupGrades(grades: Grade[]) {
  * 모바일(≤768px): 상단 컴팩트 네비(학교급 탭 + 학년 가로스크롤 + 단원 셀렉트) + 본문 100% 폭.
  */
 export function TheoryView() {
-  const subject = scienceSubject;
   const isMobile = useIsMobile();
-  const [levelId, setLevelId] = useState(subject.levels[0].id);
+  const initialSubject = THEORY_SUBJECTS.find((s) => s.id === DEFAULT_SUBJECT_ID) ?? THEORY_SUBJECTS[0];
+  const [subjectId, setSubjectId] = useState(initialSubject.id);
+  const subject = THEORY_SUBJECTS.find((s) => s.id === subjectId) ?? THEORY_SUBJECTS[0];
+  const [levelId, setLevelId] = useState(initialSubject.levels[0].id);
   const [gradeIdx, setGradeIdx] = useState(0);
-  const [unitId, setUnitId] = useState<string>(subject.levels[0].grades[0].units[0].id);
+  const [unitId, setUnitId] = useState<string>(initialSubject.levels[0].grades[0]?.units[0]?.id ?? "");
 
   const level = subject.levels.find((l) => l.id === levelId) ?? subject.levels[0];
   const ready = level.status === "ready" && level.grades.length > 0;
@@ -42,17 +44,59 @@ export function TheoryView() {
   const unit = grade?.units.find((u) => u.id === unitId) ?? grade?.units[0] ?? null;
   const gradeGroups = ready ? groupGrades(level.grades) : [];
 
+  const pickSubject = (id: string) => {
+    const s = THEORY_SUBJECTS.find((x) => x.id === id) ?? THEORY_SUBJECTS[0];
+    setSubjectId(id);
+    // 과목 변경 시 level/grade/unit을 새 과목의 첫 ready 레벨·첫 grade·첫 unit으로 원자 리셋(stale id로 빈 화면 방지).
+    const lv0 = s.levels.find((l) => l.status === "ready" && l.grades.length > 0) ?? s.levels[0];
+    setLevelId(lv0.id);
+    setGradeIdx(0);
+    setUnitId(lv0.grades[0]?.units[0]?.id ?? "");
+  };
   const pickLevel = (id: string) => {
     const lv = subject.levels.find((l) => l.id === id);
     setLevelId(id);
     setGradeIdx(0);
-    if (lv && lv.grades.length > 0) setUnitId(lv.grades[0].units[0].id);
+    if (lv && lv.grades.length > 0) setUnitId(lv.grades[0].units[0]?.id ?? "");
   };
   const pickGrade = (i: number) => {
     setGradeIdx(i);
     const g = level.grades[i];
-    if (g) setUnitId(g.units[0].id);
+    if (g) setUnitId(g.units[0]?.id ?? "");
   };
+
+  // ── 과목 스위처 (기초이론 최외곽 차원, 과목 2개 이상일 때만) ──
+  const subjectTabs = THEORY_SUBJECTS.length > 1 && (
+    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+      {THEORY_SUBJECTS.map((s) => {
+        const active = s.id === subjectId;
+        return (
+          <button
+            key={s.id}
+            onClick={() => pickSubject(s.id)}
+            aria-pressed={active}
+            title={s.name}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "6px 12px",
+              borderRadius: 999,
+              border: active ? `1px solid ${s.accent}` : "1px solid rgba(255,255,255,0.1)",
+              background: active ? `${s.accent}22` : "rgba(255,255,255,0.02)",
+              color: active ? "#e0f2fe" : "#cbd5e1",
+              cursor: "pointer",
+              fontSize: 12.5,
+              fontWeight: active ? 700 : 600,
+            }}
+          >
+            <span>{s.emoji ?? "🔬"}</span>
+            {s.name}
+          </button>
+        );
+      })}
+    </div>
+  );
 
   // ── 학교급 탭 (공용) ──
   const levelTabs = (
@@ -138,11 +182,8 @@ export function TheoryView() {
       {isMobile ? (
         /* ───── 모바일 상단 네비 ───── */
         <div style={{ flexShrink: 0, padding: "60px 14px 10px", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "rgba(9,13,24,0.94)" }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 8 }}>
-            <span style={{ fontSize: 18 }}>🔬</span>
-            <span style={{ fontSize: 15, fontWeight: 800, color: "#f1f5f9" }}>{subject.name}</span>
-            <span style={{ fontSize: 10, color: "#64748b" }}>기초이론</span>
-          </div>
+          <div style={{ fontSize: 10, color: "#64748b", fontWeight: 700, letterSpacing: "0.06em", marginBottom: 6 }}>기초이론</div>
+          {subjectTabs && <div style={{ marginBottom: 8 }}>{subjectTabs}</div>}
           <div style={{ marginBottom: 8 }}>{levelTabs}</div>
           {ready && grade ? (
             <>
@@ -160,7 +201,7 @@ export function TheoryView() {
             </>
           ) : (
             <div style={{ padding: "8px 2px", color: "#64748b", fontSize: 12.5 }}>
-              {level.name} 과학 콘텐츠는 <b style={{ color: "#94a3b8" }}>준비 중</b>입니다. 먼저 <b style={{ color: subject.accent }}>초등</b>·<b style={{ color: subject.accent }}>중등</b>부터 채우고 있어요.
+              <b style={{ color: "#94a3b8" }}>{level.name}</b> 단계는 <b style={{ color: subject.accent }}>준비 중</b>입니다. 지금 이용할 수 있는 단계를 위에서 선택하세요.
             </div>
           )}
         </div>
@@ -170,14 +211,9 @@ export function TheoryView() {
           className="thin-scroll"
           style={{ width: 286, flexShrink: 0, borderRight: "1px solid rgba(255,255,255,0.08)", background: "rgba(9,13,24,0.72)", overflowY: "auto", padding: "78px 16px 24px" }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 4 }}>
-            <span style={{ fontSize: 22 }}>🔬</span>
-            <div>
-              <div style={{ fontSize: 17, fontWeight: 800, color: "#f1f5f9" }}>{subject.name}</div>
-              <div style={{ fontSize: 10.5, color: "#64748b" }}>기초이론</div>
-            </div>
-          </div>
-          <p style={{ fontSize: 11.5, color: "#94a3b8", lineHeight: 1.55, margin: "6px 2px 16px" }}>{subject.tagline}</p>
+          <div style={{ fontSize: 10.5, color: "#64748b", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>기초이론</div>
+          {subjectTabs && <div style={{ marginBottom: 10 }}>{subjectTabs}</div>}
+          <p style={{ fontSize: 11.5, color: "#94a3b8", lineHeight: 1.55, margin: "2px 2px 16px" }}>{subject.tagline}</p>
           <div style={{ marginBottom: 16 }}>{levelTabs}</div>
 
           {ready && grade ? (
@@ -189,7 +225,7 @@ export function TheoryView() {
               <nav style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                 {grade.units.map((u, i) => {
                   const active = u.id === unit?.id;
-                  const dm = DOMAIN_META[u.domain];
+                  const dm = domainMeta(u.domain);
                   return (
                     <button
                       key={u.id}
@@ -208,8 +244,8 @@ export function TheoryView() {
             </>
           ) : (
             <div style={{ padding: "20px 6px", color: "#64748b", fontSize: 12.5, lineHeight: 1.7 }}>
-              {level.name} 과학 콘텐츠는 <b style={{ color: "#94a3b8" }}>준비 중</b>입니다.<br />
-              먼저 <b style={{ color: subject.accent }}>초등학교</b>·<b style={{ color: subject.accent }}>중학교</b>부터 채워 나가고 있어요.
+              <b style={{ color: "#94a3b8" }}>{level.name}</b> 단계는 <b style={{ color: subject.accent }}>준비 중</b>입니다.<br />
+              지금 이용할 수 있는 단계를 위에서 선택하세요.
             </div>
           )}
         </aside>
@@ -241,7 +277,7 @@ export function TheoryView() {
             </figure>
 
             {unit.lessons.map((lesson, li) => {
-              const dm = DOMAIN_META[unit.domain];
+              const dm = domainMeta(unit.domain);
               return (
                 <section key={lesson.id} style={{ marginBottom: 34 }}>
                   <h2 style={{ fontSize: isMobile ? 17 : 19, fontWeight: 700, color: "#e2e8f0", margin: "0 0 12px", display: "flex", alignItems: "baseline", gap: 9 }}>
@@ -283,8 +319,8 @@ export function TheoryView() {
         ) : (
           <div style={{ maxWidth: 620, margin: "20px auto", padding: "0 24px", textAlign: "center", color: "#64748b" }}>
             <div style={{ fontSize: 40, marginBottom: 12 }}>📘</div>
-            <h2 style={{ color: "#cbd5e1", fontWeight: 700 }}>{level.name} 과학 — 준비 중</h2>
-            <p style={{ lineHeight: 1.7 }}>지금은 초등·중등 과학부터 채워 나가고 있어요. 위에서 <b>초등</b> 또는 <b>중등</b>을 선택하면 학습을 시작할 수 있습니다.</p>
+            <h2 style={{ color: "#cbd5e1", fontWeight: 700 }}>{subject.name} · {level.name} — 준비 중</h2>
+            <p style={{ lineHeight: 1.7 }}>이 단계는 곧 채워집니다. 위에서 이용할 수 있는 단계를 선택하면 학습을 시작할 수 있습니다.</p>
           </div>
         )}
       </main>
@@ -293,7 +329,7 @@ export function TheoryView() {
 }
 
 function DomainBadge({ domain, strand }: { domain: ScienceDomain; strand?: string }) {
-  const dm = DOMAIN_META[domain];
+  const dm = domainMeta(domain);
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 11px", borderRadius: 999, background: `${dm.color}1f`, border: `1px solid ${dm.color}55`, color: dm.color, fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>
       <span>{dm.emoji}</span>
