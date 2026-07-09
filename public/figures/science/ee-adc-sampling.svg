@@ -1,0 +1,55 @@
+<svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+  <rect width="480" height="320" rx="16" fill="#0f1729"/>
+  <text x="24" y="38" fill="#e2e8f0" font-size="19" font-weight="700">표본화와 양자화</text>
+
+  <rect x="310" y="54" width="146" height="76" rx="8" fill="#111c33" stroke="#334155"/>
+  <line x1="316" y1="72" x2="336" y2="72" stroke="#22d3ee" stroke-width="2.5"/>
+  <text x="342" y="76" fill="#cbd5e1" font-size="11">① 연속 아날로그</text>
+  <path d="M316,96 h5 v-7 h6 v7 h6" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <text x="342" y="98" fill="#cbd5e1" font-size="11">② 표본·양자화</text>
+  <circle cx="325" cy="116" r="3.5" fill="#34d399"/>
+  <text x="342" y="120" fill="#cbd5e1" font-size="11">③ 디지털 코드</text>
+
+  <text x="35" y="66" fill="#94a3b8" font-size="8" text-anchor="end">코드값</text>
+  <line x1="42" y1="72" x2="42" y2="190" stroke="#64748b" stroke-width="1"/>
+  <path d="M38,76 H42 M38,92 H42 M38,108 H42 M38,124 H42 M38,140 H42 M38,156 H42 M38,172 H42 M38,188 H42" stroke="#64748b" stroke-width="1"/>
+  <text x="35" y="79" fill="#94a3b8" font-size="8" text-anchor="end">111</text>
+  <text x="35" y="95" fill="#94a3b8" font-size="8" text-anchor="end">110</text>
+  <text x="35" y="111" fill="#94a3b8" font-size="8" text-anchor="end">101</text>
+  <text x="35" y="127" fill="#94a3b8" font-size="8" text-anchor="end">100</text>
+  <text x="35" y="143" fill="#94a3b8" font-size="8" text-anchor="end">011</text>
+  <text x="35" y="159" fill="#94a3b8" font-size="8" text-anchor="end">010</text>
+  <text x="35" y="175" fill="#94a3b8" font-size="8" text-anchor="end">001</text>
+  <text x="35" y="191" fill="#94a3b8" font-size="8" text-anchor="end">000</text>
+
+  <line x1="42" y1="192" x2="304" y2="192" stroke="#64748b" stroke-width="1"/>
+  <text x="308" y="196" fill="#94a3b8" font-size="10">t</text>
+
+  <path d="M60,70 V228 M90,70 V228 M120,70 V228 M150,70 V228 M180,70 V228 M210,70 V228 M240,70 V228 M270,70 V228" stroke="#475569" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <path d="M60,124 H90 V92 H120 V76 H150 V92 H180 V124 H210 V172 H240 V188 H270 V172 H300" fill="none" stroke="#f59e0b" stroke-width="2"/>
+
+  <path d="M50,146 L60,132 L70,119 L80,106 L90,95 L100,87 L110,82 L120,80 L130,82 L140,87 L150,95 L160,106 L170,119 L180,132 L190,146 L200,158 L210,169 L220,177 L230,182 L240,184 L250,182 L260,177 L270,169 L280,158 L290,146 L300,132" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+
+  <circle cx="60" cy="132" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+  <circle cx="90" cy="95" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+  <circle cx="120" cy="80" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+  <circle cx="150" cy="95" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+  <circle cx="180" cy="132" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+  <circle cx="210" cy="169" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+  <circle cx="240" cy="184" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+  <circle cx="270" cy="169" r="3.4" fill="#fbbf24" stroke="#0f1729"/>
+
+  <text x="46" y="232" fill="#34d399" font-size="11" font-weight="600">③ 디지털 코드열</text>
+  <rect x="46" y="236" width="254" height="22" rx="6" fill="#0b1526" stroke="#334155"/>
+  <text x="60" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">100</text>
+  <text x="90" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">110</text>
+  <text x="120" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">111</text>
+  <text x="150" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">110</text>
+  <text x="180" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">100</text>
+  <text x="210" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">001</text>
+  <text x="240" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">000</text>
+  <text x="270" y="251" fill="#34d399" font-size="10" text-anchor="middle" font-weight="600">001</text>
+
+  <text x="240" y="300" fill="#94a3b8" font-size="11" text-anchor="middle">연속 신호를 일정 간격으로 표본화하고 레벨로 양자화하여 3비트 디지털 코드로 변환</text>
+</svg>
