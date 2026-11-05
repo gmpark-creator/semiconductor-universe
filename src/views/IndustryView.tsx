@@ -25,11 +25,34 @@ function useReducedMotion(): boolean {
   return reduced;
 }
 
+/**
+ * ?area=<영역 id> 딥링크 — 외부(에이전트 고르고 전국 지도 등)에서 특정 산업 영역을 바로 연다.
+ * 등록된 영역 id(semiconductor·power·battery·display·steel …)만 받고, 없거나 모르는 값이면 기본 영역.
+ */
+function initialAreaId(): string {
+  try {
+    const a = new URLSearchParams(window.location.search).get("area");
+    return a && AREAS.some((x) => x.id === a) ? a : DEFAULT_AREA_ID;
+  } catch {
+    return DEFAULT_AREA_ID;
+  }
+}
+
+/** ?node=<분류 id> — 그 영역의 분류 항목을 처음부터 선택해 정보 패널을 연다(예: area=steel&node=nf-zinc). 영역에 없는 id면 무시. */
+function initialSelected(areaId: string): string | null {
+  try {
+    const n = new URLSearchParams(window.location.search).get("node");
+    return n && getArea(areaId).categories.some((c) => c.id === n) ? n : null;
+  } catch {
+    return null;
+  }
+}
+
 /** 산업 대분류 — 3D 지식 영역(반도체·전력 …) 시각화. */
 export function IndustryView() {
-  const [areaId, setAreaId] = useState<string>(DEFAULT_AREA_ID);
+  const [areaId, setAreaId] = useState<string>(initialAreaId);
   const [mode, setMode] = useState<Mode>("taxonomy");
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(() => initialSelected(initialAreaId()));
   const reducedMotion = useReducedMotion();
 
   const area = getArea(areaId);
