@@ -51,6 +51,9 @@ function initialSelected(areaId: string): string | null {
 /** 산업 대분류 — 3D 지식 영역(반도체·전력 …) 시각화. */
 export function IndustryView() {
   const [areaId, setAreaId] = useState<string>(initialAreaId);
+  const [areaLocked] = useState<boolean>(() => {
+    try { const a = new URLSearchParams(window.location.search).get("area"); return !!a && AREAS.some((x) => x.id === a); } catch { return false; }
+  });
   const [mode, setMode] = useState<Mode>("taxonomy");
   const [selected, setSelected] = useState<string | null>(() => initialSelected(initialAreaId()));
   const reducedMotion = useReducedMotion();
@@ -84,7 +87,8 @@ export function IndustryView() {
       </Canvas>
 
       {/* 영역 선택기 (좌상단, 대분류 네비 아래) */}
-      <AreaSelector areas={AREAS} current={area} onChange={changeArea} />
+      {/* ?area= 로 특정 장소에서 열렸으면 그 영역에 고정 — 다른 장소의 영역(반도체 등)으로 넘어가는 메뉴를 막는다 */}
+      <AreaSelector areas={areaLocked ? [area] : AREAS} current={area} onChange={changeArea} />
 
       {/* 모드 안내 (선택기 아래) — 2D 오버레이 모드(핵에너지·사업 모델)는 자체 헤더가 있어 숨김 */}
       {!overlayMode && (
